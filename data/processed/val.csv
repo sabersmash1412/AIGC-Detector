@@ -1,0 +1,2001 @@
+image_path,label,class_name,source,split
+data/raw/cifake/train/FAKE/3992 (4).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/2342 (9).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/3981 (4).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/3609 (7).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3048 (3).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/5949 (6).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/1969 (3).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/4014 (8).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3540 (10).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/1983 (2).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/1383 (4).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/2058 (2).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/2333 (10).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/4788 (3).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/3036 (5).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/3583 (9).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/0527 (4).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/2385.jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/2902 (2).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/4169 (7).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/2717 (9).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/0669 (5).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/1201 (2).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/3613 (2).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/4404 (4).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/2722 (9).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/5709 (8).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/1849 (4).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/0724 (2).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3603.jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/4851 (5).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/0640 (10).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/0138 (10).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/5106 (5).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/2273 (9).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/3805.jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/3366 (9).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/4005 (3).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/5346 (2).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/5634 (4).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/1098 (2).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/4906 (2).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/3440 (7).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/5842 (3).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/5929 (5).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/0007 (7).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/3747 (5).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/2228 (2).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/4266 (3).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/1713.jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/1666 (10).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/5940 (8).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/1951 (8).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/4456 (7).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/1696 (9).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/5477 (3).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/5718 (5).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/2674 (5).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/1959 (9).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/4732 (6).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/5516 (10).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/2117 (4).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/4080 (9).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/0544 (3).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3578 (8).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/2317 (3).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/0474 (8).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3058 (3).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/3538 (3).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/4822 (3).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/2623 (2).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/3866.jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/4267.jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/1400 (7).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/1267 (4).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/5080 (5).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/4011.jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/0243 (4).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/1690.jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/5552 (6).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/2826 (7).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/4064 (4).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/1028 (9).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/3195 (4).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/4513 (5).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/3152.jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/1404 (4).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/0125 (7).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/0728 (8).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/4537 (10).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/1824 (8).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/1005 (10).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/1444 (4).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/3690 (9).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/4947 (9).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/4588 (7).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/1833 (7).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/1857 (10).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/5868 (5).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/3516 (7).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/3768 (5).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/5655 (7).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/1807 (8).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/3448 (4).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/1060 (6).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/4689 (4).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/2969 (4).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/0387 (10).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/2885 (4).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/3851 (5).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/5654.jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/4706 (3).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/0683 (5).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/1280 (6).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/3946.jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/1097 (6).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3146 (5).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/5569 (3).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/2175 (3).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/2986 (5).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3057 (3).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/2936 (9).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/4578 (8).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/4347 (5).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/0311 (4).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/0653 (4).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/1213 (6).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/1671 (10).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/1227 (9).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/1275 (7).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/0421 (8).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3422 (6).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/4366 (8).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/1982 (6).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/1923 (6).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/5180 (6).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/2126 (3).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/1927 (4).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/2822 (2).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/5989 (5).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/3580 (7).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/3134 (8).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/0344 (6).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/2144 (4).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/0666 (6).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/2815.jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/0684 (3).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3946 (6).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3084 (4).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/2986 (3).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/5011.jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/5037 (7).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/4426 (9).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/1617 (8).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3243 (10).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3459 (10).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/1184 (8).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/2697.jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/2860 (5).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/3870.jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/0206 (5).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/1940 (6).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/4082 (5).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/0421 (3).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/3730 (9).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/3925 (8).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/0908 (9).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/4089 (7).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/0897 (9).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/1256 (6).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/4413 (9).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/1148 (6).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/3321.jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/4175 (6).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/1151 (2).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/1774 (9).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/3566.jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/2396 (5).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/2080 (5).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/3248.jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/3850.jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/3194 (9).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/5160 (7).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/1601 (4).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/1219 (5).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/1335 (10).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/4262 (8).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/4674 (4).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/0026 (8).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/0035 (3).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/4937 (3).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/4005 (2).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/0312 (3).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/3736 (9).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/2253 (9).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/3879 (10).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/5936 (4).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/1961 (8).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/4801 (9).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3717.jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/2641 (10).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/0008 (5).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/4792 (6).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/4384 (8).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/1470 (4).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/2960 (8).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/2810.jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/3932 (10).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/0808 (6).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/1541 (9).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3070 (4).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3554 (3).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/0383 (9).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/2155.jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/2905 (10).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/5857 (8).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/0730 (10).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/4144 (2).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/1609 (8).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/5625 (10).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/4508 (4).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/0787 (2).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/5571 (8).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/1537 (9).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/4021 (4).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/4987 (6).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/2006.jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/3578 (2).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/3234 (5).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/2361 (4).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/4477 (5).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/4346 (5).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/1881 (6).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/2644 (10).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/3811 (2).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/2849 (7).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3563 (9).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/1180 (6).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/2866 (5).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/4826 (7).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/2996 (2).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3589 (3).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/1471 (6).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/4056 (4).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/0479 (8).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/5677.jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/2171 (9).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/1407 (5).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/2319 (3).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/4132 (7).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/5499.jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/3733 (9).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/2167 (2).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/4564 (8).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/1302 (4).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/0499 (5).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/2789 (6).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/4519 (10).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3358 (2).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/4270 (4).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/2997 (8).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/5791.jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/0066 (7).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/3225 (8).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/2663 (9).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/3031 (9).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/4536 (6).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3317 (3).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3842 (5).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/4270 (4).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/1478 (3).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/2164 (9).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/1199 (10).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/3540.jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/2795 (2).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/0709.jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3852 (5).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/4174 (8).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/1227 (2).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/1537 (2).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/2897 (4).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/4160 (3).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/4455 (8).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/1724 (8).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/5061 (6).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/3716 (7).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/4073 (9).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/3360 (6).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/4133 (5).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/2969 (2).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/1632 (9).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/0802 (8).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/0862.jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/1821 (8).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/2559 (6).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/2020.jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/2781 (10).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/2045 (3).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/2936 (10).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3654 (2).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/1754 (2).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/0282 (2).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/3658 (7).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/2077 (10).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/2577 (3).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/5687 (3).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/4500 (10).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/1853 (8).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/2926 (2).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/1009.jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/4002 (8).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/3956 (8).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/4665 (8).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/4221 (9).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/1676 (6).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/1073 (9).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/2568 (4).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/1635 (7).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/2527 (9).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/5708 (9).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/5806 (8).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/2790 (10).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/4025 (7).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/5935 (7).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/5268.jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/2481 (3).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/2657 (8).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/2262.jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/1362.jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/3484.jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/4499 (7).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/2350 (10).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/2062 (5).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/4552 (4).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/4925 (7).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3394 (6).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/1724 (2).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/0240 (6).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/0071 (7).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/0744 (5).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/5732 (6).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/3900 (6).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/0058 (5).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/1068 (4).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/4426 (8).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/0724 (4).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3011 (8).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/4436 (6).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/0974 (8).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/0171.jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/1462.jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/2685 (4).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/2545 (4).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/3694 (4).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/3243 (2).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/3364.jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/3563 (5).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/2636 (9).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/2005 (8).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/2977 (6).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/1213 (7).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/1629 (7).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/4731 (8).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/0870 (2).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/4102 (2).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/0828 (6).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/1949 (4).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/1347 (2).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/1276 (7).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/3303 (3).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/0015 (5).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/3096 (3).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/4042 (10).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/5987.jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/2893 (2).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/2314 (7).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/1946 (7).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/5006 (10).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/3319 (6).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/1730 (10).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/5626 (2).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/2630 (9).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/4674 (4).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/3414 (7).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3259 (9).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3928 (3).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/2202 (2).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/3135 (5).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/2751 (3).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/2645 (9).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/3061 (5).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/1782.jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/3431 (6).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/5301 (6).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/3989 (7).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/2144 (10).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/1194 (4).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/0271 (4).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/3177 (7).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/5272 (6).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/2035 (4).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/5848 (6).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/3597.jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/4702 (3).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/4814 (7).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/1461 (5).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/0426.jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/1523 (8).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/0992 (7).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/4591 (10).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/2047 (5).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/1655 (10).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/5182 (8).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/1141 (9).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/4143 (3).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/0421 (10).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/0266 (10).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/4650 (3).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/4211 (4).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/0641 (6).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/0091 (4).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/2663.jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/4832.jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/5589 (3).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/5369 (10).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/4061 (8).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/3802 (6).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3914 (6).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/2412 (6).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/1578 (3).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/1338.jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/4406 (10).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3343 (3).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/1570 (6).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/5491 (10).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/4882 (8).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/4857 (7).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/1259.jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/3318 (8).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/4984 (7).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/1254 (9).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/3243 (6).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/2379 (2).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/1033 (5).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/3287 (7).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/2083 (7).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/4885 (9).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/1957 (9).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/2139 (4).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/4000 (3).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/3196 (2).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/4081 (9).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/4062 (9).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/3160 (3).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/0562 (2).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/2895 (7).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/2556 (2).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/1106 (5).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/4657 (8).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/1620.jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3507 (10).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/2241 (10).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/4611.jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/4078 (6).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/3566 (10).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/1111 (10).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/3812 (2).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/0223 (5).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/0471 (4).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3628.jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/3625 (6).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/3747.jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/4181.jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/4373 (8).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/5792 (7).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/3215 (6).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/4834 (6).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3430 (9).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/4922 (4).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/1078 (10).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/5189 (2).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/1679 (5).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/4650 (9).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/0570 (3).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/1754 (3).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/2062 (2).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/2470 (6).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/1129 (9).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/4842 (5).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/0651 (3).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/1126 (3).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/0150 (2).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/4438 (8).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3488 (6).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/2598 (8).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/1297 (3).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/5561 (6).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/4899 (7).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/1469 (8).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/4290 (7).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/3245 (8).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/1628 (3).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/3482 (7).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/1534 (2).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/0894.jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/3770 (7).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/3074 (5).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/2092 (10).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3534 (10).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/4687 (2).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/1381 (2).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/2577 (10).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/4694 (4).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/3356 (3).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/0341 (3).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/4724 (9).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/4647 (9).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/3711 (6).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/4434 (3).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/3910 (5).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/4853 (3).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/5008.jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/5519 (10).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/1210 (3).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/4181 (6).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/5785 (3).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/1320 (9).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3214 (10).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/4866.jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/2447 (6).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3356 (5).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/2987 (5).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/3050.jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/3992 (2).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/5157 (5).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/5300 (8).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/4688 (10).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/2032 (6).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/4798 (10).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/3078 (4).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/3524.jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/3043 (10).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/4688 (4).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/3802 (8).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/4925 (7).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/0598 (4).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3425 (6).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3825.jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/4969 (9).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/1754 (10).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3135 (3).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/4308 (4).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/4388 (5).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/2332 (2).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/1208 (10).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/4210 (8).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/0294 (8).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/1839 (5).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/1809 (6).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/2971 (7).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/4782.jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/1215 (10).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/1419 (6).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/3260 (3).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/5669 (2).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/1892 (4).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/1071 (8).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/2880 (5).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/2953 (4).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/5023 (2).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/2934 (4).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3065 (3).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/2285 (8).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/3277 (5).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/4911 (2).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/2529 (6).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/4120 (5).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/1461 (8).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/1857 (5).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/2142.jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/4327.jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/5943 (6).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/1553 (3).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/3318 (2).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/4261 (7).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/1435 (8).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/4622 (10).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/1026 (8).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/1474.jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/2176 (7).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3578 (7).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/4588 (2).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/3780 (7).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/4536 (4).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3324 (4).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3321 (8).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/2524 (2).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/3865 (2).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/3992 (10).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/2688 (10).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/4061 (3).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/5181 (10).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/1544 (8).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/4710 (7).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/3461 (8).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/5559 (10).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/3889 (10).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/2989.jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/5599 (2).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/2295 (6).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/4498 (9).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/0745 (9).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/0078 (2).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/2388 (4).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/4744 (3).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/2844 (4).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/4565 (2).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/4795 (10).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/2368 (6).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/0812 (9).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/5458 (10).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/2756 (3).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/4533 (4).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/2457 (5).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/1541 (3).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3409 (4).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/2247.jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/4013 (3).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/0522 (4).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/2767 (10).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3101 (5).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/1521 (9).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/3570.jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/2697 (3).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/2646 (2).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/4449 (6).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/3064 (9).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/5267.jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/2749 (6).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/0652 (4).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/4833 (9).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/1396 (10).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/3475 (6).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/1297 (4).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/3923.jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/0181.jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/1064 (8).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3771.jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/2140 (2).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/0529 (8).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/2842 (8).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/5855 (2).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/3292 (9).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/1226 (3).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/3490 (10).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/3551 (4).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/4530 (4).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/1628 (8).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/1939 (2).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/5853 (5).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/1499 (8).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/4382 (9).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/3244 (10).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3694 (7).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/5069 (8).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/0123.jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/4803 (8).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/3068 (6).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/2253 (10).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/1522 (8).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/3193 (3).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/3142 (7).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/2196.jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/3941 (5).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/5215 (6).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/4458 (9).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/1585.jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/0527 (10).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/2835 (5).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/3092 (7).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/0212.jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/0399 (6).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/2032 (9).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/1712 (3).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/3024 (6).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/2341 (5).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/5911 (6).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/1802 (7).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/1588 (8).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/4612 (9).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/0742 (4).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/1470 (5).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/1156 (7).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/0348 (6).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/0021 (8).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/4274 (10).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/2399 (2).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/1298 (3).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/4953 (6).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/3088 (9).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/2845 (7).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/1055 (3).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/2878 (7).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/4266 (5).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/4790 (10).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/1212 (8).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/2155 (7).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/2221 (10).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/2857 (8).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/4991 (4).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/4761 (2).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/4691 (4).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/1675 (3).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/2033 (8).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/4373 (9).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/3235 (2).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/2922 (3).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/2747 (8).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/1100 (7).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/3677 (8).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/0038 (9).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/1668 (2).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/1314 (6).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/2997 (9).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/1598 (8).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3668.jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/5765 (5).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/1334 (6).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/1803 (6).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/2271.jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/4752 (6).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3744 (10).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/0424 (5).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/3219 (5).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/2213 (5).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/1834 (7).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3243.jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/2338 (9).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/0229 (6).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/3097 (3).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/1798 (10).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/2874 (7).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/3368 (9).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/5028.jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/1236 (8).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/4573.jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3258 (4).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/3605 (3).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/0455 (7).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/2645 (8).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/1623 (4).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/1623 (3).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/2078 (6).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/5259 (4).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/5211 (2).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/2682 (7).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3178 (6).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3868 (5).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/1453 (2).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/3115 (9).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/5439.jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/2374 (8).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/1336.jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/4017 (9).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/1275 (4).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/3735 (3).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/4014 (9).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/2709 (9).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/1713 (9).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/1716 (10).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3038 (4).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3806 (6).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/1185 (5).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/3786 (7).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/2122 (3).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/1407.jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/4382.jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/2210 (6).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/2891.jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/3821 (2).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/4414 (6).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/0436 (9).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/1372 (7).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/1183 (7).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/3204 (7).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/2008 (3).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/4833 (3).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/3768 (8).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/1537 (3).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/1241 (6).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/1210 (4).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/5471 (10).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/4819 (4).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/2561.jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/2097 (6).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/5761 (9).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/2494 (2).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/3832 (9).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/5185 (4).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/3200 (3).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/2581 (10).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/4523 (4).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/1954 (9).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/1558.jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/4784.jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3383.jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/4754 (5).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/4236 (9).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/5172 (3).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/1057 (2).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/2529.jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/5285 (9).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/3507 (5).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/2506 (9).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/2569 (9).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/3433.jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/1013 (4).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3271 (5).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/4553 (8).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/4573 (9).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/4393 (9).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/2852 (9).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/4018.jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/0265 (3).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3038.jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3281 (3).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/4434.jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/5965 (2).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/1898 (7).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3183.jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/2605 (10).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/2905 (9).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/2020 (2).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/2647 (4).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/4035 (4).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/4415 (5).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/4444 (4).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/0930 (8).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/1700 (3).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/2540 (7).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/2791 (4).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/0073 (2).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/0112.jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/5419.jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/4736 (7).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/1156.jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/5610.jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/4762 (6).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/3503 (7).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/2515 (7).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/0530 (10).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3198 (6).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/0001 (5).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/5362 (8).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/3304 (9).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/2221 (5).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/2805 (4).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/4841 (4).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/2130 (8).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/4129.jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/4135 (2).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/1916 (10).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/1839 (8).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/4253 (3).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/3612.jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/1789 (10).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3958 (9).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/1686 (3).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/5047 (2).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/2189 (10).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/4075 (8).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/3124 (8).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/1236 (10).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/1926 (10).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/0948 (8).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/5137 (3).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/0054 (3).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/0776 (8).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/2520 (4).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/2141 (10).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/1122 (2).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/2219 (4).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/0686 (3).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/4509 (7).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/1388 (10).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/0397 (5).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/4635.jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/1599 (4).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/3917.jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/5464 (10).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/3132 (4).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/0606.jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/1511.jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/3073 (9).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/3206 (4).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/3883 (10).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/3439 (9).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/4180 (7).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/3797 (5).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/2795 (10).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/4515 (5).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/3692 (6).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/1003 (8).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/2175 (2).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/4691 (10).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/2981 (4).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/2632 (4).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/3545 (10).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/2912 (8).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/1614 (5).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/4591 (7).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/1681 (4).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/2016 (6).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/4876 (6).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/1609 (6).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/3858.jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/2857.jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/2667 (5).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/4899 (9).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/5294 (9).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/0557.jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/1793 (2).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/1311 (5).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/4940 (5).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/2674 (2).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/3521 (3).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/1404.jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/1848 (4).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/4186 (5).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/3620 (5).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/2117 (8).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/5187 (8).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/3269 (9).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/0868 (2).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/5701 (4).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/0320 (7).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/2691 (3).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/0641 (3).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/4366 (9).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/4162 (6).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/5271 (5).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/3832 (7).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/3830 (3).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/0124 (3).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/2310 (8).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/5697 (4).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/4907 (4).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/3616 (9).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/5299 (10).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/1919 (9).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/5844 (6).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/2389 (6).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/4731 (10).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/1896 (5).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/3537 (3).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/4806.jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/4911 (7).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/3965 (10).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/1278 (7).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3773 (10).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3309 (9).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/1691 (6).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/2638 (3).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/2441.jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3337 (4).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/1501 (5).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/2280 (4).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/3062 (9).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/1186 (3).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/4353.jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/2656 (9).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/5331 (10).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/1481 (3).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/0949 (5).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/1264 (2).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/3644.jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/5664 (9).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/1296.jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/0336 (7).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/1746.jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/1833.jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/5927 (2).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/5116 (7).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/5008 (7).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/2612 (7).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/4585 (6).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/1415 (10).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/4014 (6).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/1006 (7).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/0767 (6).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/3432 (4).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/1766 (8).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/1470 (6).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/5090 (3).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/5348 (6).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/3373 (7).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/3627 (9).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/1767 (9).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/1270 (10).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/1647 (3).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/5480 (9).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/0566 (3).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/4635 (7).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/1289 (6).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/3514 (10).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/5541 (8).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/1477 (3).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/2912 (7).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/4426 (8).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/2399 (8).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/3551 (6).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/2531 (2).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/5046 (7).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/0645 (6).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/5260 (9).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/2190 (5).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/3094 (5).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/3603 (8).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/2180 (9).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3198 (10).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/4384 (9).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/1843 (3).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/3990 (4).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/2976 (3).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/2071 (10).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/2455 (7).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/3722 (2).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/4922 (5).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/0865 (4).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3375 (10).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/4260 (10).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/4393 (5).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/3209 (9).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/3171 (4).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/3930 (6).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/5537 (7).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/1098 (4).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/2931 (5).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/4875 (3).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/1356 (6).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/5020 (4).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/0212 (10).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/5870 (5).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/1243 (10).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/5581.jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/4506 (4).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3587 (9).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/1798 (6).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/2480 (10).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/1556 (6).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3059.jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/2056 (2).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/0303 (9).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/2890 (6).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/2620 (9).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/1848 (6).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/5586 (4).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/4952 (7).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/4335 (8).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/1650 (8).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/2754 (8).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/1344 (2).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/5326 (2).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/2665 (5).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/1178 (7).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3678 (7).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/2028 (10).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/1945 (6).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/4605 (6).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/1909 (10).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/5200 (5).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/2388.jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/2723 (7).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/4556 (7).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/3619 (10).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/4983 (7).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/3334 (8).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/3099 (4).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/3918.jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/1910.jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/4563 (9).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/5547 (2).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/5497 (4).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/1817 (4).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/2648 (8).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/3909 (2).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/1542 (9).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/4659 (10).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/4608 (6).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/3380 (4).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/1520 (10).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/1511 (8).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/4534.jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/2985 (7).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/4531 (7).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/1318 (5).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/1920 (4).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/2314 (4).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/4657 (2).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/4663 (7).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/1894 (8).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/3150 (10).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/4412 (7).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/2344 (10).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/2281 (7).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/1654 (7).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/1295 (2).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/4817 (2).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/1625 (5).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/1514 (2).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/4397 (4).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/3050 (9).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3041 (5).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/1183 (6).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/1335 (10).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/2269 (4).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/5229 (8).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/3685 (2).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/3731.jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/0704.jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/1980 (9).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/2112 (2).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3764 (3).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3071 (2).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/3890 (6).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/2628 (4).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/4163 (4).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/2442 (3).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/1843 (6).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/2750 (9).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/2404 (5).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/4661 (10).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/2633 (10).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/5809 (5).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/3060 (2).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/5750 (10).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/1299 (4).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/2474 (6).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3990 (6).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/4764.jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/1263 (6).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/5357.jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/0303 (4).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/1117 (9).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/3496 (4).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/1039.jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/2994 (7).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/5831 (5).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/3805 (3).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/3008 (5).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/0235 (4).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/2921.jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/1965 (5).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/4479 (5).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/1590 (2).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/0381 (6).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/1252.jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/4869 (6).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/5230 (7).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/1613 (3).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/1854 (4).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/3917 (8).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/2873 (9).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/0018 (4).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/2249 (3).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/4369 (3).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/5702 (5).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/5140 (9).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/1232 (10).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/3307 (10).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/4774 (5).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/0588.jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/1014 (9).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/4386.jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/3011 (4).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/3827 (4).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/1232 (6).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/4363 (9).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/1177 (6).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/1656 (10).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/4725 (8).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/2223 (10).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3150 (3).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3294 (2).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3089 (8).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3161 (7).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/5667 (5).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/1704 (9).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/1107 (10).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3200 (7).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/4737 (7).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/2635 (6).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/5572 (6).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/5567 (3).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/1339 (4).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/1519 (3).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/4646 (9).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/2540 (5).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/3692 (10).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/5768 (9).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/4922 (6).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/1908 (8).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/1256 (9).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/4618 (3).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/2729 (2).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3457 (3).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/4227 (8).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/3784 (2).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/3377 (6).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/4341 (2).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/0293.jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/5128 (6).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/1895 (4).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/4197 (6).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/5599 (3).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/0773 (6).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/5437 (4).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/0588 (8).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/3749 (3).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/5183 (2).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/4706 (10).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/0722 (4).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3618 (8).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/4365 (8).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/0876 (5).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/4241 (2).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/4742 (10).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/4103.jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/2588.jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/2164.jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/2738.jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/5539 (9).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/5927 (10).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/1309 (3).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3662 (3).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/4328 (3).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/0583 (8).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/4831 (9).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/4011 (7).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/1352 (9).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/2738 (3).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/5935.jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/0359 (7).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/5521 (5).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/1017 (8).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/0819 (6).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/5063 (4).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/2162 (4).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/2293 (4).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/4068 (5).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/4695 (5).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/4045 (4).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/1109 (5).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/0438 (10).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/4188.jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/3668 (10).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/1690 (6).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/5213 (8).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/5035 (2).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/2281.jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/2730 (8).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/2827 (2).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/3627 (3).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/2137 (5).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/3279 (8).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/3344 (3).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/1798 (8).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/4146 (7).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/0969 (4).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/3662 (10).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/2679.jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/3441 (8).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/2010 (6).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/2999 (4).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/3186 (5).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/0797 (8).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/5256 (3).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/5901.jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/5587 (9).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/2749 (3).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/0825 (10).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/4481 (6).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/3403 (4).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/1736 (2).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/5118.jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/4334 (7).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/1903 (2).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/0691.jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/1212 (9).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/3631 (9).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/3698 (5).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/0625 (4).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/2212 (9).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/0858 (4).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/1075 (6).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/5877 (6).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/2205 (8).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/0973 (5).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/5848 (2).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/4557 (6).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/2765 (3).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/4484 (3).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/1072 (7).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/2334 (4).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3916 (3).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/2690 (8).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3586.jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/1886.jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/2711 (3).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/0695.jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3742.jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/4881 (8).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/4932 (9).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/5737 (3).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/1883 (8).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/4084 (5).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/2630.jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/3801.jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3865 (4).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/1071 (10).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/2183 (3).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/3408 (7).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/0179 (8).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/3634 (3).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/1324.jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/0230 (6).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3351 (5).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/2647 (2).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/3890.jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/4341 (8).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/4621 (3).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/1297.jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/1240 (8).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/0377 (3).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/4728 (10).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/4162.jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/4291 (8).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/4501 (4).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/2978 (8).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/3777 (10).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/3239 (3).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/5313 (8).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/0711 (4).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/3886 (3).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/0953 (10).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/2544 (4).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3100 (4).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/4350 (5).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/1414 (2).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/2600 (4).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/2933 (10).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/4941 (3).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/3983 (4).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/2039 (7).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/4773 (5).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/4514 (4).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/0800 (4).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/4960 (3).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/4496 (6).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/2833 (9).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/2190 (2).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/5059 (6).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/4638 (8).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/4983 (8).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/2766 (2).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/1972 (6).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/1958 (8).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3361 (9).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/3742 (4).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/3363 (10).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/1079 (3).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3604 (7).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/1869 (3).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/5657 (7).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/2892 (7).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/3804 (8).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/3835 (5).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/5324 (3).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/1584 (4).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/2938 (10).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/0508 (8).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/2542 (10).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/5661 (6).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/1154 (3).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/2271 (9).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/2523 (7).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/2088 (5).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/0165 (4).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/2964 (9).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/1643.jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/0887 (5).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/2129 (8).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/3489 (7).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/3962 (5).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/1675 (10).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/0549 (3).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/3779 (9).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/2397 (8).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/2972 (9).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/0790 (9).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/4277 (7).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/2279.jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/4632 (7).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/4593 (2).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/5809.jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/0167.jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/5022 (7).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/5440 (3).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/2140 (6).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/4806 (7).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/1725 (10).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/2680 (9).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/3649.jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/1284 (7).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/0737 (2).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/0427 (4).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/2489 (6).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/3261 (3).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/4142 (7).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/2621 (3).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/2598 (9).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/3518 (7).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/4205 (4).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/2571 (9).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/2192.jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/1149.jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/2678 (3).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/2991 (6).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/1306.jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/4182.jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/2320 (3).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/2779 (2).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/5257 (10).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/2221 (6).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/3080 (8).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/2922 (2).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/2703 (6).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/3623 (5).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/3076 (6).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/5995 (7).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/1502 (10).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/1484 (2).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/5629 (6).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/3893 (4).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/1632 (10).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/4770 (5).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/2841.jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/0703 (10).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/4839 (5).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/3164 (6).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/2763 (4).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/1797 (2).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/5930 (3).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/2172 (4).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3403.jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/0048 (4).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/1119 (5).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/2515 (10).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/4117 (5).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/3451 (7).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/1122 (8).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/0317 (8).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/2821 (3).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/2243 (2).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/2872 (9).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/1226.jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/2512 (8).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/4690 (7).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/1678 (6).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/3734 (5).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/5199 (5).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/4806 (10).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/0507 (3).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/4035 (10).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/1749 (8).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/4528 (4).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/3012 (5).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/5906 (4).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/1730 (9).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/5394 (3).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/4850 (6).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/5514 (10).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/2587 (9).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/1625 (6).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/1120 (4).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/2859 (2).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/2495 (4).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/3276 (4).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/2648 (4).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/2682 (8).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/2977 (10).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/2820.jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/0942.jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/0630 (2).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/3360 (2).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/5118 (2).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/1459 (4).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/1209 (10).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/5741 (4).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/2660 (6).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/2660.jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/2011 (6).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/3065.jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/3784 (3).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/4342 (7).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/0371 (4).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/1500 (7).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/2946 (3).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/4418 (9).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/4159 (4).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/1363 (4).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/2626 (2).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/2682.jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/2322 (2).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/3031 (7).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/3351 (9).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/3889 (3).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/1139 (3).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/4531 (3).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/1078 (9).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/1475 (3).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/0762 (6).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/0762 (7).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/5977 (6).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/2220 (2).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/3978 (8).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/4604 (6).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/5497 (8).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/2547 (8).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3016 (9).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3091 (10).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/3440.jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/4554 (6).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/5917 (6).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/3745 (3).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/2806 (4).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/4937 (2).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3456 (10).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/2058 (3).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/2716 (10).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/3592 (10).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/1628 (5).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/5348 (8).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/3396 (9).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/3073 (5).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/4000 (2).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/4498 (6).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/0395.jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/4520.jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/1872 (4).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/2737 (9).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/1768 (4).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/5452 (8).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/4744 (9).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/1765 (4).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/1815 (6).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/3309 (8).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/2468 (4).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/1820 (3).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/2841 (6).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/4139 (8).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/1266.jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/2613 (6).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/4870 (6).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/4170 (8).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/2952 (7).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/1633 (7).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/2400 (2).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/2521 (4).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/3376 (10).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/2678 (7).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/2813 (9).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/1663 (2).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/4667 (8).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/1910 (9).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/2995 (7).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/1784 (5).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3794 (3).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/3729.jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/3212 (10).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/3692 (8).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/3744 (9).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/3514 (10).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/2998 (2).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/2439 (8).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/1182 (5).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/1910 (8).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/2937 (10).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/4942 (6).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/3117 (10).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/4892 (3).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/4798 (4).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/0849 (7).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/2894 (3).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/2305 (8).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/0108 (9).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/4795 (7).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/4699 (5).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/0184 (10).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/5432 (6).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/1951 (7).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/4157 (8).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/5129 (5).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/3726 (3).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/3979 (3).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/4128 (10).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/0729 (5).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/2828 (9).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/0318 (3).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/3782 (7).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/2615 (3).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/3096.jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/1762.jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/4253 (5).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/4020 (5).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/2474 (3).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/3362 (8).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/1802 (9).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/4639 (5).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/2078 (4).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/4341 (2).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/0105 (8).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/3435 (7).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/2216 (8).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/2805 (3).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/2721 (9).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/1771.jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3542 (4).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/0049 (8).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/2431 (4).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/1233 (9).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/0506 (10).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3895 (6).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/0895 (9).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/5202 (10).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/4057 (3).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/4402 (2).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3516 (3).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/0979 (4).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/5762 (4).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/3748 (10).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/5967 (9).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/4449 (10).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/2687 (2).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/3938 (2).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/0116 (8).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/2173 (6).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/2815 (4).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/5377 (9).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/3450 (7).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/4474 (5).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/5338 (2).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/1694.jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/3904 (3).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/4978 (8).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/0337 (3).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/4136 (2).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/1459 (8).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/5455 (6).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/4634.jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/2994 (10).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/4416 (2).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/1659 (6).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/3674 (4).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/2833 (6).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/2154 (7).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/1733 (4).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/2609 (10).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/3790 (7).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/2842 (7).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/4959 (9).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/1566 (10).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/5731 (7).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/1410.jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/3808 (7).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/0896 (9).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/1275 (3).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/3007 (4).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/4988 (6).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/4161.jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/1442 (7).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/3553 (2).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/5236 (6).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/5167 (6).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/3991 (8).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/0332 (10).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/1139 (10).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/3473.jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/5022 (10).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/2013 (8).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/1863 (3).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3545 (4).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/1647.jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/1063 (9).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/4847 (10).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/0336 (2).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/0615 (6).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/0746 (5).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/1263.jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/3957 (4).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/3240 (5).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/3986 (10).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3010 (2).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/2860 (4).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/4567 (9).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/2854 (3).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/1412 (3).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/5337 (10).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/5922 (2).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/2705 (10).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/1537 (5).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/4909 (2).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/3748 (8).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/0563 (5).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/4583 (2).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/4216 (3).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/2067.jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/4359 (5).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/0116 (6).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/4848 (7).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3356 (9).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/0049 (7).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/5644 (6).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/4731 (3).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/2592 (2).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/3778 (9).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/2486 (10).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/4570 (8).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/0493 (6).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/1731 (6).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/0799 (6).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/0535 (10).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/2115 (2).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/2080 (4).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/4414 (2).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/1411 (2).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/0191 (10).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/1082 (9).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/1996 (8).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/4907 (3).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/1378 (4).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/2938 (9).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/1178 (3).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/0642 (10).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/0363 (9).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/1679 (4).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/3374 (7).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/4577 (4).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/4616 (10).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/4298 (4).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/2576 (7).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/5529 (5).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/3201 (2).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/3339 (4).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/4885 (10).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/0278 (3).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/1552 (9).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/2340.jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/4197 (8).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/1906 (6).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/0943 (8).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/1183 (2).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/4087 (10).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/2958 (8).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/4249.jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/0923.jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/2495 (7).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/2900 (2).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/1439 (9).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/1034 (10).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3267 (10).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/3694 (3).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/5522 (6).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/3508 (6).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/2515 (8).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/4725 (2).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/0394 (6).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/2754 (7).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/4580 (5).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/0303 (3).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/0594 (3).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/1018 (6).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/2704 (9).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/1256.jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/5871.jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/5095 (8).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/2021.jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/1705 (6).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/1786 (4).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3455.jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/4951 (10).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/2368 (8).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/1534 (4).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/1741 (4).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/3118 (3).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/2684 (4).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/5420.jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/3430 (3).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/0795 (3).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/4873 (6).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/3400 (6).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/3008 (9).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/1229 (2).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/2630 (6).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/2025 (6).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/1152 (5).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/0238.jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/1478 (9).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/1285 (5).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/5572 (2).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/3589 (3).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/0951 (7).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/4205 (9).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/2905 (10).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/5203 (4).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/2378.jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/3521.jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/2682 (2).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/4486 (9).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/3702 (10).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/4666 (7).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/4802.jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/1467 (2).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/2386 (4).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/5498 (4).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/2460 (3).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/4506 (4).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/2937 (2).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/5308 (7).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/5920 (2).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/4369 (9).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/2907 (4).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/0662 (4).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/4924.jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/2320 (5).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3147 (3).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3528 (4).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/3267 (8).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/2592 (4).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/1292 (8).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/4824 (6).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/1925 (10).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/1807 (3).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/0685.jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/3174 (8).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/3114.jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3120 (7).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3903 (3).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/3181 (6).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/5018 (8).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/1412 (7).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/1141 (8).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/0575 (7).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/5120 (10).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/4111.jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/4494 (8).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/0269 (5).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/1834 (4).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3666 (9).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3923.jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/1317.jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/0652 (9).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3932 (6).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/5604 (4).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/1919 (9).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/5898 (4).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/4937 (4).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/2306 (7).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/1959 (2).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/5876 (2).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/5281 (3).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/4421 (8).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/2260 (8).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/1591 (8).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/2826.jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/4343 (7).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/1596 (7).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/3524 (9).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/3321 (5).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/1824 (10).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/4044 (9).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/3677 (2).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/1617 (5).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/1146 (10).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/2347 (5).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/4690 (3).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/4705 (6).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/4911 (9).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3279 (4).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/1202 (10).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/1682 (7).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/1603 (10).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/0903.jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/3015.jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/2973.jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/2006 (7).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/3467 (4).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/1158 (6).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/2746 (9).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/4694 (2).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/1175 (3).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/2961.jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/1564 (5).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/1039 (6).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/2950 (3).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/0627 (7).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/0323 (5).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3759 (4).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/1544 (10).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/2755 (10).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/2871 (10).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/2188 (7).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/2786 (3).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/3438 (8).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/1947 (6).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/1940 (10).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/5573 (9).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/1120 (5).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/2606 (3).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/4660 (10).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/1169 (2).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/2572 (8).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/3723.jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/3796 (5).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/5469 (2).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/4813 (5).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/3470 (5).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3519 (8).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3828 (4).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/0794 (10).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/2633.jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/2407.jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/1721 (9).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/5147 (2).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/5258 (9).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/1890 (2).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/4405 (5).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/3298 (2).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/2800.jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/1888.jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/1248 (10).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/3730 (9).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/4241 (10).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/3464 (3).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/4849 (2).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/0584.jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/5699 (5).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/2066 (10).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/4693 (2).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/2371 (4).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/2252 (4).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/4980 (2).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/1999 (10).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/4120.jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/4008 (8).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/1229 (6).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/0581.jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/4904 (10).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/1688 (2).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/1198 (9).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/0159 (2).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/3887 (7).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/5150 (8).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/1051 (3).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/2333 (4).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/5409 (10).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/3795 (7).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3182 (6).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/4940.jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/5788 (4).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/1538 (5).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/4252 (2).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/0704 (10).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/4986 (4).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/2438 (3).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/1646.jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/1784 (5).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/4785 (7).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/4993 (8).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/1743 (6).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/0968 (9).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/5627 (3).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/1946 (10).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/4407 (10).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/1484 (4).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/5783 (4).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/2755 (10).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/1722.jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/4812 (2).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/0846 (8).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/3087 (9).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/0308 (10).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/4955 (5).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/4192 (2).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/REAL/2409.jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/2284 (8).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/0326 (6).jpg,0,real,cifake,val
+data/raw/cifake/train/REAL/4375 (2).jpg,0,real,cifake,val
+data/raw/cifake/train/FAKE/3386 (5).jpg,1,ai_generated,cifake,val
+data/raw/cifake/train/FAKE/2728 (2).jpg,1,ai_generated,cifake,val

@@ -122,6 +122,34 @@ The command downloads the pretrained weights once into the ignored
 pretrained feature extractor loads and produces valid features. It does not
 train or evaluate a fake-image classifier.
 
+## Frozen CLIP embedding cache
+
+Section 2B converts every manifest image into one normalized 512-dimensional
+CLIP vector. The image paths, binary labels, manifest fingerprint, model name,
+and pretrained-weight identity are stored beside the feature matrix. No
+classifier is trained during extraction.
+
+Run each split separately on Apple MPS so a completed split does not need to
+be repeated if a later command is interrupted:
+
+```bash
+.venv/bin/python -m scripts.extract_clip_features \
+  --splits train --device mps --batch-size 32
+
+.venv/bin/python -m scripts.extract_clip_features \
+  --splits val --device mps --batch-size 32
+
+.venv/bin/python -m scripts.extract_clip_features \
+  --splits test --device mps --batch-size 32
+```
+
+The local caches are written under
+`data/features/clip_vit_b32_quickgelu_openai/` and are ignored by Git. The
+small, tracked `reports/clip_embedding_summary.json` records cache hashes,
+shapes, class counts, numerical checks, device, and extraction speed. An
+existing compatible cache is fully validated and skipped by default. Use
+`--overwrite` only when intentionally recreating it.
+
 ## Current status
 
 - Section 1A: repository and Python environment setup complete
@@ -130,3 +158,4 @@ train or evaluate a fake-image classifier.
 - Section 1D: image-directory JSON inference implemented
 - Section 1E: CIFAKE smoke-test training and evaluation complete
 - Section 2A: frozen CLIP dependency and feature sanity check implemented
+- Section 2B: validated train, validation, and test CLIP caches complete

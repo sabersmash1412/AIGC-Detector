@@ -10,6 +10,7 @@ __pycache__/
 # Data
 data/raw/
 data/processed/images/
+data/features/
 
 # Model files
 checkpoints/

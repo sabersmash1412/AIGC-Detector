@@ -12,15 +12,21 @@ from typing import Any
 
 import open_clip
 import torch
-import torch.nn.functional as F
 from PIL import Image
 
+from src.clip_features import (
+    CLIP_FEATURE_DIMENSION,
+    CLIP_MODEL_NAME,
+    CLIP_PRETRAINED,
+    encode_normalized_images,
+    load_frozen_clip,
+)
 from src.device import choose_device
 
 
-DEFAULT_MODEL_NAME = "ViT-B-32-quickgelu"
-DEFAULT_PRETRAINED = "openai"
-EXPECTED_FEATURE_DIMENSION = 512
+DEFAULT_MODEL_NAME = CLIP_MODEL_NAME
+DEFAULT_PRETRAINED = CLIP_PRETRAINED
+EXPECTED_FEATURE_DIMENSION = CLIP_FEATURE_DIMENSION
 REQUIRED_MANIFEST_COLUMNS = {"image_path", "label", "class_name", "source", "split"}
 
 
@@ -118,14 +124,12 @@ def main() -> int:
         f"device={device.type}",
         flush=True,
     )
-    model, _, preprocess = open_clip.create_model_and_transforms(
-        args.model_name,
+    model, preprocess = load_frozen_clip(
+        device,
+        args.cache_dir,
+        model_name=args.model_name,
         pretrained=args.pretrained,
-        cache_dir=args.cache_dir,
     )
-    model.requires_grad_(False)
-    model.eval()
-    model.to(device)
 
     tensors: list[torch.Tensor] = []
     samples: list[dict[str, Any]] = []
@@ -146,9 +150,7 @@ def main() -> int:
         )
 
     image_batch = torch.stack(tensors).to(device)
-    with torch.inference_mode():
-        features = model.encode_image(image_batch)
-        features = F.normalize(features.float(), dim=1).cpu()
+    features = encode_normalized_images(model, image_batch).cpu()
 
     feature_diagnostics = validate_features(features)
     total_parameters = sum(parameter.numel() for parameter in model.parameters())

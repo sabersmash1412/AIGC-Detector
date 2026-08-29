@@ -1,0 +1,89 @@
+{
+  "experiment": "frozen_clip_embedding_cache",
+  "purpose": "Reusable clean-image embeddings; no classifier training or evaluation.",
+  "cache_format_version": 1,
+  "model": {
+    "library": "open_clip_torch",
+    "library_version": "3.3.0",
+    "model_name": "ViT-B-32-quickgelu",
+    "pretrained": "openai",
+    "total_parameters": 151277313,
+    "trainable_parameters": 0,
+    "feature_dimension": 512,
+    "l2_normalized": true
+  },
+  "splits": {
+    "train": {
+      "samples": 10000,
+      "feature_shape": [
+        10000,
+        512
+      ],
+      "feature_dtype": "float32",
+      "all_finite": true,
+      "maximum_l2_norm_error": 1.7881393432617188e-07,
+      "class_counts": {
+        "real_0": 5000,
+        "ai_generated_1": 5000
+      },
+      "status": "validated_existing",
+      "manifest": "data/processed/train.csv",
+      "manifest_sha256": "b5228ee291b9b9da2072b12fca1800349821f1ab2f555ec2c0d2be8461c42cd9",
+      "cache_path": "data/features/clip_vit_b32_quickgelu_openai/train.npz",
+      "cache_bytes": 22162669,
+      "cache_sha256": "39a43077b253e5d157ed35a9a719885dc1d169c0d417061e6ae9eddd4d645fec",
+      "validation_device": "cpu",
+      "extraction_device": "mps",
+      "extraction_seconds": 141.86255866600004,
+      "images_per_second": 70.49076298943622
+    },
+    "val": {
+      "samples": 2000,
+      "feature_shape": [
+        2000,
+        512
+      ],
+      "feature_dtype": "float32",
+      "all_finite": true,
+      "maximum_l2_norm_error": 1.7881393432617188e-07,
+      "class_counts": {
+        "real_0": 1000,
+        "ai_generated_1": 1000
+      },
+      "status": "validated_existing",
+      "manifest": "data/processed/val.csv",
+      "manifest_sha256": "c0d24e3be91b3824a6110bb38716d40a567f145681a7573ea9fe8b6d4098004a",
+      "cache_path": "data/features/clip_vit_b32_quickgelu_openai/val.npz",
+      "cache_bytes": 4434661,
+      "cache_sha256": "594d2097a8504813ed5dcb238804eec8608e7310a088383f24e2f057ca8e65b5",
+      "validation_device": "cpu",
+      "extraction_device": "mps",
+      "extraction_seconds": 26.820195667000007,
+      "images_per_second": 74.57067147578016
+    },
+    "test": {
+      "samples": 2000,
+      "feature_shape": [
+        2000,
+        512
+      ],
+      "feature_dtype": "float32",
+      "all_finite": true,
+      "maximum_l2_norm_error": 1.7881393432617188e-07,
+      "class_counts": {
+        "real_0": 1000,
+        "ai_generated_1": 1000
+      },
+      "status": "validated_existing",
+      "manifest": "data/processed/test.csv",
+      "manifest_sha256": "edb3d297266510785471b23fb7b3ae72a7fdc5e8fe62436fac835d3f0f36e296",
+      "cache_path": "data/features/clip_vit_b32_quickgelu_openai/test.npz",
+      "cache_bytes": 4426665,
+      "cache_sha256": "0311d1639a0e36a0f14499238f735333bafb8e970fff2a2164e830c126d03b72",
+      "validation_device": "cpu",
+      "extraction_device": "mps",
+      "extraction_seconds": 28.465366207999978,
+      "images_per_second": 70.26082100563016
+    }
+  }
+}

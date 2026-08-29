@@ -1,0 +1,384 @@
+{
+  "experiment": "initial_clean_vs_transformed_clip_evaluation",
+  "purpose": "Representative engineering-scale robustness check; not the full transformation matrix or held-out-generator evaluation.",
+  "seed": 42,
+  "temporary_decision_threshold": 0.5,
+  "samples": 2000,
+  "device": "mps",
+  "test_manifest": {
+    "path": "data/processed/test.csv",
+    "sha256": "edb3d297266510785471b23fb7b3ae72a7fdc5e8fe62436fac835d3f0f36e296"
+  },
+  "test_feature_cache": {
+    "path": "data/features/clip_vit_b32_quickgelu_openai/test.npz",
+    "sha256": "0311d1639a0e36a0f14499238f735333bafb8e970fff2a2164e830c126d03b72"
+  },
+  "linear_checkpoint": {
+    "path": "checkpoints/clip_linear_probe.npz",
+    "sha256": "b03fb9aeff2a859a12a98a5ccf3b996b2431a66800c04d6c457f0fbe2542d7f4",
+    "regularization_c": 100.0
+  },
+  "transformation_stage": "before official CLIP preprocessing",
+  "results": [
+    {
+      "condition": "clean",
+      "display_name": "Clean",
+      "parameters": {},
+      "metrics": {
+        "roc_auc": 0.9844680000000001,
+        "average_precision": 0.9838976176041364,
+        "accuracy": 0.9405,
+        "balanced_accuracy": 0.9404999999999999,
+        "precision": 0.9391824526420738,
+        "recall": 0.942,
+        "f1": 0.9405891163255118,
+        "brier_score": 0.04533697787420751,
+        "threshold": 0.5,
+        "confusion_matrix": [
+          [
+            939,
+            61
+          ],
+          [
+            58,
+            942
+          ]
+        ]
+      },
+      "stability_vs_clean": {
+        "mean_absolute_probability_change": 0.0,
+        "median_absolute_probability_change": 0.0,
+        "maximum_absolute_probability_change": 0.0,
+        "prediction_flip_rate": 0.0,
+        "real_mean_probability_shift": 0.0,
+        "ai_generated_mean_probability_shift": 0.0
+      },
+      "runtime": {
+        "source": "validated clean test feature cache"
+      }
+    },
+    {
+      "condition": "jpeg_q50",
+      "display_name": "JPEG Q50",
+      "parameters": {
+        "quality": 50,
+        "subsampling": 2
+      },
+      "metrics": {
+        "roc_auc": 0.971225,
+        "average_precision": 0.9720828350863812,
+        "accuracy": 0.9045,
+        "balanced_accuracy": 0.9045000000000001,
+        "precision": 0.8885686839577329,
+        "recall": 0.925,
+        "f1": 0.9064184223419892,
+        "brier_score": 0.06798662115534546,
+        "threshold": 0.5,
+        "confusion_matrix": [
+          [
+            884,
+            116
+          ],
+          [
+            75,
+            925
+          ]
+        ]
+      },
+      "stability_vs_clean": {
+        "mean_absolute_probability_change": 0.09476774940173954,
+        "median_absolute_probability_change": 0.01904027955475618,
+        "maximum_absolute_probability_change": 0.9541056068430963,
+        "prediction_flip_rate": 0.084,
+        "real_mean_probability_shift": 0.060486290157211374,
+        "ai_generated_mean_probability_shift": -0.01912108714693572
+      },
+      "runtime": {
+        "device": "mps",
+        "seconds": 28.237224165999578,
+        "images_per_second": 70.82849178950808
+      },
+      "delta_vs_clean": {
+        "roc_auc": -0.013243000000000116,
+        "average_precision": -0.011814782517755251,
+        "balanced_accuracy": -0.03599999999999981,
+        "precision": -0.050613768684340865,
+        "recall": -0.016999999999999904,
+        "f1": -0.03417069398352257,
+        "brier_score": 0.022649643281137943
+      }
+    },
+    {
+      "condition": "gaussian_blur_sigma1",
+      "display_name": "Blur \u03c3=1",
+      "parameters": {
+        "sigma": 1.0
+      },
+      "metrics": {
+        "roc_auc": 0.916009,
+        "average_precision": 0.9089972339640419,
+        "accuracy": 0.6725,
+        "balanced_accuracy": 0.6725,
+        "precision": 0.952755905511811,
+        "recall": 0.363,
+        "f1": 0.5257060101375814,
+        "brier_score": 0.2514571379733108,
+        "threshold": 0.5,
+        "confusion_matrix": [
+          [
+            982,
+            18
+          ],
+          [
+            637,
+            363
+          ]
+        ]
+      },
+      "stability_vs_clean": {
+        "mean_absolute_probability_change": 0.30564553218748675,
+        "median_absolute_probability_change": 0.12566493842580123,
+        "maximum_absolute_probability_change": 0.9959748145757603,
+        "prediction_flip_rate": 0.323,
+        "real_mean_probability_shift": -0.05371084287399572,
+        "ai_generated_mean_probability_shift": -0.5231280411946829
+      },
+      "runtime": {
+        "device": "mps",
+        "seconds": 27.217459041999973,
+        "images_per_second": 73.48224523508046
+      },
+      "delta_vs_clean": {
+        "roc_auc": -0.06845900000000016,
+        "average_precision": -0.07490038364009455,
+        "balanced_accuracy": -0.2679999999999999,
+        "precision": 0.013573452869737213,
+        "recall": -0.579,
+        "f1": -0.41488310618793034,
+        "brier_score": 0.2061201600991033
+      }
+    },
+    {
+      "condition": "resize_0_5x",
+      "display_name": "Resize 0.5\u00d7",
+      "parameters": {
+        "downscale_factor": 0.5,
+        "upscale_to_original": true
+      },
+      "metrics": {
+        "roc_auc": 0.9143330000000001,
+        "average_precision": 0.9095410173420414,
+        "accuracy": 0.6635,
+        "balanced_accuracy": 0.6635,
+        "precision": 0.9605633802816902,
+        "recall": 0.341,
+        "f1": 0.5033210332103321,
+        "brier_score": 0.25216496532605026,
+        "threshold": 0.5,
+        "confusion_matrix": [
+          [
+            986,
+            14
+          ],
+          [
+            659,
+            341
+          ]
+        ]
+      },
+      "stability_vs_clean": {
+        "mean_absolute_probability_change": 0.30920045456602324,
+        "median_absolute_probability_change": 0.1418315602474267,
+        "maximum_absolute_probability_change": 0.9937037848956616,
+        "prediction_flip_rate": 0.332,
+        "real_mean_probability_shift": -0.05266609740893702,
+        "ai_generated_mean_probability_shift": -0.5336704330488995
+      },
+      "runtime": {
+        "device": "mps",
+        "seconds": 27.086189583000305,
+        "images_per_second": 73.83836673930799
+      },
+      "delta_vs_clean": {
+        "roc_auc": -0.07013500000000006,
+        "average_precision": -0.07435660026209501,
+        "balanced_accuracy": -0.2769999999999999,
+        "precision": 0.02138092763961641,
+        "recall": -0.601,
+        "f1": -0.43726808311517973,
+        "brier_score": 0.20682798745184275
+      }
+    },
+    {
+      "condition": "gaussian_noise_sigma0_05",
+      "display_name": "Noise \u03c3=0.05",
+      "parameters": {
+        "sigma": 0.05,
+        "pixel_range": [
+          0.0,
+          1.0
+        ]
+      },
+      "metrics": {
+        "roc_auc": 0.9403029999999999,
+        "average_precision": 0.9391103523954717,
+        "accuracy": 0.8455,
+        "balanced_accuracy": 0.8455,
+        "precision": 0.9198055893074119,
+        "recall": 0.757,
+        "f1": 0.8304991771804717,
+        "brier_score": 0.11162773015602355,
+        "threshold": 0.5,
+        "confusion_matrix": [
+          [
+            934,
+            66
+          ],
+          [
+            243,
+            757
+          ]
+        ]
+      },
+      "stability_vs_clean": {
+        "mean_absolute_probability_change": 0.16540584382653023,
+        "median_absolute_probability_change": 0.053008112563644426,
+        "maximum_absolute_probability_change": 0.9926069869384755,
+        "prediction_flip_rate": 0.153,
+        "real_mean_probability_shift": 0.025761040366618408,
+        "ai_generated_mean_probability_shift": -0.18900634528141635
+      },
+      "runtime": {
+        "device": "mps",
+        "seconds": 26.723530083001606,
+        "images_per_second": 74.8404119436364
+      },
+      "delta_vs_clean": {
+        "roc_auc": -0.04416500000000023,
+        "average_precision": -0.04478726520866472,
+        "balanced_accuracy": -0.09499999999999986,
+        "precision": -0.01937686333466193,
+        "recall": -0.18499999999999994,
+        "f1": -0.11008993914504006,
+        "brier_score": 0.06629075228181604
+      }
+    },
+    {
+      "condition": "color_jitter_seeded_20pct",
+      "display_name": "Colour jitter \u00b120%",
+      "parameters": {
+        "brightness_factor_range": [
+          0.8,
+          1.2
+        ],
+        "contrast_factor_range": [
+          0.8,
+          1.2
+        ],
+        "saturation_factor_range": [
+          0.8,
+          1.2
+        ],
+        "factor_and_operation_order": "deterministic per image path"
+      },
+      "metrics": {
+        "roc_auc": 0.9803829999999999,
+        "average_precision": 0.9803836128034321,
+        "accuracy": 0.922,
+        "balanced_accuracy": 0.922,
+        "precision": 0.9194831013916501,
+        "recall": 0.925,
+        "f1": 0.922233300099701,
+        "brier_score": 0.05473095537504819,
+        "threshold": 0.5,
+        "confusion_matrix": [
+          [
+            919,
+            81
+          ],
+          [
+            75,
+            925
+          ]
+        ]
+      },
+      "stability_vs_clean": {
+        "mean_absolute_probability_change": 0.0447347575299656,
+        "median_absolute_probability_change": 0.005652735580784112,
+        "maximum_absolute_probability_change": 0.8292009079611788,
+        "prediction_flip_rate": 0.0415,
+        "real_mean_probability_shift": 0.016760406335687258,
+        "ai_generated_mean_probability_shift": -0.011101489664010818
+      },
+      "runtime": {
+        "device": "mps",
+        "seconds": 27.674044749999666,
+        "images_per_second": 72.26988385931638
+      },
+      "delta_vs_clean": {
+        "roc_auc": -0.004085000000000227,
+        "average_precision": -0.0035140048007042957,
+        "balanced_accuracy": -0.01849999999999985,
+        "precision": -0.019699351250423658,
+        "recall": -0.016999999999999904,
+        "f1": -0.01835581622581084,
+        "brier_score": 0.00939397750084068
+      }
+    },
+    {
+      "condition": "center_crop_80pct",
+      "display_name": "Centre crop 80%",
+      "parameters": {
+        "retained_fraction": 0.8,
+        "resize_to_original": true
+      },
+      "metrics": {
+        "roc_auc": 0.9653989999999999,
+        "average_precision": 0.965276167337262,
+        "accuracy": 0.8425,
+        "balanced_accuracy": 0.8425,
+        "precision": 0.9711141678129298,
+        "recall": 0.706,
+        "f1": 0.8176027793862188,
+        "brier_score": 0.11773679452801701,
+        "threshold": 0.5,
+        "confusion_matrix": [
+          [
+            979,
+            21
+          ],
+          [
+            294,
+            706
+          ]
+        ]
+      },
+      "stability_vs_clean": {
+        "mean_absolute_probability_change": 0.15514989560698011,
+        "median_absolute_probability_change": 0.030608057793922616,
+        "maximum_absolute_probability_change": 0.991293985587213,
+        "prediction_flip_rate": 0.148,
+        "real_mean_probability_shift": -0.047595495474534275,
+        "ai_generated_mean_probability_shift": -0.23693631037154597
+      },
+      "runtime": {
+        "device": "mps",
+        "seconds": 28.11528412500047,
+        "images_per_second": 71.13568517067108
+      },
+      "delta_vs_clean": {
+        "roc_auc": -0.019069000000000225,
+        "average_precision": -0.01862145026687445,
+        "balanced_accuracy": -0.09799999999999986,
+        "precision": 0.03193171517085602,
+        "recall": -0.236,
+        "f1": -0.12298633693929295,
+        "brier_score": 0.0723998166538095
+      }
+    }
+  ],
+  "artifacts": {
+    "robustness_figure": "reports/figures/clip_initial_robustness.png",
+    "transformation_sample_figure": "reports/figures/clip_initial_transform_samples.png"
+  }
+}

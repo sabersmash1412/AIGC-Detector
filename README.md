@@ -208,6 +208,44 @@ threshold selection occurs in Section 3. These results measure only clean
 CIFAKE performance and do not establish transformation robustness or
 cross-generator generalization.
 
+## Initial clean-versus-transformed robustness
+
+Section 2E evaluates the unchanged clean linear probe on the same 2,000 test
+images after one representative setting from each required transformation
+family. Transformations are deterministic with seed `42` and occur before the
+official CLIP preprocessing.
+
+```bash
+.venv/bin/python -m src.evaluate_initial_robustness \
+  --device mps \
+  --batch-size 32
+```
+
+| Condition | ROC-AUC | Balanced accuracy | Recall | Flip rate |
+| --- | ---: | ---: | ---: | ---: |
+| Clean | 0.9845 | 0.9405 | 0.9420 | 0.0000 |
+| JPEG quality 50 | 0.9712 | 0.9045 | 0.9250 | 0.0840 |
+| Gaussian blur σ=1 | 0.9160 | 0.6725 | 0.3630 | 0.3230 |
+| Resize 0.5× and upscale | 0.9143 | 0.6635 | 0.3410 | 0.3320 |
+| Gaussian noise σ=0.05 | 0.9403 | 0.8455 | 0.7570 | 0.1530 |
+| Seeded colour jitter ±20% | 0.9804 | 0.9220 | 0.9250 | 0.0415 |
+| Centre crop 80% | 0.9654 | 0.8425 | 0.7060 | 0.1480 |
+
+Blur and downscale/upscale are the principal weaknesses. They shift the mean
+AI-generated probability downward by `0.523` and `0.534`, producing 637 and
+659 false negatives respectively. ROC-AUC remains near `0.915`, so useful
+ranking information survives, but the simultaneous ROC-AUC and thresholded
+performance drops show that threshold adjustment alone is insufficient. These
+results motivate transformation augmentation and consistency training in
+Section 3.
+
+![Initial robustness results](reports/figures/clip_initial_robustness.png)
+
+![Representative transformations](reports/figures/clip_initial_transform_samples.png)
+
+This is an initial representative check, not the full severity matrix or
+held-out-generator evaluation planned for Section 4.
+
 ## Current status
 
 - Section 1A: repository and Python environment setup complete
@@ -219,3 +257,4 @@ cross-generator generalization.
 - Section 2B: validated train, validation, and test CLIP caches complete
 - Section 2C: clean frozen CLIP linear baseline trained and evaluated
 - Section 2D: CLIP directory JSON inference and full MPS contract audit complete
+- Section 2E: initial clean-versus-transformed robustness evaluation complete

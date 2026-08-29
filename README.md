@@ -4,6 +4,12 @@ A hackathon prototype for detecting AI-generated images, with an emphasis on
 robustness to compression, blur, resizing, noise, colour adjustment, and
 cropping.
 
+## Documentation
+
+- [Section 1 technical report](docs/section-1-technical-report.md): detailed
+  environment, dataset, split, model, training, evaluation, testing, and
+  limitation notes for the CIFAKE smoke-test pipeline.
+
 ## Label convention
 
 - `0`: authentic/real image
@@ -57,8 +63,8 @@ python -m src.predict \
 
 The output is a JSON array with the required `image_path` and `pred` fields.
 `pred` is in the range `[0, 1]`, where a higher value means more likely
-AI-generated. The trained smoke-test checkpoint will be produced in Section
-1E.
+AI-generated. Section 1E produces the local smoke-test checkpoint used by this
+command.
 
 ## CIFAKE smoke-test training and evaluation
 

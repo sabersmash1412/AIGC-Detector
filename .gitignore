@@ -19,7 +19,7 @@ checkpoints/
 
 # Outputs
 outputs/
-reports/figures/
+reports/figures/debug/
 
 # Notebook
 .ipynb_checkpoints/
@@ -27,3 +27,8 @@ reports/figures/
 # Credentials
 .env
 kaggle.json
+
+*.zip
+*.tar
+*.tar.gz
+.vscode/

@@ -13,6 +13,7 @@ import torch
 from PIL import Image
 
 from src.data import build_image_transform
+from src.device import choose_device
 from src.model import load_checkpoint
 
 
@@ -25,23 +26,6 @@ SUPPORTED_EXTENSIONS = {
     ".tif",
     ".tiff",
 }
-
-
-def choose_device(requested: str = "auto") -> torch.device:
-    """Select CUDA, Apple MPS, or CPU, with an explicit override."""
-
-    if requested == "auto":
-        if torch.cuda.is_available():
-            return torch.device("cuda")
-        if torch.backends.mps.is_available():
-            return torch.device("mps")
-        return torch.device("cpu")
-
-    if requested == "cuda" and not torch.cuda.is_available():
-        raise RuntimeError("CUDA was requested but is not available")
-    if requested == "mps" and not torch.backends.mps.is_available():
-        raise RuntimeError("MPS was requested but is not available")
-    return torch.device(requested)
 
 
 def discover_images(input_dir: Path, recursive: bool = False) -> list[Path]:

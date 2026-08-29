@@ -1,0 +1,263 @@
+{
+  "experiment": "cifake_smoke_cnn",
+  "purpose": "pipeline smoke test; not a real-world robustness claim",
+  "seed": 42,
+  "device": "cpu",
+  "epochs": 5,
+  "batch_size": 256,
+  "learning_rate": 0.001,
+  "weight_decay": 0.0001,
+  "parameter_count": 93601,
+  "train_samples": 10000,
+  "validation_samples": 2000,
+  "best_epoch": 5,
+  "best_val_roc_auc": 0.9633475,
+  "checkpoint": "checkpoints/cifake_cnn.pt",
+  "history": [
+    {
+      "epoch": 1,
+      "train": {
+        "roc_auc": 0.8798064600000001,
+        "average_precision": 0.8756337897351567,
+        "accuracy": 0.7919,
+        "balanced_accuracy": 0.7919,
+        "precision": 0.7969481180061038,
+        "recall": 0.7834,
+        "f1": 0.7901159858799798,
+        "brier_score": 0.14224467643786248,
+        "threshold": 0.5,
+        "confusion_matrix": [
+          [
+            4002,
+            998
+          ],
+          [
+            1083,
+            3917
+          ]
+        ],
+        "loss": 0.44092708234786987,
+        "samples": 10000
+      },
+      "val": {
+        "roc_auc": 0.8222340000000001,
+        "average_precision": 0.8119391047228002,
+        "accuracy": 0.6765,
+        "balanced_accuracy": 0.6765,
+        "precision": 0.8481262327416174,
+        "recall": 0.43,
+        "f1": 0.570670205706702,
+        "brier_score": 0.2160486174419901,
+        "threshold": 0.5,
+        "confusion_matrix": [
+          [
+            923,
+            77
+          ],
+          [
+            570,
+            430
+          ]
+        ],
+        "loss": 0.6304247660636901,
+        "samples": 2000
+      }
+    },
+    {
+      "epoch": 2,
+      "train": {
+        "roc_auc": 0.9328319999999999,
+        "average_precision": 0.9285522405951627,
+        "accuracy": 0.8574,
+        "balanced_accuracy": 0.8573999999999999,
+        "precision": 0.8571143085531575,
+        "recall": 0.8578,
+        "f1": 0.8574570171931227,
+        "brier_score": 0.10296531620796122,
+        "threshold": 0.5,
+        "confusion_matrix": [
+          [
+            4285,
+            715
+          ],
+          [
+            711,
+            4289
+          ]
+        ],
+        "loss": 0.33491772842407225,
+        "samples": 10000
+      },
+      "val": {
+        "roc_auc": 0.9473280000000001,
+        "average_precision": 0.9442245236286624,
+        "accuracy": 0.8705,
+        "balanced_accuracy": 0.8705,
+        "precision": 0.8962566844919786,
+        "recall": 0.838,
+        "f1": 0.8661498708010336,
+        "brier_score": 0.0925551241737336,
+        "threshold": 0.5,
+        "confusion_matrix": [
+          [
+            903,
+            97
+          ],
+          [
+            162,
+            838
+          ]
+        ],
+        "loss": 0.3037157678604126,
+        "samples": 2000
+      }
+    },
+    {
+      "epoch": 3,
+      "train": {
+        "roc_auc": 0.9489379200000001,
+        "average_precision": 0.9456462022365624,
+        "accuracy": 0.8826,
+        "balanced_accuracy": 0.8826,
+        "precision": 0.8858410649455426,
+        "recall": 0.8784,
+        "f1": 0.8821048403293834,
+        "brier_score": 0.08805025945655097,
+        "threshold": 0.5,
+        "confusion_matrix": [
+          [
+            4434,
+            566
+          ],
+          [
+            608,
+            4392
+          ]
+        ],
+        "loss": 0.2925217681884766,
+        "samples": 10000
+      },
+      "val": {
+        "roc_auc": 0.9284920000000001,
+        "average_precision": 0.9251790928398314,
+        "accuracy": 0.7505,
+        "balanced_accuracy": 0.7505,
+        "precision": 0.9513513513513514,
+        "recall": 0.528,
+        "f1": 0.6790996784565917,
+        "brier_score": 0.17247610481626566,
+        "threshold": 0.5,
+        "confusion_matrix": [
+          [
+            973,
+            27
+          ],
+          [
+            472,
+            528
+          ]
+        ],
+        "loss": 0.5356635122299195,
+        "samples": 2000
+      }
+    },
+    {
+      "epoch": 4,
+      "train": {
+        "roc_auc": 0.9554546800000001,
+        "average_precision": 0.9531172394084401,
+        "accuracy": 0.8895,
+        "balanced_accuracy": 0.8895,
+        "precision": 0.8846533675686352,
+        "recall": 0.8958,
+        "f1": 0.8901917917122131,
+        "brier_score": 0.0824025262844125,
+        "threshold": 0.5,
+        "confusion_matrix": [
+          [
+            4416,
+            584
+          ],
+          [
+            521,
+            4479
+          ]
+        ],
+        "loss": 0.27450385999679566,
+        "samples": 10000
+      },
+      "val": {
+        "roc_auc": 0.9489559999999999,
+        "average_precision": 0.946758416112238,
+        "accuracy": 0.878,
+        "balanced_accuracy": 0.878,
+        "precision": 0.89375,
+        "recall": 0.858,
+        "f1": 0.8755102040816326,
+        "brier_score": 0.08924773141427446,
+        "threshold": 0.5,
+        "confusion_matrix": [
+          [
+            898,
+            102
+          ],
+          [
+            142,
+            858
+          ]
+        ],
+        "loss": 0.29259794306755066,
+        "samples": 2000
+      }
+    },
+    {
+      "epoch": 5,
+      "train": {
+        "roc_auc": 0.95968864,
+        "average_precision": 0.9574204526399104,
+        "accuracy": 0.8936,
+        "balanced_accuracy": 0.8936,
+        "precision": 0.8937575030012005,
+        "recall": 0.8934,
+        "f1": 0.8935787157431486,
+        "brier_score": 0.07771233324438698,
+        "threshold": 0.5,
+        "confusion_matrix": [
+          [
+            4469,
+            531
+          ],
+          [
+            533,
+            4467
+          ]
+        ],
+        "loss": 0.25991527614593507,
+        "samples": 10000
+      },
+      "val": {
+        "roc_auc": 0.9633475,
+        "average_precision": 0.9584991641600373,
+        "accuracy": 0.8975,
+        "balanced_accuracy": 0.8975,
+        "precision": 0.8855480116391853,
+        "recall": 0.913,
+        "f1": 0.8990645002461841,
+        "brier_score": 0.07412940699280705,
+        "threshold": 0.5,
+        "confusion_matrix": [
+          [
+            882,
+            118
+          ],
+          [
+            87,
+            913
+          ]
+        ],
+        "loss": 0.25266850233078003,
+        "samples": 2000
+      }
+    }
+  ]
+}

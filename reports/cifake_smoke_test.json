@@ -1,0 +1,54 @@
+{
+  "experiment": "cifake_smoke_cnn",
+  "purpose": "pipeline smoke test; not a real-world robustness claim",
+  "device": "cpu",
+  "test_manifest": "data/processed/test.csv",
+  "checkpoint": "checkpoints/cifake_cnn.pt",
+  "checkpoint_epoch": 5,
+  "checkpoint_validation_metrics": {
+    "roc_auc": 0.9633475,
+    "average_precision": 0.9584991641600373,
+    "accuracy": 0.8975,
+    "balanced_accuracy": 0.8975,
+    "precision": 0.8855480116391853,
+    "recall": 0.913,
+    "f1": 0.8990645002461841,
+    "brier_score": 0.07412940699280705,
+    "threshold": 0.5,
+    "confusion_matrix": [
+      [
+        882,
+        118
+      ],
+      [
+        87,
+        913
+      ]
+    ],
+    "loss": 0.25266850233078003,
+    "samples": 2000
+  },
+  "test_metrics": {
+    "roc_auc": 0.956978,
+    "average_precision": 0.9557812855507113,
+    "accuracy": 0.894,
+    "balanced_accuracy": 0.894,
+    "precision": 0.8752380952380953,
+    "recall": 0.919,
+    "f1": 0.8965853658536586,
+    "brier_score": 0.08081796702302357,
+    "threshold": 0.5,
+    "confusion_matrix": [
+      [
+        869,
+        131
+      ],
+      [
+        81,
+        919
+      ]
+    ],
+    "loss": 0.2695175670385361,
+    "samples": 2000
+  }
+}

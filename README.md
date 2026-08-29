@@ -60,9 +60,46 @@ The output is a JSON array with the required `image_path` and `pred` fields.
 AI-generated. The trained smoke-test checkpoint will be produced in Section
 1E.
 
+## CIFAKE smoke-test training and evaluation
+
+Train the compact CNN with seed `42` and save the best validation ROC-AUC
+checkpoint:
+
+```bash
+python -m src.train
+```
+
+Evaluate that checkpoint on the untouched CIFAKE test manifest:
+
+```bash
+python -m src.evaluate
+```
+
+The resulting metrics demonstrate that the pipeline works end to end. They do
+not establish robustness or generalisation to modern generators.
+
+### Smoke-test result
+
+The best five-epoch checkpoint was selected using validation ROC-AUC and then
+evaluated once on the 2,000-image test manifest using the default threshold of
+`0.5`.
+
+| Metric | Result |
+| --- | ---: |
+| ROC-AUC | 0.9570 |
+| Average precision | 0.9558 |
+| Balanced accuracy | 0.8940 |
+| Precision | 0.8752 |
+| Recall | 0.9190 |
+| F1 | 0.8966 |
+
+These numbers are only a pipeline check on low-resolution CIFAKE data. The
+research baseline begins with frozen CLIP features in Section 2.
+
 ## Current status
 
 - Section 1A: repository and Python environment setup complete
 - Section 1B: CIFAKE download and integrity audit complete
 - Section 1C: reproducible manifest preparation complete
 - Section 1D: image-directory JSON inference implemented
+- Section 1E: CIFAKE smoke-test training and evaluation complete

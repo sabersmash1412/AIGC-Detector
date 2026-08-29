@@ -150,6 +150,38 @@ shapes, class counts, numerical checks, device, and extraction speed. An
 existing compatible cache is fully validated and skipped by default. Use
 `--overwrite` only when intentionally recreating it.
 
+## Clean frozen CLIP linear baseline
+
+Section 2C trains an L2-regularized logistic-regression head on the cached
+training embeddings. CLIP remains frozen; only 512 coefficients and one bias
+are learned. Seven values of inverse regularization strength `C` are compared
+using validation ROC-AUC, with an exact tie resolved in favour of the smaller
+`C` (stronger regularization).
+
+```bash
+.venv/bin/python -m src.train_linear_probe
+```
+
+Validation selected `C=100`. The selected train-fitted model was then evaluated
+once on the clean 2,000-image CIFAKE test cache using the temporary threshold
+`0.5`.
+
+| Metric | Validation | Clean test |
+| --- | ---: | ---: |
+| ROC-AUC | 0.9829 | 0.9845 |
+| Average precision | 0.9824 | 0.9839 |
+| Balanced accuracy | 0.9330 | 0.9405 |
+| Precision | 0.9339 | 0.9392 |
+| Recall | 0.9320 | 0.9420 |
+| F1 | 0.9329 | 0.9406 |
+
+The object-free linear checkpoint is written to the ignored
+`checkpoints/clip_linear_probe.npz`. The tracked report and figures record the
+complete regularization search and clean test result. Formal validation-based
+threshold selection occurs in Section 3. These results measure only clean
+CIFAKE performance and do not establish transformation robustness or
+cross-generator generalization.
+
 ## Current status
 
 - Section 1A: repository and Python environment setup complete
@@ -159,3 +191,4 @@ existing compatible cache is fully validated and skipped by default. Use
 - Section 1E: CIFAKE smoke-test training and evaluation complete
 - Section 2A: frozen CLIP dependency and feature sanity check implemented
 - Section 2B: validated train, validation, and test CLIP caches complete
+- Section 2C: clean frozen CLIP linear baseline trained and evaluated

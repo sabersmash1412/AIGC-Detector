@@ -1,0 +1,458 @@
+{
+  "experiment": "clean_frozen_clip_linear_probe",
+  "purpose": "Clean-image linear baseline before robustness training.",
+  "seed": 42,
+  "classifier": {
+    "name": "clip_logistic_regression_v1",
+    "library": "scikit-learn",
+    "library_version": "1.9.0",
+    "solver": "lbfgs",
+    "penalty": "L2",
+    "max_iter": 2000,
+    "trainable_parameters": 513,
+    "selection_metric": "validation_roc_auc",
+    "tie_break": "smallest C (strongest regularisation)",
+    "selected_c": 100.0,
+    "temporary_decision_threshold": 0.5
+  },
+  "feature_model": {
+    "model_name": "ViT-B-32-quickgelu",
+    "pretrained": "openai",
+    "feature_dimension": 512,
+    "l2_normalized": true,
+    "frozen": true
+  },
+  "data": {
+    "train": {
+      "cache_path": "data/features/clip_vit_b32_quickgelu_openai/train.npz",
+      "cache_sha256": "39a43077b253e5d157ed35a9a719885dc1d169c0d417061e6ae9eddd4d645fec",
+      "samples": 10000
+    },
+    "validation": {
+      "cache_path": "data/features/clip_vit_b32_quickgelu_openai/val.npz",
+      "cache_sha256": "594d2097a8504813ed5dcb238804eec8608e7310a088383f24e2f057ca8e65b5",
+      "samples": 2000
+    },
+    "test": {
+      "cache_path": "data/features/clip_vit_b32_quickgelu_openai/test.npz",
+      "cache_sha256": "0311d1639a0e36a0f14499238f735333bafb8e970fff2a2164e830c126d03b72",
+      "samples": 2000
+    }
+  },
+  "candidates": [
+    {
+      "regularization_c": 0.001,
+      "iterations": 4,
+      "coefficient_l2_norm": 0.2915132939815521,
+      "train_metrics": {
+        "roc_auc": 0.88658002,
+        "average_precision": 0.8818551033407069,
+        "accuracy": 0.8053,
+        "balanced_accuracy": 0.8052999999999999,
+        "precision": 0.8007881773399015,
+        "recall": 0.8128,
+        "f1": 0.8067493796526055,
+        "brier_score": 0.2457084911077035,
+        "threshold": 0.5,
+        "confusion_matrix": [
+          [
+            3989,
+            1011
+          ],
+          [
+            936,
+            4064
+          ]
+        ],
+        "log_loss": 0.684563159942627,
+        "samples": 10000
+      },
+      "validation_metrics": {
+        "roc_auc": 0.875566,
+        "average_precision": 0.8642848082698813,
+        "accuracy": 0.804,
+        "balanced_accuracy": 0.804,
+        "precision": 0.791746641074856,
+        "recall": 0.825,
+        "f1": 0.8080313418217434,
+        "brier_score": 0.24581753509275842,
+        "threshold": 0.5,
+        "confusion_matrix": [
+          [
+            783,
+            217
+          ],
+          [
+            175,
+            825
+          ]
+        ],
+        "log_loss": 0.6847813725471497,
+        "samples": 2000
+      }
+    },
+    {
+      "regularization_c": 0.01,
+      "iterations": 9,
+      "coefficient_l2_norm": 2.514218330383301,
+      "train_metrics": {
+        "roc_auc": 0.91016734,
+        "average_precision": 0.9095449525087083,
+        "accuracy": 0.8302,
+        "balanced_accuracy": 0.8302,
+        "precision": 0.8282306163021869,
+        "recall": 0.8332,
+        "f1": 0.8307078763708874,
+        "brier_score": 0.2158517177497799,
+        "threshold": 0.5,
+        "confusion_matrix": [
+          [
+            4136,
+            864
+          ],
+          [
+            834,
+            4166
+          ]
+        ],
+        "log_loss": 0.624399721622467,
+        "samples": 10000
+      },
+      "validation_metrics": {
+        "roc_auc": 0.8996919999999998,
+        "average_precision": 0.8947095429830576,
+        "accuracy": 0.821,
+        "balanced_accuracy": 0.821,
+        "precision": 0.8140900195694716,
+        "recall": 0.832,
+        "f1": 0.8229475766567754,
+        "brier_score": 0.21688000553887674,
+        "threshold": 0.5,
+        "confusion_matrix": [
+          [
+            810,
+            190
+          ],
+          [
+            168,
+            832
+          ]
+        ],
+        "log_loss": 0.6264647245407104,
+        "samples": 2000
+      }
+    },
+    {
+      "regularization_c": 0.1,
+      "iterations": 12,
+      "coefficient_l2_norm": 13.03585433959961,
+      "train_metrics": {
+        "roc_auc": 0.9528515,
+        "average_precision": 0.9541415913517642,
+        "accuracy": 0.8816,
+        "balanced_accuracy": 0.8816,
+        "precision": 0.8816,
+        "recall": 0.8816,
+        "f1": 0.8816,
+        "brier_score": 0.12953780060618383,
+        "threshold": 0.5,
+        "confusion_matrix": [
+          [
+            4408,
+            592
+          ],
+          [
+            592,
+            4408
+          ]
+        ],
+        "log_loss": 0.43173661828041077,
+        "samples": 10000
+      },
+      "validation_metrics": {
+        "roc_auc": 0.945013,
+        "average_precision": 0.9440772776352748,
+        "accuracy": 0.869,
+        "balanced_accuracy": 0.869,
+        "precision": 0.8660714285714286,
+        "recall": 0.873,
+        "f1": 0.8695219123505976,
+        "brier_score": 0.13416136262188624,
+        "threshold": 0.5,
+        "confusion_matrix": [
+          [
+            865,
+            135
+          ],
+          [
+            127,
+            873
+          ]
+        ],
+        "log_loss": 0.44187983870506287,
+        "samples": 2000
+      }
+    },
+    {
+      "regularization_c": 1.0,
+      "iterations": 33,
+      "coefficient_l2_norm": 38.133758544921875,
+      "train_metrics": {
+        "roc_auc": 0.9779208,
+        "average_precision": 0.9784940726004279,
+        "accuracy": 0.9241,
+        "balanced_accuracy": 0.9240999999999999,
+        "precision": 0.9230001994813485,
+        "recall": 0.9254,
+        "f1": 0.9241985418955359,
+        "brier_score": 0.06805790586716773,
+        "threshold": 0.5,
+        "confusion_matrix": [
+          [
+            4614,
+            386
+          ],
+          [
+            373,
+            4627
+          ]
+        ],
+        "log_loss": 0.24957749247550964,
+        "samples": 10000
+      },
+      "validation_metrics": {
+        "roc_auc": 0.9716199999999999,
+        "average_precision": 0.971111532737965,
+        "accuracy": 0.912,
+        "balanced_accuracy": 0.912,
+        "precision": 0.9153225806451613,
+        "recall": 0.908,
+        "f1": 0.9116465863453815,
+        "brier_score": 0.07504094271988977,
+        "threshold": 0.5,
+        "confusion_matrix": [
+          [
+            916,
+            84
+          ],
+          [
+            92,
+            908
+          ]
+        ],
+        "log_loss": 0.2676413655281067,
+        "samples": 2000
+      }
+    },
+    {
+      "regularization_c": 10.0,
+      "iterations": 55,
+      "coefficient_l2_norm": 86.4287338256836,
+      "train_metrics": {
+        "roc_auc": 0.987442,
+        "average_precision": 0.9878052636470063,
+        "accuracy": 0.9453,
+        "balanced_accuracy": 0.9453,
+        "precision": 0.9434375622385979,
+        "recall": 0.9474,
+        "f1": 0.9454146292785152,
+        "brier_score": 0.043704972511379975,
+        "threshold": 0.5,
+        "confusion_matrix": [
+          [
+            4716,
+            284
+          ],
+          [
+            263,
+            4737
+          ]
+        ],
+        "log_loss": 0.15799953043460846,
+        "samples": 10000
+      },
+      "validation_metrics": {
+        "roc_auc": 0.9810289999999999,
+        "average_precision": 0.980646111786508,
+        "accuracy": 0.922,
+        "balanced_accuracy": 0.922,
+        "precision": 0.9228456913827655,
+        "recall": 0.921,
+        "f1": 0.9219219219219219,
+        "brier_score": 0.0534219842973673,
+        "threshold": 0.5,
+        "confusion_matrix": [
+          [
+            923,
+            77
+          ],
+          [
+            79,
+            921
+          ]
+        ],
+        "log_loss": 0.18482528626918793,
+        "samples": 2000
+      }
+    },
+    {
+      "regularization_c": 100.0,
+      "iterations": 66,
+      "coefficient_l2_norm": 162.87831115722656,
+      "train_metrics": {
+        "roc_auc": 0.9905337199999998,
+        "average_precision": 0.9908718328022256,
+        "accuracy": 0.9523,
+        "balanced_accuracy": 0.9522999999999999,
+        "precision": 0.9518481518481519,
+        "recall": 0.9528,
+        "f1": 0.9523238380809596,
+        "brier_score": 0.03601898515959495,
+        "threshold": 0.5,
+        "confusion_matrix": [
+          [
+            4759,
+            241
+          ],
+          [
+            236,
+            4764
+          ]
+        ],
+        "log_loss": 0.12540178000926971,
+        "samples": 10000
+      },
+      "validation_metrics": {
+        "roc_auc": 0.982864,
+        "average_precision": 0.982442822584526,
+        "accuracy": 0.933,
+        "balanced_accuracy": 0.933,
+        "precision": 0.9338677354709419,
+        "recall": 0.932,
+        "f1": 0.9329329329329329,
+        "brier_score": 0.04848836535782951,
+        "threshold": 0.5,
+        "confusion_matrix": [
+          [
+            934,
+            66
+          ],
+          [
+            68,
+            932
+          ]
+        ],
+        "log_loss": 0.16662362217903137,
+        "samples": 2000
+      }
+    },
+    {
+      "regularization_c": 1000.0,
+      "iterations": 65,
+      "coefficient_l2_norm": 186.37457275390625,
+      "train_metrics": {
+        "roc_auc": 0.9903622,
+        "average_precision": 0.9907338708963056,
+        "accuracy": 0.9511,
+        "balanced_accuracy": 0.9511000000000001,
+        "precision": 0.9502894789379117,
+        "recall": 0.952,
+        "f1": 0.951143970426616,
+        "brier_score": 0.03644351740404497,
+        "threshold": 0.5,
+        "confusion_matrix": [
+          [
+            4751,
+            249
+          ],
+          [
+            240,
+            4760
+          ]
+        ],
+        "log_loss": 0.12520986795425415,
+        "samples": 10000
+      },
+      "validation_metrics": {
+        "roc_auc": 0.982108,
+        "average_precision": 0.981514660652394,
+        "accuracy": 0.931,
+        "balanced_accuracy": 0.931,
+        "precision": 0.9344758064516129,
+        "recall": 0.927,
+        "f1": 0.9307228915662651,
+        "brier_score": 0.04920494541103035,
+        "threshold": 0.5,
+        "confusion_matrix": [
+          [
+            935,
+            65
+          ],
+          [
+            73,
+            927
+          ]
+        ],
+        "log_loss": 0.17214569449424744,
+        "samples": 2000
+      }
+    }
+  ],
+  "selected_validation_metrics": {
+    "roc_auc": 0.982864,
+    "average_precision": 0.9824428225845258,
+    "accuracy": 0.933,
+    "balanced_accuracy": 0.933,
+    "precision": 0.9338677354709419,
+    "recall": 0.932,
+    "f1": 0.9329329329329329,
+    "brier_score": 0.048488365175760655,
+    "threshold": 0.5,
+    "confusion_matrix": [
+      [
+        934,
+        66
+      ],
+      [
+        68,
+        932
+      ]
+    ],
+    "log_loss": 0.16662365649010116,
+    "samples": 2000
+  },
+  "test_metrics": {
+    "roc_auc": 0.9844680000000001,
+    "average_precision": 0.9838976176041364,
+    "accuracy": 0.9405,
+    "balanced_accuracy": 0.9404999999999999,
+    "precision": 0.9391824526420738,
+    "recall": 0.942,
+    "f1": 0.9405891163255118,
+    "brier_score": 0.04533697787420751,
+    "threshold": 0.5,
+    "confusion_matrix": [
+      [
+        939,
+        61
+      ],
+      [
+        58,
+        942
+      ]
+    ],
+    "log_loss": 0.15776604485391488,
+    "samples": 2000
+  },
+  "checkpoint": {
+    "path": "checkpoints/clip_linear_probe.npz",
+    "sha256": "b03fb9aeff2a859a12a98a5ccf3b996b2431a66800c04d6c457f0fbe2542d7f4",
+    "safe_object_free_npz": true
+  },
+  "artifacts": {
+    "selection_figure": "reports/figures/clip_linear_probe_selection.png",
+    "confusion_figure": "reports/figures/clip_linear_probe_confusion_matrix.png",
+    "test_predictions": "outputs/clip_linear_probe_test_predictions.csv"
+  },
+  "interpretation": "Test metrics measure only clean CIFAKE performance. The threshold 0.5 is temporary; formal validation-based threshold selection occurs in Section 3."
+}

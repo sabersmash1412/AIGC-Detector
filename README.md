@@ -43,8 +43,26 @@ This creates:
 The validation split is drawn only from CIFAKE's official training split. The
 test manifest remains a subset of CIFAKE's official test split.
 
+## Directory inference
+
+The inference command accepts an image directory and writes one AIGC
+probability per readable image:
+
+```bash
+python -m src.predict \
+  --input-dir example_images \
+  --checkpoint checkpoints/cifake_cnn.pt \
+  --output outputs/predictions.json
+```
+
+The output is a JSON array with the required `image_path` and `pred` fields.
+`pred` is in the range `[0, 1]`, where a higher value means more likely
+AI-generated. The trained smoke-test checkpoint will be produced in Section
+1E.
+
 ## Current status
 
 - Section 1A: repository and Python environment setup complete
 - Section 1B: CIFAKE download and integrity audit complete
 - Section 1C: reproducible manifest preparation complete
+- Section 1D: image-directory JSON inference implemented

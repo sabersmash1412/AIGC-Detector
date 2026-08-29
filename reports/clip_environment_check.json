@@ -1,0 +1,60 @@
+{
+  "check": "frozen_clip_environment_and_feature_sanity",
+  "status": "passed",
+  "model": {
+    "library": "open_clip_torch",
+    "library_version": "3.3.0",
+    "model_name": "ViT-B-32-quickgelu",
+    "pretrained": "openai",
+    "total_parameters": 151277313,
+    "trainable_parameters": 0,
+    "feature_dimension": 512
+  },
+  "runtime": {
+    "python": "3.12.1",
+    "pytorch": "2.13.0",
+    "platform": "macOS-14.5-arm64-arm-64bit",
+    "requested_device": "mps",
+    "selected_device": "mps",
+    "mps_built": true,
+    "mps_available": true,
+    "cuda_available": false
+  },
+  "input_batch_shape": [
+    2,
+    3,
+    224,
+    224
+  ],
+  "preprocessing": "Compose(\n    Resize(size=224, interpolation=bicubic, max_size=None, antialias=True)\n    CenterCrop(size=(224, 224))\n    MaybeConvertMode()\n    MaybeToTensor()\n    Normalize(mean=(0.48145466, 0.4578275, 0.40821073), std=(0.26862954, 0.26130258, 0.27577711))\n)",
+  "samples": [
+    {
+      "image_path": "data/raw/cifake/train/REAL/2342 (9).jpg",
+      "label": 0,
+      "class_name": "real",
+      "source": "cifake",
+      "split": "val"
+    },
+    {
+      "image_path": "data/raw/cifake/train/FAKE/3992 (4).jpg",
+      "label": 1,
+      "class_name": "ai_generated",
+      "source": "cifake",
+      "split": "val"
+    }
+  ],
+  "features": {
+    "shape": [
+      2,
+      512
+    ],
+    "dtype": "float32",
+    "all_finite": true,
+    "l2_norms": [
+      1.0,
+      1.0
+    ],
+    "real_fake_cosine_similarity": 0.821352
+  },
+  "interpretation": "This verifies feature extraction only; the cosine similarity is not a classification result and no classifier was trained."
+}

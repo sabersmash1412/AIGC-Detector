@@ -102,6 +102,26 @@ evaluated once on the 2,000-image test manifest using the default threshold of
 These numbers are only a pipeline check on low-resolution CIFAKE data. The
 research baseline begins with frozen CLIP features in Section 2.
 
+## Frozen CLIP environment check
+
+Section 2 uses OpenCLIP's `ViT-B-32-quickgelu` model with the original
+`openai` pretrained weights. The QuickGELU architecture matches the activation
+used to train those weights. CLIP is frozen and supplies one L2-normalized
+512-dimensional image embedding; a separate linear classifier is trained in a
+later step.
+
+Run the two-image environment and feature sanity check with:
+
+```bash
+python -m scripts.check_clip --device auto
+```
+
+The command downloads the pretrained weights once into the ignored
+`checkpoints/open_clip` cache and writes diagnostics to
+`reports/clip_environment_check.json`. Passing this check proves that the
+pretrained feature extractor loads and produces valid features. It does not
+train or evaluate a fake-image classifier.
+
 ## Current status
 
 - Section 1A: repository and Python environment setup complete
@@ -109,3 +129,4 @@ research baseline begins with frozen CLIP features in Section 2.
 - Section 1C: reproducible manifest preparation complete
 - Section 1D: image-directory JSON inference implemented
 - Section 1E: CIFAKE smoke-test training and evaluation complete
+- Section 2A: frozen CLIP dependency and feature sanity check implemented

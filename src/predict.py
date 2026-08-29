@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import math
 import sys
 from collections.abc import Iterator
 from pathlib import Path
@@ -11,9 +12,12 @@ from typing import Any
 
 import torch
 from PIL import Image
+from tqdm import tqdm
 
+from src.clip_features import encode_normalized_images, load_frozen_clip
 from src.data import build_image_transform
 from src.device import choose_device
+from src.linear_probe import load_linear_probe_checkpoint
 from src.model import load_checkpoint
 
 
@@ -26,6 +30,25 @@ SUPPORTED_EXTENSIONS = {
     ".tif",
     ".tiff",
 }
+SUPPORTED_BACKENDS = ("auto", "cnn", "clip_linear")
+
+
+def resolve_backend(checkpoint_path: Path, requested_backend: str = "auto") -> str:
+    """Resolve an explicit backend or infer it from the safe checkpoint suffix."""
+
+    if requested_backend not in SUPPORTED_BACKENDS:
+        raise ValueError(
+            f"Unsupported backend {requested_backend!r}; choose from {SUPPORTED_BACKENDS}"
+        )
+    if requested_backend != "auto":
+        return requested_backend
+    if checkpoint_path.suffix.lower() == ".npz":
+        return "clip_linear"
+    if checkpoint_path.suffix.lower() in {".pt", ".pth", ".ckpt"}:
+        return "cnn"
+    raise ValueError(
+        "Cannot infer backend from checkpoint suffix; use --backend cnn or clip_linear"
+    )
 
 
 def discover_images(input_dir: Path, recursive: bool = False) -> list[Path]:
@@ -60,6 +83,9 @@ def predict_directory(
     device_name: str = "auto",
     recursive: bool = False,
     strict: bool = False,
+    backend_name: str = "auto",
+    model_cache_dir: Path = Path("checkpoints/open_clip"),
+    show_progress: bool = False,
 ) -> tuple[list[dict[str, Any]], list[str], torch.device]:
     """Predict every readable image and save the required JSON array.
 
@@ -74,23 +100,36 @@ def predict_directory(
     if not paths:
         raise ValueError(f"No supported image files found in: {input_dir}")
 
-    model, checkpoint = load_checkpoint(checkpoint_path)
-    preprocessing = checkpoint["preprocessing"]
-    transform = build_image_transform(
-        image_size=int(preprocessing["image_size"]),
-        mean=preprocessing["mean"],
-        std=preprocessing["std"],
-    )
-
     device = choose_device(device_name)
-    model.to(device)
-    model.eval()
+    backend = resolve_backend(checkpoint_path, backend_name)
+    linear_checkpoint = None
+    if backend == "cnn":
+        model, checkpoint = load_checkpoint(checkpoint_path)
+        preprocessing = checkpoint["preprocessing"]
+        transform = build_image_transform(
+            image_size=int(preprocessing["image_size"]),
+            mean=preprocessing["mean"],
+            std=preprocessing["std"],
+        )
+        model.to(device)
+        model.eval()
+    else:
+        linear_checkpoint = load_linear_probe_checkpoint(checkpoint_path)
+        model, transform = load_frozen_clip(device, model_cache_dir)
 
     predictions: list[dict[str, Any]] = []
     skipped: list[str] = []
+    path_batches = _batches(paths, batch_size)
+    if show_progress:
+        path_batches = tqdm(
+            path_batches,
+            total=math.ceil(len(paths) / batch_size),
+            desc=f"Predict {backend}",
+            unit="batch",
+        )
 
     with torch.inference_mode():
-        for path_batch in _batches(paths, batch_size):
+        for path_batch in path_batches:
             tensors: list[torch.Tensor] = []
             readable_paths: list[Path] = []
 
@@ -109,7 +148,13 @@ def predict_directory(
                 continue
 
             images = torch.stack(tensors).to(device)
-            probabilities = torch.sigmoid(model(images)).detach().cpu().tolist()
+            if backend == "cnn":
+                probabilities = torch.sigmoid(model(images)).detach().cpu().tolist()
+            else:
+                if linear_checkpoint is None:
+                    raise RuntimeError("CLIP linear checkpoint was not loaded")
+                features = encode_normalized_images(model, images).cpu().numpy()
+                probabilities = linear_checkpoint.probabilities(features).tolist()
             predictions.extend(
                 {
                     "image_path": path.as_posix(),
@@ -132,8 +177,12 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--input-dir", type=Path, required=True)
     parser.add_argument("--checkpoint", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
-    parser.add_argument("--batch-size", type=int, default=64)
+    parser.add_argument("--batch-size", type=int, default=32)
     parser.add_argument("--device", choices=("auto", "cpu", "mps", "cuda"), default="auto")
+    parser.add_argument("--backend", choices=SUPPORTED_BACKENDS, default="auto")
+    parser.add_argument(
+        "--model-cache-dir", type=Path, default=Path("checkpoints/open_clip")
+    )
     parser.add_argument("--recursive", action="store_true")
     parser.add_argument(
         "--strict",
@@ -154,6 +203,9 @@ def main() -> int:
             device_name=args.device,
             recursive=args.recursive,
             strict=args.strict,
+            backend_name=args.backend,
+            model_cache_dir=args.model_cache_dir,
+            show_progress=True,
         )
     except Exception as exc:
         print(f"Prediction failed: {exc}", file=sys.stderr)
@@ -161,9 +213,10 @@ def main() -> int:
 
     for message in skipped:
         print(f"Skipped unreadable image: {message}", file=sys.stderr)
+    backend = resolve_backend(args.checkpoint, args.backend)
     print(
         f"Wrote {len(predictions)} predictions to {args.output} "
-        f"using device={device.type}; skipped={len(skipped)}"
+        f"using backend={backend}, device={device.type}; skipped={len(skipped)}"
     )
     return 0
 

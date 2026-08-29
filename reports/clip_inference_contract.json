@@ -1,0 +1,33 @@
+{
+  "status": "passed",
+  "json_predictions": 20000,
+  "schema": {
+    "required_keys": [
+      "image_path",
+      "pred"
+    ],
+    "exact_keys": true
+  },
+  "paths_unique": true,
+  "probability_range": [
+    0.0,
+    1.0
+  ],
+  "reference_predictions_compared": 2000,
+  "comparison_tolerance": 1e-05,
+  "maximum_absolute_probability_difference": 4.999255746040987e-07,
+  "mean_absolute_probability_difference": 2.524704791497501e-07,
+  "reference_cache": "data/features/clip_vit_b32_quickgelu_openai/test.npz",
+  "linear_checkpoint": "checkpoints/clip_linear_probe.npz",
+  "prediction_json": {
+    "path": "outputs/clip_test_directory_predictions.json",
+    "bytes": 1779748,
+    "sha256": "fd494bb065e9a3140de6076b6b8d689fb6bba026f055ff13e660ed8fee3a8005"
+  },
+  "observed_inference_run": {
+    "device": "mps",
+    "batch_size": 32,
+    "wall_time_seconds": 277.0,
+    "skipped_images": 0
+  }
+}

@@ -51,20 +51,46 @@ test manifest remains a subset of CIFAKE's official test split.
 
 ## Directory inference
 
-The inference command accepts an image directory and writes one AIGC
-probability per readable image:
+The primary inference command loads frozen CLIP plus the selected linear
+checkpoint, accepts an image directory, and writes one AIGC probability per
+readable image. The backend is inferred safely from the `.npz` checkpoint:
 
 ```bash
-python -m src.predict \
-  --input-dir example_images \
-  --checkpoint checkpoints/cifake_cnn.pt \
-  --output outputs/predictions.json
+.venv/bin/python -m src.predict \
+  --input-dir data/raw/cifake/test \
+  --recursive \
+  --checkpoint checkpoints/clip_linear_probe.npz \
+  --output outputs/clip_test_directory_predictions.json \
+  --device mps \
+  --batch-size 32
 ```
 
 The output is a JSON array with the required `image_path` and `pred` fields.
 `pred` is in the range `[0, 1]`, where a higher value means more likely
-AI-generated. Section 1E produces the local smoke-test checkpoint used by this
-command.
+AI-generated. Supported images are processed in sorted path order. Unreadable
+files are skipped and reported by default, or cause immediate failure with
+`--strict`. The Section 1 CNN remains available by passing its `.pt`
+checkpoint.
+
+Verify the complete JSON schema and compare its manifest-test subset against
+the probabilities produced from the cached Section 2C features:
+
+```bash
+.venv/bin/python -m scripts.verify_clip_predictions \
+  --predictions outputs/clip_test_directory_predictions.json \
+  --inference-device mps \
+  --inference-batch-size 32 \
+  --inference-seconds 277 \
+  --inference-skipped 0
+```
+
+This writes the tracked verification audit to
+`reports/clip_inference_contract.json`.
+
+The recorded full-directory MPS run processed all 20,000 official CIFAKE test
+images in 277 seconds with zero skipped files. Every JSON row passed the exact
+schema check, and the 2,000 cached reference probabilities agreed within a
+maximum absolute difference of `5.0e-7` after six-decimal JSON rounding.
 
 ## CIFAKE smoke-test training and evaluation
 
@@ -192,3 +218,4 @@ cross-generator generalization.
 - Section 2A: frozen CLIP dependency and feature sanity check implemented
 - Section 2B: validated train, validation, and test CLIP caches complete
 - Section 2C: clean frozen CLIP linear baseline trained and evaluated
+- Section 2D: CLIP directory JSON inference and full MPS contract audit complete

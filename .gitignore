@@ -1,0 +1,29 @@
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# macOS
+.DS_Store
+
+# Data
+data/raw/
+data/processed/images/
+
+# Model files
+checkpoints/
+*.pt
+*.pth
+*.ckpt
+
+# Outputs
+outputs/
+reports/figures/
+
+# Notebook
+.ipynb_checkpoints/
+
+# Credentials
+.env
+kaggle.json

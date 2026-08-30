@@ -37,3 +37,13 @@ def test_protocol_keeps_selection_on_validation_data() -> None:
     assert protocol["model_selection"]["data"] == "validation only"
     assert protocol["threshold_selection"]["data"] == "validation only"
     assert protocol["data"]["organiser_validation_subset_used"] is False
+
+
+def test_threshold_grid_and_tie_break_are_frozen() -> None:
+    selection = _protocol()["threshold_selection"]
+
+    assert selection["candidate_minimum"] == 0.001
+    assert selection["candidate_maximum"] == 0.999
+    assert selection["candidate_step"] == 0.001
+    assert selection["tie_break_1"] == "Threshold closest to 0.5."
+    assert selection["tie_break_2"].startswith("Lower threshold")

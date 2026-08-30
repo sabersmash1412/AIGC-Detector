@@ -1,0 +1,98 @@
+{
+  "protocol_version": 1,
+  "experiment_name": "controlled_clip_robustness_e1_e3",
+  "research_question": "Do supervised transformation training and prediction consistency improve post-processing robustness over the clean frozen-CLIP baseline?",
+  "class_mapping": {
+    "real": 0,
+    "ai_generated": 1
+  },
+  "data": {
+    "development_dataset": "CIFAKE",
+    "train_manifest": "data/processed/train.csv",
+    "validation_manifest": "data/processed/val.csv",
+    "test_manifest": "data/processed/test.csv",
+    "clean_feature_directory": "data/features/clip_vit_b32_quickgelu_openai",
+    "transformed_feature_directory": "data/features/clip_transformed_seed42",
+    "organiser_validation_subset_used": false,
+    "test_policy": "Do not extract or inspect transformed test results until E2/E3 settings and validation threshold rules are frozen."
+  },
+  "representation": {
+    "library": "open_clip_torch",
+    "model_name": "ViT-B-32-quickgelu",
+    "pretrained": "openai",
+    "feature_dimension": 512,
+    "l2_normalized": true,
+    "encoder_trainable_parameters": 0
+  },
+  "random_seed": 42,
+  "representative_conditions": [
+    "clean",
+    "jpeg_q50",
+    "gaussian_blur_sigma1",
+    "resize_0_5x",
+    "gaussian_noise_sigma0_05",
+    "color_jitter_seeded_20pct",
+    "center_crop_80pct"
+  ],
+  "paired_training": {
+    "pair_definition": "Each transformed embedding is paired to the clean embedding with the identical image_path and true label.",
+    "condition_sampling": "Every non-clean representative condition occurs once per training image per epoch.",
+    "shuffle_pairs_each_epoch": true,
+    "batch_size": 1024,
+    "maximum_epochs": 40,
+    "optimizer": "AdamW",
+    "learning_rate": 0.01,
+    "weight_decay": 0.0001,
+    "early_stopping_patience": 8,
+    "restore_best_validation_epoch": true,
+    "initialization": "Existing E1 clean linear-probe coefficients and intercept."
+  },
+  "experiments": {
+    "E1": {
+      "name": "clean_linear_baseline",
+      "training": "Existing Section 2 clean-only logistic-regression checkpoint.",
+      "loss": "Clean binary cross-entropy used in Section 2."
+    },
+    "E2": {
+      "name": "supervised_clean_plus_transformed",
+      "training": "Fine-tune the linear head on clean/transformed pairs with true labels.",
+      "loss": "0.5 * (BCE(clean_probability, label) + BCE(transformed_probability, label))"
+    },
+    "E3": {
+      "name": "supervised_plus_consistency",
+      "training": "Use the identical E2 pairs, batches, optimizer, and initialization, adding only consistency loss.",
+      "loss": "E2_loss + consistency_weight * MSE(clean_probability, transformed_probability)",
+      "consistency_weight": 1.0
+    }
+  },
+  "model_selection": {
+    "data": "validation only",
+    "epoch_metric": "Unweighted mean ROC-AUC over clean and all six representative transformed validation conditions.",
+    "tie_break": "Earlier epoch."
+  },
+  "threshold_selection": {
+    "data": "validation only",
+    "candidate_minimum": 0.001,
+    "candidate_maximum": 0.999,
+    "candidate_step": 0.001,
+    "objective": "Maximize unweighted mean balanced accuracy over clean and all six representative transformed validation conditions.",
+    "tie_break_1": "Threshold closest to 0.5.",
+    "tie_break_2": "Lower threshold, favoring AI recall when all prior criteria tie."
+  },
+  "final_evaluation": {
+    "compare_models": [
+      "E1",
+      "E2",
+      "E3"
+    ],
+    "same_test_examples": true,
+    "same_transformations": true,
+    "same_transform_seed": true,
+    "primary_summary": [
+      "clean performance",
+      "mean transformed performance",
+      "worst-condition performance",
+      "prediction flip rate versus clean"
+    ]
+  }
+}

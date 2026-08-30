@@ -13,8 +13,7 @@ from typing import Any
 
 import numpy as np
 import torch
-from PIL import Image
-from torch.utils.data import DataLoader, Dataset
+from torch.utils.data import DataLoader
 from tqdm import tqdm
 
 from src.clip_features import encode_normalized_images, load_frozen_clip
@@ -26,6 +25,7 @@ from src.image_transforms import (
 )
 from src.linear_probe import load_feature_cache, load_linear_probe_checkpoint
 from src.metrics import binary_classification_metrics
+from src.transformed_dataset import TransformedPathDataset
 
 
 DEFAULT_TEST_CACHE = Path("data/features/clip_vit_b32_quickgelu_openai/test.npz")
@@ -45,45 +45,6 @@ def atomic_json_write(path: Path, payload: dict[str, Any]) -> None:
     temporary_path = path.with_name(f".{path.name}.tmp")
     temporary_path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
     temporary_path.replace(path)
-
-
-class TransformedPathDataset(Dataset[tuple[torch.Tensor, torch.Tensor, str]]):
-    """Load cached-reference paths and apply one deterministic transformation."""
-
-    def __init__(
-        self,
-        image_paths: np.ndarray,
-        labels: np.ndarray,
-        condition: str,
-        clip_preprocess: Any,
-        seed: int,
-        project_root: Path,
-    ) -> None:
-        self.image_paths = image_paths
-        self.labels = labels
-        self.condition = condition
-        self.clip_preprocess = clip_preprocess
-        self.seed = seed
-        self.project_root = project_root
-
-    def __len__(self) -> int:
-        return len(self.labels)
-
-    def __getitem__(self, index: int) -> tuple[torch.Tensor, torch.Tensor, str]:
-        relative_path = str(self.image_paths[index])
-        absolute_path = self.project_root / relative_path
-        if not absolute_path.is_file():
-            raise FileNotFoundError(f"Reference image not found: {absolute_path}")
-        with Image.open(absolute_path) as image:
-            transformed = apply_evaluation_transform(
-                image,
-                self.condition,
-                image_path=relative_path,
-                seed=self.seed,
-            )
-            tensor = self.clip_preprocess(transformed)
-        label = torch.tensor(int(self.labels[index]), dtype=torch.int64)
-        return tensor, label, relative_path
 
 
 def stability_metrics(

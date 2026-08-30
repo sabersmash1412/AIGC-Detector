@@ -1,0 +1,352 @@
+{
+  "experiment": "paired_transformed_clip_embedding_cache",
+  "purpose": "Paired transformed embeddings for E4 real-only domain adaptation.",
+  "single_class_real_mode": true,
+  "test_cache_policy": "Explicit --allow-test required after model settings are frozen.",
+  "model": {
+    "library": "open_clip_torch",
+    "library_version": "3.3.0",
+    "model_name": "ViT-B-32-quickgelu",
+    "pretrained": "openai",
+    "feature_dimension": 512,
+    "trainable_parameters": 0,
+    "l2_normalized": true
+  },
+  "transform_seed": 42,
+  "conditions": [
+    "jpeg_q50",
+    "gaussian_blur_sigma1",
+    "resize_0_5x",
+    "gaussian_noise_sigma0_05",
+    "color_jitter_seeded_20pct",
+    "center_crop_80pct"
+  ],
+  "caches": {
+    "train/jpeg_q50": {
+      "status": "extracted",
+      "split": "train",
+      "condition": "jpeg_q50",
+      "display_name": "JPEG Q50",
+      "parameters": {
+        "quality": 50,
+        "subsampling": 2
+      },
+      "transform_seed": 42,
+      "samples": 3000,
+      "feature_shape": [
+        3000,
+        512
+      ],
+      "feature_dimension": 512,
+      "cache_path": "data/features/e4_sid_real_clip_transformed_seed42/train/jpeg_q50.npz",
+      "cache_bytes": 6880537,
+      "cache_sha256": "8b081282a95fb091049ef1bb23120df32f14e3d7e55bee83391a7fe073841299",
+      "clean_cache_sha256": "86f62ba7be7ce5f26bdc50a666bded1102edd17b224d1455316ce0add02ec490",
+      "path_and_label_alignment_verified": true,
+      "extraction_device": "mps",
+      "extraction_seconds": 95.56430229199759,
+      "images_per_second": 31.392475307709283
+    },
+    "train/gaussian_blur_sigma1": {
+      "status": "extracted",
+      "split": "train",
+      "condition": "gaussian_blur_sigma1",
+      "display_name": "Blur \u03c3=1",
+      "parameters": {
+        "sigma": 1.0
+      },
+      "transform_seed": 42,
+      "samples": 3000,
+      "feature_shape": [
+        3000,
+        512
+      ],
+      "feature_dimension": 512,
+      "cache_path": "data/features/e4_sid_real_clip_transformed_seed42/train/gaussian_blur_sigma1.npz",
+      "cache_bytes": 6880517,
+      "cache_sha256": "94c443d03e6db29d906e43fc996692e3141f50e8e7f15f547a36fc12f6c9cf8c",
+      "clean_cache_sha256": "86f62ba7be7ce5f26bdc50a666bded1102edd17b224d1455316ce0add02ec490",
+      "path_and_label_alignment_verified": true,
+      "extraction_device": "mps",
+      "extraction_seconds": 134.8063799590018,
+      "images_per_second": 22.254139610546474
+    },
+    "train/resize_0_5x": {
+      "status": "extracted",
+      "split": "train",
+      "condition": "resize_0_5x",
+      "display_name": "Resize 0.5\u00d7",
+      "parameters": {
+        "downscale_factor": 0.5,
+        "upscale_to_original": true
+      },
+      "transform_seed": 42,
+      "samples": 3000,
+      "feature_shape": [
+        3000,
+        512
+      ],
+      "feature_dimension": 512,
+      "cache_path": "data/features/e4_sid_real_clip_transformed_seed42/train/resize_0_5x.npz",
+      "cache_bytes": 6880633,
+      "cache_sha256": "bec452d63a9b764a5a1fceb29d28e639ec9d5b1853ab6aba08cfa9f1a15f57f8",
+      "clean_cache_sha256": "86f62ba7be7ce5f26bdc50a666bded1102edd17b224d1455316ce0add02ec490",
+      "path_and_label_alignment_verified": true,
+      "extraction_device": "mps",
+      "extraction_seconds": 114.86240037500102,
+      "images_per_second": 26.118207439559384
+    },
+    "train/gaussian_noise_sigma0_05": {
+      "status": "extracted",
+      "split": "train",
+      "condition": "gaussian_noise_sigma0_05",
+      "display_name": "Noise \u03c3=0.05",
+      "parameters": {
+        "sigma": 0.05,
+        "pixel_range": [
+          0.0,
+          1.0
+        ]
+      },
+      "transform_seed": 42,
+      "samples": 3000,
+      "feature_shape": [
+        3000,
+        512
+      ],
+      "feature_dimension": 512,
+      "cache_path": "data/features/e4_sid_real_clip_transformed_seed42/train/gaussian_noise_sigma0_05.npz",
+      "cache_bytes": 6880633,
+      "cache_sha256": "fe35fe232b193f8fc2ddd0f2c11b46f96faecf8a8475a037491aec10d44bab05",
+      "clean_cache_sha256": "86f62ba7be7ce5f26bdc50a666bded1102edd17b224d1455316ce0add02ec490",
+      "path_and_label_alignment_verified": true,
+      "extraction_device": "mps",
+      "extraction_seconds": 178.74147758301115,
+      "images_per_second": 16.784017009184335
+    },
+    "train/color_jitter_seeded_20pct": {
+      "status": "extracted",
+      "split": "train",
+      "condition": "color_jitter_seeded_20pct",
+      "display_name": "Colour jitter \u00b120%",
+      "parameters": {
+        "brightness_factor_range": [
+          0.8,
+          1.2
+        ],
+        "contrast_factor_range": [
+          0.8,
+          1.2
+        ],
+        "saturation_factor_range": [
+          0.8,
+          1.2
+        ],
+        "factor_and_operation_order": "deterministic per image path"
+      },
+      "transform_seed": 42,
+      "samples": 3000,
+      "feature_shape": [
+        3000,
+        512
+      ],
+      "feature_dimension": 512,
+      "cache_path": "data/features/e4_sid_real_clip_transformed_seed42/train/color_jitter_seeded_20pct.npz",
+      "cache_bytes": 6881153,
+      "cache_sha256": "bdbd8afc6579a095538fd6b19a59e499c866a1e163ffb58af9e4c3e9afb16dba",
+      "clean_cache_sha256": "86f62ba7be7ce5f26bdc50a666bded1102edd17b224d1455316ce0add02ec490",
+      "path_and_label_alignment_verified": true,
+      "extraction_device": "mps",
+      "extraction_seconds": 93.03466708300402,
+      "images_per_second": 32.24604434090626
+    },
+    "train/center_crop_80pct": {
+      "status": "extracted",
+      "split": "train",
+      "condition": "center_crop_80pct",
+      "display_name": "Centre crop 80%",
+      "parameters": {
+        "retained_fraction": 0.8,
+        "resize_to_original": true
+      },
+      "transform_seed": 42,
+      "samples": 3000,
+      "feature_shape": [
+        3000,
+        512
+      ],
+      "feature_dimension": 512,
+      "cache_path": "data/features/e4_sid_real_clip_transformed_seed42/train/center_crop_80pct.npz",
+      "cache_bytes": 6880657,
+      "cache_sha256": "b8b4aaa77a7c7be5e45a0bc71fd91be66f223d820cbeb69016d6c41d52694647",
+      "clean_cache_sha256": "86f62ba7be7ce5f26bdc50a666bded1102edd17b224d1455316ce0add02ec490",
+      "path_and_label_alignment_verified": true,
+      "extraction_device": "mps",
+      "extraction_seconds": 100.9947653329873,
+      "images_per_second": 29.704509833839165
+    },
+    "val/jpeg_q50": {
+      "status": "extracted",
+      "split": "val",
+      "condition": "jpeg_q50",
+      "display_name": "JPEG Q50",
+      "parameters": {
+        "quality": 50,
+        "subsampling": 2
+      },
+      "transform_seed": 42,
+      "samples": 1000,
+      "feature_shape": [
+        1000,
+        512
+      ],
+      "feature_dimension": 512,
+      "cache_path": "data/features/e4_sid_real_clip_transformed_seed42/val/jpeg_q50.npz",
+      "cache_bytes": 2296529,
+      "cache_sha256": "38e29ed17542b2d5a5b86b998da13e15a607a9f5cbafaddee9d394b02c53688b",
+      "clean_cache_sha256": "2243256689902330478810c960f666e4e494780ae74f5da3bf5ea558dfeb7bb4",
+      "path_and_label_alignment_verified": true,
+      "extraction_device": "mps",
+      "extraction_seconds": 30.58875754098699,
+      "images_per_second": 32.691749531181955
+    },
+    "val/gaussian_blur_sigma1": {
+      "status": "extracted",
+      "split": "val",
+      "condition": "gaussian_blur_sigma1",
+      "display_name": "Blur \u03c3=1",
+      "parameters": {
+        "sigma": 1.0
+      },
+      "transform_seed": 42,
+      "samples": 1000,
+      "feature_shape": [
+        1000,
+        512
+      ],
+      "feature_dimension": 512,
+      "cache_path": "data/features/e4_sid_real_clip_transformed_seed42/val/gaussian_blur_sigma1.npz",
+      "cache_bytes": 2296509,
+      "cache_sha256": "85361f1ff3bcf05cd0f36f4e16a1d09e3fc8f85bccbc33b337e32ed44f45ff02",
+      "clean_cache_sha256": "2243256689902330478810c960f666e4e494780ae74f5da3bf5ea558dfeb7bb4",
+      "path_and_label_alignment_verified": true,
+      "extraction_device": "mps",
+      "extraction_seconds": 43.99832579199574,
+      "images_per_second": 22.728137537040602
+    },
+    "val/resize_0_5x": {
+      "status": "extracted",
+      "split": "val",
+      "condition": "resize_0_5x",
+      "display_name": "Resize 0.5\u00d7",
+      "parameters": {
+        "downscale_factor": 0.5,
+        "upscale_to_original": true
+      },
+      "transform_seed": 42,
+      "samples": 1000,
+      "feature_shape": [
+        1000,
+        512
+      ],
+      "feature_dimension": 512,
+      "cache_path": "data/features/e4_sid_real_clip_transformed_seed42/val/resize_0_5x.npz",
+      "cache_bytes": 2296625,
+      "cache_sha256": "c62c9bf46c8cfe55b12db152c381fc3d9388e790b0d06af2adb5af0ff83b0c4a",
+      "clean_cache_sha256": "2243256689902330478810c960f666e4e494780ae74f5da3bf5ea558dfeb7bb4",
+      "path_and_label_alignment_verified": true,
+      "extraction_device": "mps",
+      "extraction_seconds": 37.35782387499057,
+      "images_per_second": 26.768154466016856
+    },
+    "val/gaussian_noise_sigma0_05": {
+      "status": "extracted",
+      "split": "val",
+      "condition": "gaussian_noise_sigma0_05",
+      "display_name": "Noise \u03c3=0.05",
+      "parameters": {
+        "sigma": 0.05,
+        "pixel_range": [
+          0.0,
+          1.0
+        ]
+      },
+      "transform_seed": 42,
+      "samples": 1000,
+      "feature_shape": [
+        1000,
+        512
+      ],
+      "feature_dimension": 512,
+      "cache_path": "data/features/e4_sid_real_clip_transformed_seed42/val/gaussian_noise_sigma0_05.npz",
+      "cache_bytes": 2296625,
+      "cache_sha256": "da6de56c35628626b96dfe641057ab05728c9d293aea7c0e9053c7bb10bb68d8",
+      "clean_cache_sha256": "2243256689902330478810c960f666e4e494780ae74f5da3bf5ea558dfeb7bb4",
+      "path_and_label_alignment_verified": true,
+      "extraction_device": "mps",
+      "extraction_seconds": 59.02352758300549,
+      "images_per_second": 16.942396379031873
+    },
+    "val/color_jitter_seeded_20pct": {
+      "status": "extracted",
+      "split": "val",
+      "condition": "color_jitter_seeded_20pct",
+      "display_name": "Colour jitter \u00b120%",
+      "parameters": {
+        "brightness_factor_range": [
+          0.8,
+          1.2
+        ],
+        "contrast_factor_range": [
+          0.8,
+          1.2
+        ],
+        "saturation_factor_range": [
+          0.8,
+          1.2
+        ],
+        "factor_and_operation_order": "deterministic per image path"
+      },
+      "transform_seed": 42,
+      "samples": 1000,
+      "feature_shape": [
+        1000,
+        512
+      ],
+      "feature_dimension": 512,
+      "cache_path": "data/features/e4_sid_real_clip_transformed_seed42/val/color_jitter_seeded_20pct.npz",
+      "cache_bytes": 2297145,
+      "cache_sha256": "8db97b00d30ff93aaa12248243c43e442447e49a9bd3d7f27a5868f2a6e3441e",
+      "clean_cache_sha256": "2243256689902330478810c960f666e4e494780ae74f5da3bf5ea558dfeb7bb4",
+      "path_and_label_alignment_verified": true,
+      "extraction_device": "mps",
+      "extraction_seconds": 30.7595225420082,
+      "images_per_second": 32.51025755143964
+    },
+    "val/center_crop_80pct": {
+      "status": "extracted",
+      "split": "val",
+      "condition": "center_crop_80pct",
+      "display_name": "Centre crop 80%",
+      "parameters": {
+        "retained_fraction": 0.8,
+        "resize_to_original": true
+      },
+      "transform_seed": 42,
+      "samples": 1000,
+      "feature_shape": [
+        1000,
+        512
+      ],
+      "feature_dimension": 512,
+      "cache_path": "data/features/e4_sid_real_clip_transformed_seed42/val/center_crop_80pct.npz",
+      "cache_bytes": 2296649,
+      "cache_sha256": "c6db65b39f5174d2253c1ef0264127fc3b4455ae33210d5f4f4fc40b7fd91375",
+      "clean_cache_sha256": "2243256689902330478810c960f666e4e494780ae74f5da3bf5ea558dfeb7bb4",
+      "path_and_label_alignment_verified": true,
+      "extraction_device": "mps",
+      "extraction_seconds": 31.98676383300335,
+      "images_per_second": 31.26293129310626
+    }
+  }
+}

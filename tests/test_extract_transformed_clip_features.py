@@ -49,3 +49,20 @@ def test_debug_prefix_rejects_single_class_before_extraction() -> None:
 
     limited = _limited_reference(reference, 3)
     assert limited.labels.tolist() == [1, 1, 0]
+
+
+def test_debug_prefix_accepts_explicit_real_only_mode() -> None:
+    reference = FeatureCache(
+        features=np.zeros((3, 512), dtype=np.float32),
+        labels=np.asarray([0, 0, 0], dtype=np.int64),
+        image_paths=np.asarray(["a.jpg", "b.jpg", "c.jpg"]),
+        split="train",
+        model_name="ViT-B-32-quickgelu",
+        pretrained="openai",
+        manifest_sha256="manifest",
+    )
+
+    limited = _limited_reference(
+        reference, 2, require_both_labels=False
+    )
+    assert limited.labels.tolist() == [0, 0]

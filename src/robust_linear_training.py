@@ -71,6 +71,7 @@ def load_paired_feature_set(
     transformed_feature_dir: Path,
     conditions: tuple[str, ...],
     seed: int,
+    require_both_labels: bool = True,
 ) -> PairedFeatureSet:
     """Load and validate every clean/transformed pair for one split."""
 
@@ -79,7 +80,9 @@ def load_paired_feature_set(
     if len(set(conditions)) != len(conditions):
         raise ValueError("Transformed conditions must be unique")
 
-    clean = load_feature_cache(clean_cache_path, split)
+    clean = load_feature_cache(
+        clean_cache_path, split, require_both_labels=require_both_labels
+    )
     clean_digest = sha256_file(clean_cache_path)
     transformed_caches: list[TransformedFeatureCache] = []
     transformed_paths: list[Path] = []
@@ -94,6 +97,7 @@ def load_paired_feature_set(
                 expected_seed=seed,
                 expected_clean_cache_sha256=clean_digest,
                 reference=clean,
+                require_both_labels=require_both_labels,
             )
         )
         transformed_paths.append(cache_path)

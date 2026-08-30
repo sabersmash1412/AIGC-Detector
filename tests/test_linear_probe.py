@@ -98,6 +98,28 @@ def test_load_feature_cache_rejects_wrong_split(tmp_path: Path) -> None:
         load_feature_cache(path, "test")
 
 
+def test_load_feature_cache_requires_explicit_real_only_mode(tmp_path: Path) -> None:
+    path = tmp_path / "real-only.npz"
+    features = np.zeros((2, 512), dtype=np.float32)
+    features[:, 0] = 1.0
+    atomic_feature_cache_write(
+        path,
+        features=features,
+        labels=np.asarray([0, 0], dtype=np.int64),
+        image_paths=np.asarray(["real-a.jpg", "real-b.jpg"]),
+        split="train",
+        model_name="ViT-B-32-quickgelu",
+        pretrained="openai",
+        manifest_sha256="manifest-hash",
+    )
+
+    with pytest.raises(ValueError, match="must contain both binary labels"):
+        load_feature_cache(path, "train")
+
+    cache = load_feature_cache(path, "train", require_both_labels=False)
+    assert cache.labels.tolist() == [0, 0]
+
+
 def test_linear_probe_rejects_wrong_feature_dimension() -> None:
     with pytest.raises(ValueError, match="Expected features shaped"):
         linear_probe_probabilities(

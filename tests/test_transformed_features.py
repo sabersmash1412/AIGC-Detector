@@ -111,3 +111,39 @@ def test_transformed_writer_rejects_clean_condition(tmp_path: Path) -> None:
             transform_seed=42,
             clean_cache_sha256="clean-123",
         )
+
+
+def test_transformed_cache_requires_explicit_real_only_mode(tmp_path: Path) -> None:
+    path = tmp_path / "real-only-jpeg.npz"
+    reference = _reference()
+    real_reference = FeatureCache(
+        features=reference.features,
+        labels=np.asarray([0, 0], dtype=np.int64),
+        image_paths=np.asarray(["real-a.jpg", "real-b.jpg"]),
+        split=reference.split,
+        model_name=reference.model_name,
+        pretrained=reference.pretrained,
+        manifest_sha256=reference.manifest_sha256,
+    )
+    _write(path, real_reference)
+
+    with pytest.raises(ValueError, match="must contain both binary labels"):
+        load_transformed_feature_cache(
+            path,
+            expected_split="train",
+            expected_condition="jpeg_q50",
+            expected_seed=42,
+            expected_clean_cache_sha256="clean-123",
+            reference=real_reference,
+        )
+
+    cache = load_transformed_feature_cache(
+        path,
+        expected_split="train",
+        expected_condition="jpeg_q50",
+        expected_seed=42,
+        expected_clean_cache_sha256="clean-123",
+        reference=real_reference,
+        require_both_labels=False,
+    )
+    assert cache.labels.tolist() == [0, 0]

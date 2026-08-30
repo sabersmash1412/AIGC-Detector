@@ -65,7 +65,9 @@ class FeatureCache:
     manifest_sha256: str
 
 
-def load_feature_cache(path: Path, expected_split: str) -> FeatureCache:
+def load_feature_cache(
+    path: Path, expected_split: str, *, require_both_labels: bool = True
+) -> FeatureCache:
     """Load and validate an embedding cache without permitting pickle objects."""
 
     if not path.is_file():
@@ -99,8 +101,11 @@ def load_feature_cache(path: Path, expected_split: str) -> FeatureCache:
         raise ValueError("Labels have the wrong shape or dtype")
     if image_paths.shape != (len(features),) or image_paths.dtype.kind not in {"U", "S"}:
         raise ValueError("Image paths have the wrong shape or dtype")
-    if set(np.unique(labels).tolist()) != {0, 1}:
+    observed_labels = set(np.unique(labels).tolist())
+    if require_both_labels and observed_labels != {0, 1}:
         raise ValueError("Feature cache must contain both binary labels 0 and 1")
+    if not require_both_labels and not observed_labels.issubset({0, 1}):
+        raise ValueError("Feature cache labels must be binary values 0 and/or 1")
     if len(set(image_paths.tolist())) != len(image_paths):
         raise ValueError("Feature-cache paths must be unique")
     if not bool(np.isfinite(features).all()):

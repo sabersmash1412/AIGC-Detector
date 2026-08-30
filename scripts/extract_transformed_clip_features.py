@@ -61,15 +61,26 @@ def ordered_recorded_conditions(
     return [condition for condition in AVAILABLE_CONDITIONS if condition in recorded]
 
 
-def _limited_reference(reference: FeatureCache, maximum_samples: int | None) -> FeatureCache:
+def _limited_reference(
+    reference: FeatureCache,
+    maximum_samples: int | None,
+    *,
+    require_both_labels: bool = True,
+) -> FeatureCache:
     if maximum_samples is None:
         return reference
     stop = min(maximum_samples, len(reference.labels))
     labels = reference.labels[:stop]
-    if set(np.unique(labels).tolist()) != {0, 1}:
+    expected_labels = {0, 1} if require_both_labels else {0}
+    if set(np.unique(labels).tolist()) != expected_labels:
+        if require_both_labels:
+            raise ValueError(
+                "Debug maximum-samples prefix must contain both labels 0 and 1; "
+                "increase --maximum-samples."
+            )
         raise ValueError(
-            "Debug maximum-samples prefix must contain both labels 0 and 1; "
-            "increase --maximum-samples."
+            "Debug maximum-samples prefix must contain only real label 0 in "
+            "--allow-single-class-real mode."
         )
     return FeatureCache(
         features=reference.features[:stop],
@@ -103,6 +114,7 @@ def extract_condition(
     seed: int,
     project_root: Path,
     overwrite: bool,
+    require_both_labels: bool = True,
 ) -> dict[str, Any]:
     """Extract or validate one paired transformed-feature cache."""
 
@@ -114,6 +126,7 @@ def extract_condition(
             expected_seed=seed,
             expected_clean_cache_sha256=clean_cache_sha256,
             reference=reference,
+            require_both_labels=require_both_labels,
         )
         print(f"Validated existing cache; skipping extraction: {output_path}", flush=True)
         status = "validated_existing"
@@ -174,6 +187,7 @@ def extract_condition(
             expected_seed=seed,
             expected_clean_cache_sha256=clean_cache_sha256,
             reference=reference,
+            require_both_labels=require_both_labels,
         )
         status = "extracted"
 
@@ -228,6 +242,14 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--overwrite", action="store_true")
     parser.add_argument("--allow-test", action="store_true")
     parser.add_argument(
+        "--allow-single-class-real",
+        action="store_true",
+        help=(
+            "Permit an explicitly real-only label-0 cache, used for E4 SID-real "
+            "domain adaptation. Synthetic-only or mixed-invalid caches remain rejected."
+        ),
+    )
+    parser.add_argument(
         "--maximum-samples",
         type=int,
         default=None,
@@ -264,8 +286,22 @@ def main() -> int:
 
     for split in dict.fromkeys(args.splits):
         clean_cache_path = args.clean_feature_dir / f"{split}.npz"
-        full_reference = load_feature_cache(clean_cache_path, split)
-        reference = _limited_reference(full_reference, args.maximum_samples)
+        full_reference = load_feature_cache(
+            clean_cache_path,
+            split,
+            require_both_labels=not args.allow_single_class_real,
+        )
+        if args.allow_single_class_real and set(
+            np.unique(full_reference.labels).tolist()
+        ) != {0}:
+            raise ValueError(
+                "--allow-single-class-real requires a cache containing only label 0"
+            )
+        reference = _limited_reference(
+            full_reference,
+            args.maximum_samples,
+            require_both_labels=not args.allow_single_class_real,
+        )
         clean_cache_sha256 = sha256_file(clean_cache_path)
         for condition in dict.fromkeys(args.conditions):
             output_path = _cache_path(
@@ -284,6 +320,7 @@ def main() -> int:
                 seed=args.seed,
                 project_root=project_root,
                 overwrite=args.overwrite,
+                require_both_labels=not args.allow_single_class_real,
             )
             cache_key = f"{split}/{condition}"
             if args.maximum_samples is not None:
@@ -310,9 +347,12 @@ def main() -> int:
     summary = {
         "experiment": "paired_transformed_clip_embedding_cache",
         "purpose": (
-            "Paired transformed embeddings for controlled E1-E3 training, validation, "
-            "and frozen test evaluation."
+            "Paired transformed embeddings for E4 real-only domain adaptation."
+            if args.allow_single_class_real
+            else "Paired transformed embeddings for controlled E1-E3 training, "
+            "validation, and frozen test evaluation."
         ),
+        "single_class_real_mode": args.allow_single_class_real,
         "test_cache_policy": "Explicit --allow-test required after model settings are frozen.",
         "model": {
             "library": "open_clip_torch",

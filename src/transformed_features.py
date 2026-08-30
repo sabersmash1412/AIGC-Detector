@@ -94,10 +94,13 @@ def load_transformed_feature_cache(
     expected_seed: int,
     expected_clean_cache_sha256: str,
     reference: FeatureCache,
+    require_both_labels: bool = True,
 ) -> TransformedFeatureCache:
     """Load a transformed cache and prove exact clean/transformed alignment."""
 
-    base_cache = load_feature_cache(path, expected_split)
+    base_cache = load_feature_cache(
+        path, expected_split, require_both_labels=require_both_labels
+    )
     with np.load(path, allow_pickle=False) as archive:
         missing = REQUIRED_TRANSFORMED_KEYS.difference(archive.files)
         if missing:

@@ -65,22 +65,24 @@ def _limited_reference(
     reference: FeatureCache,
     maximum_samples: int | None,
     *,
-    require_both_labels: bool = True,
+    single_class_label: int | None = None,
 ) -> FeatureCache:
+    if single_class_label not in (None, 0, 1):
+        raise ValueError("single_class_label must be None, 0, or 1")
     if maximum_samples is None:
         return reference
     stop = min(maximum_samples, len(reference.labels))
     labels = reference.labels[:stop]
-    expected_labels = {0, 1} if require_both_labels else {0}
+    expected_labels = {0, 1} if single_class_label is None else {single_class_label}
     if set(np.unique(labels).tolist()) != expected_labels:
-        if require_both_labels:
+        if single_class_label is None:
             raise ValueError(
                 "Debug maximum-samples prefix must contain both labels 0 and 1; "
                 "increase --maximum-samples."
             )
         raise ValueError(
-            "Debug maximum-samples prefix must contain only real label 0 in "
-            "--allow-single-class-real mode."
+            f"Debug maximum-samples prefix must contain only label {single_class_label} "
+            "in the selected single-class mode."
         )
     return FeatureCache(
         features=reference.features[:stop],
@@ -216,7 +218,7 @@ def extract_condition(
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="Extract paired transformed embeddings for controlled E1-E3 training."
+        description="Extract paired transformed embeddings for controlled detector training."
     )
     parser.add_argument(
         "--splits",
@@ -241,12 +243,21 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--overwrite", action="store_true")
     parser.add_argument("--allow-test", action="store_true")
-    parser.add_argument(
+    single_class = parser.add_mutually_exclusive_group()
+    single_class.add_argument(
         "--allow-single-class-real",
         action="store_true",
         help=(
             "Permit an explicitly real-only label-0 cache, used for E4 SID-real "
             "domain adaptation. Synthetic-only or mixed-invalid caches remain rejected."
+        ),
+    )
+    single_class.add_argument(
+        "--allow-single-class-ai",
+        action="store_true",
+        help=(
+            "Permit an explicitly AI-only label-1 cache, used for E5 SID-FLUX "
+            "source-matched adaptation. Real-only or mixed-invalid caches remain rejected."
         ),
     )
     parser.add_argument(
@@ -270,6 +281,13 @@ def main() -> int:
             "pass --allow-test only after E2/E3 settings are frozen."
         )
 
+    single_class_label = (
+        0
+        if args.allow_single_class_real
+        else 1
+        if args.allow_single_class_ai
+        else None
+    )
     device = choose_device(args.device)
     print(
         f"Loading frozen OpenCLIP model={CLIP_MODEL_NAME}, pretrained={CLIP_PRETRAINED}, "
@@ -289,18 +307,22 @@ def main() -> int:
         full_reference = load_feature_cache(
             clean_cache_path,
             split,
-            require_both_labels=not args.allow_single_class_real,
+            require_both_labels=single_class_label is None,
         )
-        if args.allow_single_class_real and set(
-            np.unique(full_reference.labels).tolist()
-        ) != {0}:
+        observed_labels = set(np.unique(full_reference.labels).tolist())
+        if single_class_label is not None and observed_labels != {single_class_label}:
+            mode = (
+                "--allow-single-class-real"
+                if single_class_label == 0
+                else "--allow-single-class-ai"
+            )
             raise ValueError(
-                "--allow-single-class-real requires a cache containing only label 0"
+                f"{mode} requires a cache containing only label {single_class_label}"
             )
         reference = _limited_reference(
             full_reference,
             args.maximum_samples,
-            require_both_labels=not args.allow_single_class_real,
+            single_class_label=single_class_label,
         )
         clean_cache_sha256 = sha256_file(clean_cache_path)
         for condition in dict.fromkeys(args.conditions):
@@ -320,7 +342,7 @@ def main() -> int:
                 seed=args.seed,
                 project_root=project_root,
                 overwrite=args.overwrite,
-                require_both_labels=not args.allow_single_class_real,
+                require_both_labels=single_class_label is None,
             )
             cache_key = f"{split}/{condition}"
             if args.maximum_samples is not None:
@@ -349,10 +371,14 @@ def main() -> int:
         "purpose": (
             "Paired transformed embeddings for E4 real-only domain adaptation."
             if args.allow_single_class_real
+            else "Paired transformed embeddings for E5 FLUX-only source-matched adaptation."
+            if args.allow_single_class_ai
             else "Paired transformed embeddings for controlled E1-E3 training, "
             "validation, and frozen test evaluation."
         ),
         "single_class_real_mode": args.allow_single_class_real,
+        "single_class_ai_mode": args.allow_single_class_ai,
+        "single_class_label": single_class_label,
         "test_cache_policy": "Explicit --allow-test required after model settings are frozen.",
         "model": {
             "library": "open_clip_torch",

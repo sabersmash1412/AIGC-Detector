@@ -281,7 +281,10 @@ def main() -> int:
 
     summary = {
         "experiment": "paired_transformed_clip_embedding_cache",
-        "purpose": "Train/validation inputs for controlled E1-E3 robustness experiments.",
+        "purpose": (
+            "Paired transformed embeddings for controlled E1-E3 training, validation, "
+            "and frozen test evaluation."
+        ),
         "test_cache_policy": "Explicit --allow-test required after model settings are frozen.",
         "model": {
             "library": "open_clip_torch",

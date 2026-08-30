@@ -1,0 +1,177 @@
+{
+  "protocol_version": 1,
+  "experiment_name": "e4_sid_real_domain_adaptation",
+  "research_question": "Can content-disjoint, source-diverse authentic training images reduce external real-image false positives while retaining CIFAKE transformation robustness and unseen-FLUX recall?",
+  "status": "frozen_before_e4_data_download",
+  "class_mapping": {
+    "real": 0,
+    "ai_generated": 1
+  },
+  "research_positioning": {
+    "E3_remains_original_primary_model": true,
+    "E4_is_post_hoc_follow_up": true,
+    "reason": "E4 was motivated by the frozen Section 4 finding that E3 falsely flagged 646 of 1000 SID-Set real images.",
+    "universal_detector_claim_allowed": false,
+    "existing_section4_results_may_be_overwritten": false
+  },
+  "development_data": {
+    "cifake": {
+      "role": "Existing balanced real and Stable-Diffusion-based AI supervision.",
+      "train_manifest": "data/processed/train.csv",
+      "validation_manifest": "data/processed/val.csv",
+      "train_samples": 10000,
+      "validation_samples": 2000,
+      "clean_feature_directory": "data/features/clip_vit_b32_quickgelu_openai",
+      "transformed_feature_directory": "data/features/clip_transformed_seed42"
+    },
+    "sid_set_real": {
+      "role": "Additional authentic-domain supervision only; no SID-Set synthetic or tampered images are permitted in E4 development.",
+      "repository": "saberzl/SID_Set",
+      "repository_url": "https://huggingface.co/datasets/saberzl/SID_Set",
+      "source_revision": "dc03ead57929879319ce30a82bfcfb8d317b10bd",
+      "config": "default",
+      "source_split": "train",
+      "source_rows": 210000,
+      "rows_api": "https://datasets-server.huggingface.co/rows",
+      "allowed_source_label": 0,
+      "allowed_source_meaning": "real",
+      "forbidden_source_labels": {
+        "1": "full_synthetic_FLUX",
+        "2": "tampered"
+      },
+      "declared_license": "CC-BY-4.0",
+      "underlying_real_source": "Open Images V7 according to the SID-Set dataset card",
+      "underlying_real_license": "CC-BY-2.0 images with per-image attribution requirements",
+      "train_manifest": "data/processed/e4_sid_real/train.csv",
+      "validation_manifest": "data/processed/e4_sid_real/val.csv",
+      "provenance": "data/processed/e4_sid_real_provenance.json",
+      "image_root": "data/raw/e4_sid_real/images",
+      "clean_feature_directory": "data/features/e4_sid_real_clip_vit_b32_quickgelu_openai",
+      "transformed_feature_directory": "data/features/e4_sid_real_clip_transformed_seed42"
+    }
+  },
+  "sid_real_sampling": {
+    "seed": 404,
+    "page_size": 100,
+    "page_count": 2100,
+    "train_count": 3000,
+    "validation_count": 1000,
+    "total_count": 4000,
+    "candidate_buffer": 250,
+    "page_ordering": "Sort page indices by SHA-256 of '<seed>:page:<page_index>'.",
+    "candidate_ranking": "Sort eligible real rows by SHA-256 of '<seed>:row:<row_idx>:<img_id>'; allocate the first 3000 accepted unique images to train and the next 1000 to validation.",
+    "content_deduplication": "Reject byte-identical content across E4 train, E4 validation, and the frozen Section 4B audit.",
+    "identity_deduplication": "Reject any img_id already present in the frozen Section 4B audit.",
+    "source_split_isolation": "E4 development uses SID-Set train only; the existing audit uses SID-Set validation only.",
+    "manual_cherry_picking_allowed": false
+  },
+  "frozen_section4_audit": {
+    "dataset_split": "SID-Set validation",
+    "manifest": "data/processed/sid_set_flux_heldout.csv",
+    "manifest_sha256": "9631bfba3bb24869ce4edb6b52db1e7e19b68716f28e1b61b73c70e5ab40d301",
+    "provenance": "data/processed/sid_set_flux_heldout_provenance.json",
+    "provenance_sha256": "1c5ad49e8e4598c57b2dd1010eed538e83ec8345edbee47109128c5f6ebb6379",
+    "samples": 2000,
+    "real_samples": 1000,
+    "flux_samples": 1000,
+    "allowed_for_training": false,
+    "allowed_for_validation": false,
+    "allowed_for_epoch_or_threshold_selection": false,
+    "future_E4_use": "Post-hoc adapted-domain audit only; not a fresh unbiased held-out test because its E3 result motivated E4."
+  },
+  "organiser_validation_subset": {
+    "description": "WildFake subset: COCO val2017 real and DALL-E Advanced AIGC",
+    "allowed_for_training": false,
+    "allowed_for_validation": false,
+    "allowed_for_model_or_threshold_selection": false,
+    "used": false
+  },
+  "representation": {
+    "library": "open_clip_torch",
+    "model_name": "ViT-B-32-quickgelu",
+    "pretrained": "openai",
+    "feature_dimension": 512,
+    "l2_normalized": true,
+    "encoder_trainable_parameters": 0
+  },
+  "initialization": {
+    "model": "E3 supervised plus consistency",
+    "checkpoint": "checkpoints/clip_linear_e3_consistency.npz",
+    "checkpoint_sha256": "3fd8c77c2f265a8f1929ca6f9bb380c0221e20b50a30fdc60148f2b0502e70bc",
+    "reason": "Continue from the preselected robust head while changing only the authentic-domain supervision."
+  },
+  "representative_conditions": [
+    "clean",
+    "jpeg_q50",
+    "gaussian_blur_sigma1",
+    "resize_0_5x",
+    "gaussian_noise_sigma0_05",
+    "color_jitter_seeded_20pct",
+    "center_crop_80pct"
+  ],
+  "training": {
+    "trainable_parameters": 513,
+    "group_sampling_per_epoch": {
+      "cifake_ai_generated": 0.5,
+      "cifake_real": 0.25,
+      "sid_set_train_real": 0.25
+    },
+    "class_balance_per_epoch": {
+      "real": 0.5,
+      "ai_generated": 0.5
+    },
+    "real_source_balance_per_epoch": {
+      "cifake": 0.5,
+      "sid_set_train": 0.5
+    },
+    "pair_definition": "Each sampled clean embedding is paired with one registered transformed embedding of the identical path and label.",
+    "supervised_loss": "0.5 * (BCE(clean_logit, label) + BCE(transformed_logit, label))",
+    "consistency_loss": "MSE(sigmoid(clean_logit), sigmoid(transformed_logit))",
+    "consistency_weight": 1.0,
+    "batch_size": 1024,
+    "maximum_epochs": 40,
+    "optimizer": "AdamW",
+    "learning_rate": 0.01,
+    "weight_decay": 0.0001,
+    "early_stopping_patience": 8,
+    "random_seed": 404
+  },
+  "validation_and_threshold_selection": {
+    "data": "CIFAKE validation plus content-disjoint SID-Set-train real validation; no test or audit data.",
+    "candidate_threshold_minimum": 0.001,
+    "candidate_threshold_maximum": 0.999,
+    "candidate_threshold_step": 0.001,
+    "sid_real_fpr_constraint": 0.05,
+    "sid_real_constraint_scope": "Maximum empirical false-positive rate across clean and all six representative transformed SID real validation views.",
+    "epoch_and_threshold_objective": "Among thresholds satisfying the SID real FPR constraint, maximize unweighted mean CIFAKE balanced accuracy across clean and all six representative transformed validation conditions.",
+    "infeasible_fallback": "If no threshold in the frozen grid satisfies the constraint, select the threshold with minimum worst SID real FPR, then maximum CIFAKE mean balanced accuracy.",
+    "tie_break_1": "Higher worst-condition CIFAKE balanced accuracy.",
+    "tie_break_2": "Earlier epoch.",
+    "tie_break_3": "Lower threshold to favor AI recall.",
+    "uncertainty_reporting": "Report binomial Wilson intervals for validation false-positive rates; the 5% target is empirical, not a population guarantee."
+  },
+  "evaluation": {
+    "cifake_test": "Post-hoc comparison because Section 4 CIFAKE test results were already inspected before E4 design.",
+    "sid_set_validation_audit": "Post-hoc adapted-domain audit; row- and content-disjoint from E4 development but not a fresh design-independent test.",
+    "fresh_external_test_required_for_unbiased_E4_claim": true,
+    "full_transformation_matrix_required": true,
+    "compare_against": [
+      "E3"
+    ],
+    "primary_safety_metrics": [
+      "real false-positive rate",
+      "AI recall",
+      "balanced accuracy",
+      "ROC-AUC",
+      "worst-condition balanced accuracy",
+      "prediction-flip rate"
+    ]
+  },
+  "privacy_and_publication": {
+    "raw_sid_images_must_not_be_committed": true,
+    "individual_sid_images_allowed_in_public_demo": false,
+    "source_urls_persisted": false,
+    "aggregate_metrics_and_non_image_figures_allowed": true,
+    "per_image_attribution_limitation_must_be_disclosed": true
+  }
+}

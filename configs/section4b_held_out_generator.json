@@ -1,0 +1,92 @@
+{
+  "protocol_version": 1,
+  "experiment_name": "sid_set_flux_held_out_generator",
+  "purpose": "Measure clean-image generalisation from CIFAKE Stable Diffusion training data to a newer, unseen FLUX generator without retraining, threshold changes, or model reselection.",
+  "dataset": {
+    "name": "SID-Set",
+    "repository": "saberzl/SID_Set",
+    "repository_url": "https://huggingface.co/datasets/saberzl/SID_Set",
+    "source_revision": "dc03ead57929879319ce30a82bfcfb8d317b10bd",
+    "config": "default",
+    "source_split": "validation",
+    "source_rows": 30000,
+    "dataset_card_url": "https://huggingface.co/datasets/saberzl/SID_Set/blob/main/README.md",
+    "official_repository_url": "https://github.com/hzlsaber/SIDA",
+    "paper_url": "https://openaccess.thecvf.com/content/CVPR2025/papers/Huang_SIDA_Social_Media_Image_Deepfake_Detection_Localization_and_Explanation_with_CVPR_2025_paper.pdf",
+    "supplement_url": "https://openaccess.thecvf.com/content/CVPR2025/supplemental/Huang_SIDA_Social_Media_CVPR_2025_supplemental.pdf",
+    "paper_citation_key": "Huang_SIDA_CVPR_2025",
+    "declared_license": "CC-BY-4.0",
+    "license_url": "https://creativecommons.org/licenses/by/4.0/",
+    "underlying_real_image_source": "Open Images V7 according to the SID-Set dataset card",
+    "underlying_real_image_license": "CC-BY-2.0 as listed by Open Images",
+    "open_images_license_url": "https://storage.googleapis.com/openimages/web/factsfigures_v7.html",
+    "license_audit": {
+      "status": "usable_with_attribution",
+      "attribution_required": true,
+      "raw_images_must_not_be_committed": true,
+      "individual_images_must_not_be_published_or_shown_without_source_attribution": true,
+      "public_artifacts": "Code, provenance metadata, aggregate metrics, and figures only.",
+      "source_documentation_note": "The Hugging Face card describes real images as OpenImages V7, while the CVPR paper lists COCO, Flickr30k, and MagicBrush as SID-Set data sources. This source-description inconsistency must be disclosed as a limitation; no source-domain equivalence is assumed.",
+      "rights_caveat": "Open Images advises users to verify the licence status of each image. Because SID-Set's row API does not expose original author attribution, sampled images are restricted to local aggregate evaluation and cannot be used as public qualitative examples."
+    }
+  },
+  "task": {
+    "included_source_labels": {
+      "0": {
+        "source_meaning": "real",
+        "project_label": 0,
+        "project_class_name": "real"
+      },
+      "1": {
+        "source_meaning": "full_synthetic",
+        "project_label": 1,
+        "project_class_name": "ai_generated"
+      }
+    },
+    "excluded_source_labels": {
+      "2": {
+        "source_meaning": "tampered",
+        "reason": "Locally manipulated images are not equivalent to the fully synthetic binary target and require a separate experiment."
+      }
+    },
+    "held_out_generator": "FLUX",
+    "generator_evidence": "The official CVPR 2025 supplement states that SID-Set fully synthetic images were generated with FLUX.",
+    "training_generator_family": "Stable Diffusion in CIFAKE",
+    "held_out_claim": "FLUX images and all SID-Set images were excluded from training, validation, threshold selection, and model selection."
+  },
+  "sample": {
+    "seed": 42,
+    "target_per_class": 1000,
+    "total_target": 2000,
+    "page_size": 100,
+    "page_count": 300,
+    "page_ordering": "Sort page indices by SHA-256 of '<seed>:page:<page_index>'.",
+    "candidate_ranking": "Within each included label, traverse candidates by the lowest SHA-256 values of '<seed>:row:<row_idx>:<img_id>' from the fetched candidate pool until target_per_class content-unique images are accepted.",
+    "stopping_rule": "Fetch deterministic pages until at least target_per_class candidates exist for both included labels.",
+    "balance_policy": "Exactly 1000 real and 1000 fully synthetic images; source label 2 is excluded.",
+    "content_deduplication": "Reject byte-identical SHA-256 image content within a class and continue to the next deterministically ranked candidate. Identical content with conflicting labels is a fatal data-integrity error.",
+    "sampling_limitations": "This is a deterministic hackathon-scale subset, not the complete SID-Set validation split."
+  },
+  "download": {
+    "rows_api": "https://datasets-server.huggingface.co/rows",
+    "image_root": "data/raw/sid_set_flux_heldout/images",
+    "manifest": "data/processed/sid_set_flux_heldout.csv",
+    "provenance": "data/processed/sid_set_flux_heldout_provenance.json",
+    "source_urls_persisted": false,
+    "individual_images_allowed_in_public_demo": false,
+    "verify_every_image_with_pillow": true
+  },
+  "frozen_evaluation": {
+    "models": {
+      "E1": "checkpoints/clip_linear_e1_thresholded.npz",
+      "E2": "checkpoints/clip_linear_e2_thresholded.npz",
+      "E3": "checkpoints/clip_linear_e3_thresholded.npz"
+    },
+    "primary_model": "E3",
+    "threshold_report": "reports/section3_threshold_selection.json",
+    "retraining_allowed": false,
+    "threshold_changes_allowed": false,
+    "model_reselection_allowed": false,
+    "organiser_validation_subset_used": false
+  }
+}

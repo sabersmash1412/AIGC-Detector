@@ -1,0 +1,387 @@
+{
+  "experiment": "section4b_frozen_sid_set_flux_held_out_generator",
+  "purpose": "Measure clean-image generalisation from CIFAKE Stable Diffusion training data to a newer, unseen FLUX generator without retraining, threshold changes, or model reselection.",
+  "protocol": {
+    "path": "configs/section4b_held_out_generator.json",
+    "sha256": "53424a69d0c7835ee0868f68a0f15f830aa2192a0467937ec64f6d35ff8db555",
+    "version": 1
+  },
+  "pre_evaluation_freeze": {
+    "primary_model": "E3",
+    "retraining_allowed": false,
+    "threshold_changes_allowed": false,
+    "model_reselection_allowed": false,
+    "threshold_source": "Section 3 CIFAKE validation data only",
+    "threshold_report": "reports/section3_threshold_selection.json",
+    "threshold_report_sha256": "02260862e2dc8d1ee050e0e15713fa955d13b29be844262209a32fd5693dfe8d"
+  },
+  "held_out_data": {
+    "dataset": "SID-Set",
+    "source_repository": "saberzl/SID_Set",
+    "source_revision": "dc03ead57929879319ce30a82bfcfb8d317b10bd",
+    "source_split": "validation",
+    "held_out_generator": "FLUX",
+    "samples": 2000,
+    "class_counts": {
+      "real_0": 1000,
+      "flux_ai_generated_1": 1000
+    },
+    "content_unique_images": 2000,
+    "excluded_exact_duplicates": 3,
+    "feature_cache": "data/features/clip_vit_b32_quickgelu_openai/sid_set_flux_heldout.npz",
+    "feature_cache_sha256": "d0d4832a2610632eaaddb3b9db0693a4fbdad6b957cea139193b63d3bf5b3fa1",
+    "manifest_sha256": "9631bfba3bb24869ce4edb6b52db1e7e19b68716f28e1b61b73c70e5ab40d301",
+    "organiser_validation_subset_used": false
+  },
+  "licensing_and_publication": {
+    "declared_dataset_license": "CC-BY-4.0",
+    "underlying_real_image_license": "CC-BY-2.0 as listed by Open Images",
+    "individual_images_used_in_public_artifacts": false,
+    "aggregate_metrics_and_non-image_figures_only": true
+  },
+  "checkpoints": {
+    "E1": {
+      "path": "checkpoints/clip_linear_e1_thresholded.npz",
+      "sha256": "a9a27d60a036258149a26adff8a332d8bd1ae20c0c6c9158f9b4bf3598809485",
+      "frozen_validation_threshold": 0.137,
+      "source_checkpoint_sha256": "b03fb9aeff2a859a12a98a5ccf3b996b2431a66800c04d6c457f0fbe2542d7f4"
+    },
+    "E2": {
+      "path": "checkpoints/clip_linear_e2_thresholded.npz",
+      "sha256": "ff83ca68a9fbf27e6e8431243dfb32a076ef9c139e01598ddc736ba4eaedf6e5",
+      "frozen_validation_threshold": 0.436,
+      "source_checkpoint_sha256": "6652a8ee1b210353f8553db959374b1223566507747df7b3591494c3d1fdf49f"
+    },
+    "E3": {
+      "path": "checkpoints/clip_linear_e3_thresholded.npz",
+      "sha256": "1523bc38fc4626a3e252464da146ad66af074c4196ebb2f44719ec149fd3482a",
+      "frozen_validation_threshold": 0.437,
+      "source_checkpoint_sha256": "3fd8c77c2f265a8f1929ca6f9bb380c0221e20b50a30fdc60148f2b0502e70bc"
+    }
+  },
+  "internal_reference": {
+    "dataset": "CIFAKE internal clean test",
+    "report": "reports/section3_e1_e3_test_comparison.json",
+    "report_sha256": "2996898c096a0c6e603a986b91c635f403e1152e04de186c4c7b81284f7b0c6e",
+    "models": {
+      "E1": {
+        "metrics": {
+          "roc_auc": 0.9844680000000001,
+          "average_precision": 0.9838976176041364,
+          "accuracy": 0.911,
+          "balanced_accuracy": 0.911,
+          "precision": 0.8592657342657343,
+          "recall": 0.983,
+          "f1": 0.9169776119402985,
+          "brier_score": 0.04533697787420751,
+          "threshold": 0.137,
+          "confusion_matrix": [
+            [
+              839,
+              161
+            ],
+            [
+              17,
+              983
+            ]
+          ],
+          "samples": 2000
+        },
+        "class_rates": {
+          "true_negative_rate_real_recall": 0.839,
+          "false_positive_rate_real_called_ai": 0.161,
+          "true_positive_rate_ai_recall": 0.983,
+          "false_negative_rate_ai_called_real": 0.017
+        }
+      },
+      "E2": {
+        "metrics": {
+          "roc_auc": 0.983467,
+          "average_precision": 0.9828224716718319,
+          "accuracy": 0.9415,
+          "balanced_accuracy": 0.9415,
+          "precision": 0.9282250242483027,
+          "recall": 0.957,
+          "f1": 0.9423929098966026,
+          "brier_score": 0.04756401723905962,
+          "threshold": 0.436,
+          "confusion_matrix": [
+            [
+              926,
+              74
+            ],
+            [
+              43,
+              957
+            ]
+          ],
+          "samples": 2000
+        },
+        "class_rates": {
+          "true_negative_rate_real_recall": 0.926,
+          "false_positive_rate_real_called_ai": 0.074,
+          "true_positive_rate_ai_recall": 0.957,
+          "false_negative_rate_ai_called_real": 0.043
+        }
+      },
+      "E3": {
+        "metrics": {
+          "roc_auc": 0.982936,
+          "average_precision": 0.9823052304922012,
+          "accuracy": 0.937,
+          "balanced_accuracy": 0.937,
+          "precision": 0.9234496124031008,
+          "recall": 0.953,
+          "f1": 0.937992125984252,
+          "brier_score": 0.048285099907117726,
+          "threshold": 0.437,
+          "confusion_matrix": [
+            [
+              921,
+              79
+            ],
+            [
+              47,
+              953
+            ]
+          ],
+          "samples": 2000
+        },
+        "class_rates": {
+          "true_negative_rate_real_recall": 0.921,
+          "false_positive_rate_real_called_ai": 0.079,
+          "true_positive_rate_ai_recall": 0.953,
+          "false_negative_rate_ai_called_real": 0.047
+        }
+      }
+    }
+  },
+  "models": {
+    "E1": {
+      "threshold": 0.137,
+      "metrics": {
+        "roc_auc": 0.9276939999999999,
+        "average_precision": 0.9136784149704199,
+        "accuracy": 0.6095,
+        "balanced_accuracy": 0.6095,
+        "precision": 0.5616207090602139,
+        "recall": 0.998,
+        "f1": 0.7187612531508822,
+        "brier_score": 0.2958852347738417,
+        "threshold": 0.137,
+        "confusion_matrix": [
+          [
+            221,
+            779
+          ],
+          [
+            2,
+            998
+          ]
+        ],
+        "samples": 2000
+      },
+      "class_rates": {
+        "true_negative_rate_real_recall": 0.221,
+        "false_positive_rate_real_called_ai": 0.779,
+        "true_positive_rate_ai_recall": 0.998,
+        "false_negative_rate_ai_called_real": 0.002
+      },
+      "probability_distributions": {
+        "real_0": {
+          "samples": 1000,
+          "mean": 0.6534170586400971,
+          "standard_deviation": 0.40068700608922436,
+          "minimum": 4.055473216572273e-07,
+          "q05": 0.0021922782776089373,
+          "q25": 0.2002009691337116,
+          "median": 0.8901491766610754,
+          "q75": 0.9976708684758392,
+          "q95": 0.9999946777309953,
+          "maximum": 0.9999999996963433
+        },
+        "flux_ai_generated_1": {
+          "samples": 1000,
+          "mean": 0.9922974854311517,
+          "standard_deviation": 0.06486302063870879,
+          "minimum": 0.07044481615155948,
+          "q05": 0.9971376832126129,
+          "q25": 0.9999677038499403,
+          "median": 0.9999981510119497,
+          "q75": 0.9999999077184626,
+          "q95": 0.9999999980627688,
+          "maximum": 0.9999999999877773
+        }
+      },
+      "heldout_minus_cifake_clean": {
+        "roc_auc": -0.05677400000000021,
+        "average_precision": -0.0702192026337165,
+        "balanced_accuracy": -0.3015,
+        "precision": -0.2976450252055204,
+        "recall": 0.015000000000000013,
+        "f1": -0.19821635878941624,
+        "brier_score": 0.2505482568996342,
+        "true_negative_rate_real_recall": -0.618,
+        "false_positive_rate_real_called_ai": 0.618,
+        "true_positive_rate_ai_recall": 0.015000000000000013,
+        "false_negative_rate_ai_called_real": -0.015000000000000001
+      }
+    },
+    "E2": {
+      "threshold": 0.436,
+      "metrics": {
+        "roc_auc": 0.9345439999999999,
+        "average_precision": 0.9250138724576334,
+        "accuracy": 0.669,
+        "balanced_accuracy": 0.669,
+        "precision": 0.6021765417170496,
+        "recall": 0.996,
+        "f1": 0.7505651846269782,
+        "brier_score": 0.28994508857817736,
+        "threshold": 0.436,
+        "confusion_matrix": [
+          [
+            342,
+            658
+          ],
+          [
+            4,
+            996
+          ]
+        ],
+        "samples": 2000
+      },
+      "class_rates": {
+        "true_negative_rate_real_recall": 0.342,
+        "false_positive_rate_real_called_ai": 0.658,
+        "true_positive_rate_ai_recall": 0.996,
+        "false_negative_rate_ai_called_real": 0.004
+      },
+      "probability_distributions": {
+        "real_0": {
+          "samples": 1000,
+          "mean": 0.6389382660358197,
+          "standard_deviation": 0.41099767451439334,
+          "minimum": 2.9966978819366244e-07,
+          "q05": 0.0006690208757858326,
+          "q25": 0.1511693082220046,
+          "median": 0.900381411039147,
+          "q75": 0.9972598816073378,
+          "q95": 0.9999951472863644,
+          "maximum": 0.9999999995304181
+        },
+        "flux_ai_generated_1": {
+          "samples": 1000,
+          "mean": 0.9942158813439227,
+          "standard_deviation": 0.051918444377966944,
+          "minimum": 0.03201131569719865,
+          "q05": 0.9971225431313699,
+          "q25": 0.9999816615390952,
+          "median": 0.999998739054673,
+          "q75": 0.9999999462729992,
+          "q95": 0.9999999991641078,
+          "maximum": 0.999999999998693
+        }
+      },
+      "heldout_minus_cifake_clean": {
+        "roc_auc": -0.04892300000000005,
+        "average_precision": -0.05780859921419845,
+        "balanced_accuracy": -0.27249999999999996,
+        "precision": -0.32604848253125307,
+        "recall": 0.039000000000000035,
+        "f1": -0.19182772526962444,
+        "brier_score": 0.24238107133911774,
+        "true_negative_rate_real_recall": -0.5840000000000001,
+        "false_positive_rate_real_called_ai": 0.5840000000000001,
+        "true_positive_rate_ai_recall": 0.039000000000000035,
+        "false_negative_rate_ai_called_real": -0.03899999999999999
+      }
+    },
+    "E3": {
+      "threshold": 0.437,
+      "metrics": {
+        "roc_auc": 0.9324540000000001,
+        "average_precision": 0.921634617367996,
+        "accuracy": 0.6755,
+        "balanced_accuracy": 0.6755,
+        "precision": 0.6068167985392574,
+        "recall": 0.997,
+        "f1": 0.7544457056375331,
+        "brier_score": 0.2813991124086707,
+        "threshold": 0.437,
+        "confusion_matrix": [
+          [
+            354,
+            646
+          ],
+          [
+            3,
+            997
+          ]
+        ],
+        "samples": 2000
+      },
+      "class_rates": {
+        "true_negative_rate_real_recall": 0.354,
+        "false_positive_rate_real_called_ai": 0.646,
+        "true_positive_rate_ai_recall": 0.997,
+        "false_negative_rate_ai_called_real": 0.003
+      },
+      "probability_distributions": {
+        "real_0": {
+          "samples": 1000,
+          "mean": 0.6255338614090724,
+          "standard_deviation": 0.41072828338335726,
+          "minimum": 4.991899520915116e-07,
+          "q05": 0.0008000274576621475,
+          "q25": 0.13593761235368634,
+          "median": 0.8730063219881246,
+          "q75": 0.9952053083438179,
+          "q95": 0.9999859220995615,
+          "maximum": 0.9999999988441413
+        },
+        "flux_ai_generated_1": {
+          "samples": 1000,
+          "mean": 0.9935982567374725,
+          "standard_deviation": 0.0526014064465787,
+          "minimum": 0.04328956605287641,
+          "q05": 0.9949348517893473,
+          "q25": 0.9999525543328333,
+          "median": 0.9999964512034938,
+          "q75": 0.9999998082177126,
+          "q95": 0.9999999962909498,
+          "maximum": 0.999999999992258
+        }
+      },
+      "heldout_minus_cifake_clean": {
+        "roc_auc": -0.050481999999999916,
+        "average_precision": -0.060670613124205186,
+        "balanced_accuracy": -0.26150000000000007,
+        "precision": -0.31663281386384334,
+        "recall": 0.04400000000000004,
+        "f1": -0.18354642034671886,
+        "brier_score": 0.233114012501553,
+        "true_negative_rate_real_recall": -0.5670000000000001,
+        "false_positive_rate_real_called_ai": 0.5670000000000001,
+        "true_positive_rate_ai_recall": 0.04400000000000004,
+        "false_negative_rate_ai_called_real": -0.044
+      }
+    }
+  },
+  "artifacts": {
+    "domain_generalisation_figure": "reports/figures/section4b_domain_generalisation.png",
+    "domain_generalisation_figure_sha256": "e83238ced35e24a8732f5861ccc2f9d7c732c8c9f6a2a84d1589271e0e8deb69",
+    "confusion_matrices": "reports/figures/section4b_heldout_confusion_matrices.png",
+    "confusion_matrices_sha256": "b56326ae3dd9d17915dee5b6b5893153f8d5c7eb547c5989cefd0c91a79bed73",
+    "e3_probability_distribution": "reports/figures/section4b_e3_probability_distribution.png",
+    "e3_probability_distribution_sha256": "a4c1be545a04d8e6d1fe3ee299a7cab893128324cff7ca78211202a69d4f59f4",
+    "per_image_probabilities": "outputs/section4b_heldout_probabilities.npz",
+    "per_image_probabilities_sha256": "5019071fad72b0edaefb2ff936a5be0794282c706ae1e1678ae3bcc3b52f0783"
+  },
+  "interpretation_guardrails": [
+    "The SID-Set result cannot be used to retrain E1-E3, change thresholds, or reselect the primary model.",
+    "Differences in content, resolution, and real-image source can confound pure generator attribution.",
+    "This deterministic 2,000-image subset is not the complete SID-Set validation split.",
+    "The result measures FLUX generalisation on clean external images, not local tampering detection."
+  ]
+}

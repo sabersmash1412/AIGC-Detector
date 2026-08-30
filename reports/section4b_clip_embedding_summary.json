@@ -1,0 +1,74 @@
+{
+  "experiment": "section4b_sid_set_flux_frozen_clip_embeddings",
+  "purpose": "External held-out-generator embeddings only; no training, threshold selection, or evaluation.",
+  "protocol": {
+    "path": "configs/section4b_held_out_generator.json",
+    "sha256": "53424a69d0c7835ee0868f68a0f15f830aa2192a0467937ec64f6d35ff8db555",
+    "version": 1
+  },
+  "dataset": {
+    "name": "SID-Set",
+    "source_split": "validation",
+    "source_revision": "dc03ead57929879319ce30a82bfcfb8d317b10bd",
+    "held_out_generator": "FLUX",
+    "declared_license": "CC-BY-4.0"
+  },
+  "preparation_validation": {
+    "samples": 2000,
+    "class_counts": {
+      "real_0": 1000,
+      "ai_generated_1": 1000
+    },
+    "unique_paths": 2000,
+    "source_revision": "dc03ead57929879319ce30a82bfcfb8d317b10bd",
+    "unique_source_rows": 2000,
+    "unique_image_sha256": 2000,
+    "excluded_exact_duplicates": 3,
+    "organiser_validation_subset_used": false,
+    "manifest_path": "data/processed/sid_set_flux_heldout.csv",
+    "manifest_sha256": "9631bfba3bb24869ce4edb6b52db1e7e19b68716f28e1b61b73c70e5ab40d301",
+    "provenance_path": "data/processed/sid_set_flux_heldout_provenance.json",
+    "provenance_sha256": "1c5ad49e8e4598c57b2dd1010eed538e83ec8345edbee47109128c5f6ebb6379",
+    "all_manifest_images_present": true
+  },
+  "model": {
+    "library": "open_clip_torch",
+    "library_version": "3.3.0",
+    "model_name": "ViT-B-32-quickgelu",
+    "pretrained": "openai",
+    "total_parameters": 151277313,
+    "trainable_parameters": 0,
+    "feature_dimension": 512,
+    "l2_normalized": true
+  },
+  "feature_cache": {
+    "samples": 2000,
+    "feature_shape": [
+      2000,
+      512
+    ],
+    "feature_dtype": "float32",
+    "all_finite": true,
+    "maximum_l2_norm_error": 1.1920928955078125e-07,
+    "class_counts": {
+      "real_0": 1000,
+      "ai_generated_1": 1000
+    },
+    "status": "validated_existing",
+    "manifest": "data/processed/sid_set_flux_heldout.csv",
+    "manifest_sha256": "9631bfba3bb24869ce4edb6b52db1e7e19b68716f28e1b61b73c70e5ab40d301",
+    "cache_path": "data/features/clip_vit_b32_quickgelu_openai/sid_set_flux_heldout.npz",
+    "cache_bytes": 4794677,
+    "cache_sha256": "d0d4832a2610632eaaddb3b9db0693a4fbdad6b957cea139193b63d3bf5b3fa1",
+    "validation_device": "cpu",
+    "extraction_device": "mps",
+    "extraction_seconds": 52.35447095899872,
+    "images_per_second": 38.20113093237625
+  },
+  "frozen_guardrails": {
+    "classifier_training_performed": false,
+    "threshold_selection_performed": false,
+    "model_selection_performed": false,
+    "organiser_validation_subset_used": false
+  }
+}

@@ -43,6 +43,7 @@
     "optimizer": "AdamW",
     "learning_rate": 0.01,
     "weight_decay": 0.0001,
+    "weight_decay_applies_to": "Linear coefficients only; intercept excluded.",
     "early_stopping_patience": 8,
     "restore_best_validation_epoch": true,
     "initialization": "Existing E1 clean linear-probe coefficients and intercept."

@@ -1,0 +1,95 @@
+{
+  "protocol_version": 1,
+  "experiment_name": "frozen_full_transformation_matrix",
+  "purpose": "Measure severity-dependent post-processing robustness without changing the frozen Section 3 models or thresholds.",
+  "data": {
+    "dataset": "CIFAKE",
+    "split": "test",
+    "manifest": "data/processed/test.csv",
+    "samples": 2000,
+    "class_counts": {
+      "real_0": 1000,
+      "ai_generated_1": 1000
+    },
+    "clean_feature_cache": "data/features/clip_vit_b32_quickgelu_openai/test.npz",
+    "transformed_feature_directory": "data/features/clip_transformed_seed42",
+    "organiser_validation_subset_used": false
+  },
+  "transform_seed": 42,
+  "full_matrix_conditions": [
+    "clean",
+    "jpeg_q90",
+    "jpeg_q70",
+    "jpeg_q50",
+    "jpeg_q30",
+    "gaussian_blur_sigma0_5",
+    "gaussian_blur_sigma1",
+    "gaussian_blur_sigma2",
+    "resize_0_5x",
+    "resize_0_25x",
+    "gaussian_noise_sigma0_02",
+    "gaussian_noise_sigma0_05",
+    "gaussian_noise_sigma0_10",
+    "color_jitter_seeded_20pct",
+    "center_crop_80pct"
+  ],
+  "previously_evaluated_representative_conditions": [
+    "clean",
+    "jpeg_q50",
+    "gaussian_blur_sigma1",
+    "resize_0_5x",
+    "gaussian_noise_sigma0_05",
+    "color_jitter_seeded_20pct",
+    "center_crop_80pct"
+  ],
+  "new_severity_conditions": [
+    "jpeg_q90",
+    "jpeg_q70",
+    "jpeg_q30",
+    "gaussian_blur_sigma0_5",
+    "gaussian_blur_sigma2",
+    "resize_0_25x",
+    "gaussian_noise_sigma0_02",
+    "gaussian_noise_sigma0_10"
+  ],
+  "models": {
+    "E1": "checkpoints/clip_linear_e1_thresholded.npz",
+    "E2": "checkpoints/clip_linear_e2_thresholded.npz",
+    "E3": "checkpoints/clip_linear_e3_thresholded.npz"
+  },
+  "preselected_primary_model": "E3",
+  "frozen_evaluation_rules": {
+    "retraining_allowed": false,
+    "threshold_changes_allowed": false,
+    "model_reselection_from_matrix_results_allowed": false,
+    "reuse_existing_representative_caches": true,
+    "same_paths_labels_and_seed_for_all_models": true,
+    "interpretation": "The matrix is a final stress test. Results may motivate future work but must not alter E1, E2, E3, or their validation-selected thresholds."
+  },
+  "severity_families": {
+    "jpeg": [
+      "jpeg_q90",
+      "jpeg_q70",
+      "jpeg_q50",
+      "jpeg_q30"
+    ],
+    "gaussian_blur": [
+      "gaussian_blur_sigma0_5",
+      "gaussian_blur_sigma1",
+      "gaussian_blur_sigma2"
+    ],
+    "resize": [
+      "resize_0_5x",
+      "resize_0_25x"
+    ],
+    "gaussian_noise": [
+      "gaussian_noise_sigma0_02",
+      "gaussian_noise_sigma0_05",
+      "gaussian_noise_sigma0_10"
+    ],
+    "single_setting": [
+      "color_jitter_seeded_20pct",
+      "center_crop_80pct"
+    ]
+  }
+}

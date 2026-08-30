@@ -8,6 +8,7 @@ from PIL import Image
 
 from src.image_transforms import (
     DEFAULT_ROBUSTNESS_CONDITIONS,
+    FULL_ROBUSTNESS_CONDITIONS,
     apply_evaluation_transform,
 )
 
@@ -17,7 +18,7 @@ def patterned_image() -> Image.Image:
     return Image.fromarray((values % 256).astype(np.uint8), mode="RGB")
 
 
-@pytest.mark.parametrize("condition", DEFAULT_ROBUSTNESS_CONDITIONS)
+@pytest.mark.parametrize("condition", FULL_ROBUSTNESS_CONDITIONS)
 def test_evaluation_transforms_preserve_rgb_size(condition: str) -> None:
     image = patterned_image()
 
@@ -30,7 +31,13 @@ def test_evaluation_transforms_preserve_rgb_size(condition: str) -> None:
 
 
 @pytest.mark.parametrize(
-    "condition", ["gaussian_noise_sigma0_05", "color_jitter_seeded_20pct"]
+    "condition",
+    [
+        "gaussian_noise_sigma0_02",
+        "gaussian_noise_sigma0_05",
+        "gaussian_noise_sigma0_10",
+        "color_jitter_seeded_20pct",
+    ],
 )
 def test_seeded_transforms_are_repeatable(condition: str) -> None:
     image = patterned_image()
@@ -71,3 +78,15 @@ def test_unknown_transform_is_rejected() -> None:
         apply_evaluation_transform(
             patterned_image(), "unknown", image_path="image.jpg", seed=42
         )
+
+
+def test_section3_representative_conditions_remain_frozen() -> None:
+    assert DEFAULT_ROBUSTNESS_CONDITIONS == (
+        "clean",
+        "jpeg_q50",
+        "gaussian_blur_sigma1",
+        "resize_0_5x",
+        "gaussian_noise_sigma0_05",
+        "color_jitter_seeded_20pct",
+        "center_crop_80pct",
+    )

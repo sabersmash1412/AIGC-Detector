@@ -27,25 +27,65 @@ TRANSFORM_SPECS = {
         display_name="Clean",
         parameters={},
     ),
+    "jpeg_q90": EvaluationTransformSpec(
+        name="jpeg_q90",
+        display_name="JPEG Q90",
+        parameters={"quality": 90, "subsampling": 2},
+    ),
+    "jpeg_q70": EvaluationTransformSpec(
+        name="jpeg_q70",
+        display_name="JPEG Q70",
+        parameters={"quality": 70, "subsampling": 2},
+    ),
     "jpeg_q50": EvaluationTransformSpec(
         name="jpeg_q50",
         display_name="JPEG Q50",
         parameters={"quality": 50, "subsampling": 2},
+    ),
+    "jpeg_q30": EvaluationTransformSpec(
+        name="jpeg_q30",
+        display_name="JPEG Q30",
+        parameters={"quality": 30, "subsampling": 2},
+    ),
+    "gaussian_blur_sigma0_5": EvaluationTransformSpec(
+        name="gaussian_blur_sigma0_5",
+        display_name="Blur σ=0.5",
+        parameters={"sigma": 0.5},
     ),
     "gaussian_blur_sigma1": EvaluationTransformSpec(
         name="gaussian_blur_sigma1",
         display_name="Blur σ=1",
         parameters={"sigma": 1.0},
     ),
+    "gaussian_blur_sigma2": EvaluationTransformSpec(
+        name="gaussian_blur_sigma2",
+        display_name="Blur σ=2",
+        parameters={"sigma": 2.0},
+    ),
     "resize_0_5x": EvaluationTransformSpec(
         name="resize_0_5x",
         display_name="Resize 0.5×",
         parameters={"downscale_factor": 0.5, "upscale_to_original": True},
     ),
+    "resize_0_25x": EvaluationTransformSpec(
+        name="resize_0_25x",
+        display_name="Resize 0.25×",
+        parameters={"downscale_factor": 0.25, "upscale_to_original": True},
+    ),
+    "gaussian_noise_sigma0_02": EvaluationTransformSpec(
+        name="gaussian_noise_sigma0_02",
+        display_name="Noise σ=0.02",
+        parameters={"sigma": 0.02, "pixel_range": [0.0, 1.0]},
+    ),
     "gaussian_noise_sigma0_05": EvaluationTransformSpec(
         name="gaussian_noise_sigma0_05",
         display_name="Noise σ=0.05",
         parameters={"sigma": 0.05, "pixel_range": [0.0, 1.0]},
+    ),
+    "gaussian_noise_sigma0_10": EvaluationTransformSpec(
+        name="gaussian_noise_sigma0_10",
+        display_name="Noise σ=0.10",
+        parameters={"sigma": 0.10, "pixel_range": [0.0, 1.0]},
     ),
     "color_jitter_seeded_20pct": EvaluationTransformSpec(
         name="color_jitter_seeded_20pct",
@@ -64,7 +104,16 @@ TRANSFORM_SPECS = {
     ),
 }
 
-DEFAULT_ROBUSTNESS_CONDITIONS = tuple(TRANSFORM_SPECS)
+FULL_ROBUSTNESS_CONDITIONS = tuple(TRANSFORM_SPECS)
+DEFAULT_ROBUSTNESS_CONDITIONS = (
+    "clean",
+    "jpeg_q50",
+    "gaussian_blur_sigma1",
+    "resize_0_5x",
+    "gaussian_noise_sigma0_05",
+    "color_jitter_seeded_20pct",
+    "center_crop_80pct",
+)
 
 
 def _stable_rng(image_path: str, seed: int, salt: str) -> np.random.Generator:
@@ -143,20 +192,29 @@ def apply_evaluation_transform(
             f"Unknown transform condition {condition!r}; choose from {tuple(TRANSFORM_SPECS)}"
         )
     rgb_image = image.convert("RGB")
+    parameters = TRANSFORM_SPECS[condition].parameters
     if condition == "clean":
         transformed = rgb_image.copy()
-    elif condition == "jpeg_q50":
-        transformed = _jpeg(rgb_image, quality=50)
-    elif condition == "gaussian_blur_sigma1":
-        transformed = rgb_image.filter(ImageFilter.GaussianBlur(radius=1.0))
-    elif condition == "resize_0_5x":
-        transformed = _resize_round_trip(rgb_image, factor=0.5)
-    elif condition == "gaussian_noise_sigma0_05":
-        transformed = _gaussian_noise(rgb_image, image_path, seed, sigma=0.05)
+    elif condition.startswith("jpeg_q"):
+        transformed = _jpeg(rgb_image, quality=int(parameters["quality"]))
+    elif condition.startswith("gaussian_blur_sigma"):
+        transformed = rgb_image.filter(
+            ImageFilter.GaussianBlur(radius=float(parameters["sigma"]))
+        )
+    elif condition.startswith("resize_"):
+        transformed = _resize_round_trip(
+            rgb_image, factor=float(parameters["downscale_factor"])
+        )
+    elif condition.startswith("gaussian_noise_sigma"):
+        transformed = _gaussian_noise(
+            rgb_image, image_path, seed, sigma=float(parameters["sigma"])
+        )
     elif condition == "color_jitter_seeded_20pct":
         transformed = _seeded_color_jitter(rgb_image, image_path, seed)
     elif condition == "center_crop_80pct":
-        transformed = _center_crop_round_trip(rgb_image, retained_fraction=0.8)
+        transformed = _center_crop_round_trip(
+            rgb_image, retained_fraction=float(parameters["retained_fraction"])
+        )
     else:  # pragma: no cover - exhaustive guard for future registry edits
         raise AssertionError(f"Transform is registered but not implemented: {condition}")
 

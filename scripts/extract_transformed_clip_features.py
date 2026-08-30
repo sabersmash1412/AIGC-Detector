@@ -24,7 +24,11 @@ from src.clip_features import (
     load_frozen_clip,
 )
 from src.device import choose_device
-from src.image_transforms import DEFAULT_ROBUSTNESS_CONDITIONS, TRANSFORM_SPECS
+from src.image_transforms import (
+    DEFAULT_ROBUSTNESS_CONDITIONS,
+    FULL_ROBUSTNESS_CONDITIONS,
+    TRANSFORM_SPECS,
+)
 from src.linear_probe import FeatureCache, load_feature_cache
 from src.transformed_dataset import TransformedPathDataset
 from src.transformed_features import (
@@ -40,15 +44,36 @@ VALID_SPLITS = ("train", "val", "test")
 DEFAULT_CONDITIONS = tuple(
     condition for condition in DEFAULT_ROBUSTNESS_CONDITIONS if condition != "clean"
 )
+AVAILABLE_CONDITIONS = tuple(
+    condition for condition in FULL_ROBUSTNESS_CONDITIONS if condition != "clean"
+)
+
+
+def ordered_recorded_conditions(
+    existing_conditions: list[str], requested_conditions: list[str]
+) -> list[str]:
+    """Return the registry-ordered union recorded in the cumulative summary."""
+
+    recorded = set(existing_conditions).union(requested_conditions)
+    unknown = recorded.difference(AVAILABLE_CONDITIONS)
+    if unknown:
+        raise ValueError(f"Summary contains unknown transformation conditions: {sorted(unknown)}")
+    return [condition for condition in AVAILABLE_CONDITIONS if condition in recorded]
 
 
 def _limited_reference(reference: FeatureCache, maximum_samples: int | None) -> FeatureCache:
     if maximum_samples is None:
         return reference
     stop = min(maximum_samples, len(reference.labels))
+    labels = reference.labels[:stop]
+    if set(np.unique(labels).tolist()) != {0, 1}:
+        raise ValueError(
+            "Debug maximum-samples prefix must contain both labels 0 and 1; "
+            "increase --maximum-samples."
+        )
     return FeatureCache(
         features=reference.features[:stop],
-        labels=reference.labels[:stop],
+        labels=labels,
         image_paths=reference.image_paths[:stop],
         split=reference.split,
         model_name=reference.model_name,
@@ -187,7 +212,10 @@ def parse_args() -> argparse.Namespace:
         help="Defaults to train and val; test requires --allow-test.",
     )
     parser.add_argument(
-        "--conditions", nargs="+", choices=DEFAULT_CONDITIONS, default=list(DEFAULT_CONDITIONS)
+        "--conditions",
+        nargs="+",
+        choices=AVAILABLE_CONDITIONS,
+        default=list(DEFAULT_CONDITIONS),
     )
     parser.add_argument("--clean-feature-dir", type=Path, default=DEFAULT_CLEAN_FEATURE_DIR)
     parser.add_argument("--output-dir", type=Path, default=DEFAULT_OUTPUT_DIR)
@@ -296,7 +324,10 @@ def main() -> int:
             "l2_normalized": True,
         },
         "transform_seed": args.seed,
-        "conditions": list(dict.fromkeys(args.conditions)),
+        "conditions": ordered_recorded_conditions(
+            list(existing_summary.get("conditions", [])),
+            list(dict.fromkeys(args.conditions)),
+        ),
         "caches": cache_summaries,
     }
     atomic_json_write(args.summary_output, summary)

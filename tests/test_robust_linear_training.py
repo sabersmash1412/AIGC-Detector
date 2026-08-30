@@ -99,6 +99,33 @@ def test_e2_training_is_repeatable_and_improves_toy_validation_auc() -> None:
     assert first.best_epoch == second.best_epoch
 
 
+def test_consistency_term_changes_training_while_preserving_valid_outputs() -> None:
+    initialization = _initialization()
+    initialization.coefficients[1] = 1.0
+    common_arguments = {
+        "train": _paired("train"),
+        "validation": _paired("val"),
+        "initialization": initialization,
+        "device": torch.device("cpu"),
+        "seed": 42,
+        "batch_size": 4,
+        "maximum_epochs": 4,
+        "learning_rate": 0.05,
+        "weight_decay": 0.0,
+        "early_stopping_patience": 2,
+    }
+
+    e2 = train_paired_linear_head(**common_arguments, consistency_weight=0.0)
+    e3 = train_paired_linear_head(**common_arguments, consistency_weight=1.0)
+
+    assert e3.history[0]["consistency_loss_diagnostic"] > 0.0
+    assert e3.history[0]["total_loss"] > e3.history[0]["supervised_loss"]
+    assert e2.history[0]["total_loss"] == e2.history[0]["supervised_loss"]
+    assert e2.history[2]["supervised_loss"] != e3.history[2]["supervised_loss"]
+    assert np.isfinite(e3.coefficients).all()
+    assert 0.0 <= e3.best_validation["selection_mean_roc_auc"] <= 1.0
+
+
 def test_robust_checkpoint_remains_compatible_with_inference_loader(
     tmp_path: Path,
 ) -> None:

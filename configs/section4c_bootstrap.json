@@ -1,0 +1,72 @@
+{
+  "protocol_version": 1,
+  "experiment_name": "section4c_stratified_paired_bootstrap",
+  "purpose": "Quantify sampling uncertainty for the frozen full transformation matrix and held-out FLUX evaluation without retraining, threshold changes, or model reselection.",
+  "bootstrap": {
+    "method": "nonparametric stratified paired percentile bootstrap",
+    "replicates": 1000,
+    "seed": 4242,
+    "confidence_level": 0.95,
+    "stratification": "Resample real and AI-generated indices independently with replacement, preserving 1000 examples per class.",
+    "pairing": "Use the exact same bootstrap draws for every model and condition within each dataset.",
+    "interval": "Equal-tailed percentile confidence interval.",
+    "multiple_comparison_adjustment": "None; intervals are descriptive and not simultaneous family-wise guarantees."
+  },
+  "full_matrix": {
+    "report": "reports/section4_full_transformation_matrix.json",
+    "report_sha256": "e416bfd3a3e56e4803c7b572fde499fd7a17765acf5fb3bd1ebeaa6a8ef16e92",
+    "probabilities": "outputs/section4_full_matrix_probabilities.npz",
+    "probabilities_sha256": "a5acfdc2b0c1668634314bb2a78bfb5bc5c5e5d26b2c809da9df84f76679ef35",
+    "condition_metrics": [
+      "roc_auc",
+      "balanced_accuracy",
+      "prediction_flip_rate"
+    ],
+    "summary_metrics": [
+      "mean_transformed_roc_auc",
+      "mean_transformed_balanced_accuracy",
+      "worst_transformed_balanced_accuracy",
+      "mean_transformed_prediction_flip_rate"
+    ]
+  },
+  "held_out_flux": {
+    "report": "reports/section4b_held_out_generator_evaluation.json",
+    "report_sha256": "b3322e19d3435340545dec65248d4f71713a6fa81d4d26a4fbd4d3b6683fd381",
+    "probabilities": "outputs/section4b_heldout_probabilities.npz",
+    "probabilities_sha256": "5019071fad72b0edaefb2ff936a5be0794282c706ae1e1678ae3bcc3b52f0783",
+    "metrics": [
+      "roc_auc",
+      "balanced_accuracy",
+      "real_recall",
+      "real_false_positive_rate",
+      "flux_recall"
+    ]
+  },
+  "paired_comparisons": [
+    "E3_minus_E1",
+    "E3_minus_E2"
+  ],
+  "frozen_guardrails": {
+    "models": [
+      "E1",
+      "E2",
+      "E3"
+    ],
+    "primary_model": "E3",
+    "retraining_allowed": false,
+    "threshold_changes_allowed": false,
+    "model_reselection_allowed": false,
+    "organiser_validation_subset_used": false,
+    "bootstrap_results_allowed_to_change_models_or_thresholds": false
+  },
+  "interpretation": {
+    "interval_scope": "Uncertainty from resampling these fixed evaluation images only.",
+    "not_captured": [
+      "Generator-to-generator variability beyond FLUX",
+      "Dataset-source uncertainty",
+      "Training-seed variability",
+      "Threshold recalibration uncertainty",
+      "Licence or annotation uncertainty"
+    ]
+  }
+}

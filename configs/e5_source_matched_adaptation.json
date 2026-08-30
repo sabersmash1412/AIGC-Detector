@@ -1,0 +1,231 @@
+{
+  "protocol_version": 1,
+  "experiment_name": "e5_source_matched_domain_adaptation",
+  "status": "frozen_before_e5_sid_flux_download",
+  "research_question": "Can source-matched real and synthetic supervision preserve cross-generator recall while controlling confident false accusations, with abstention when a frozen CLIP linear detector is uncertain?",
+  "research_positioning": {
+    "E3_remains_original_primary_binary_baseline": true,
+    "E4_remains_documented_failed_replacement": true,
+    "E5_is_new_post_hoc_research_candidate": true,
+    "universal_detector_claim_allowed": false,
+    "fresh_external_test_required": true,
+    "existing_E3_E4_results_may_be_overwritten": false
+  },
+  "frozen_e4_failure_evidence": {
+    "report": "reports/e4_posthoc_evaluation.json",
+    "report_sha256": "2696cbe009a7ea4ae074030940be51a410ace38a5c7b72140e75356f560b4277",
+    "sid_real_false_positive_rate_E3": 0.646,
+    "sid_real_false_positive_rate_E4": 0.006,
+    "flux_recall_E3": 0.997,
+    "flux_recall_E4": 0.205,
+    "lesson_frozen_before_E5": "Real-only SID supervision created source-label confounding and an unsafe operating point; E5 must include both real and FLUX examples from SID train and must constrain confident errors in both directions."
+  },
+  "class_mapping": {
+    "real": 0,
+    "ai_generated": 1
+  },
+  "development_data": {
+    "cifake": {
+      "role": "Existing source containing both CIFAKE real and Stable-Diffusion-based AI examples.",
+      "train_manifest": "data/processed/train.csv",
+      "validation_manifest": "data/processed/val.csv",
+      "train_samples": 10000,
+      "validation_samples": 2000,
+      "train_per_class": 5000,
+      "validation_per_class": 1000,
+      "clean_feature_directory": "data/features/clip_vit_b32_quickgelu_openai",
+      "transformed_feature_directory": "data/features/clip_transformed_seed42"
+    },
+    "sid_set_train_real": {
+      "role": "Previously frozen authentic SID-train source, reused without resampling.",
+      "source_split": "train",
+      "source_label": 0,
+      "train_samples": 3000,
+      "validation_samples": 1000,
+      "train_manifest": "data/processed/e4_sid_real/train.csv",
+      "train_manifest_sha256": "9a456e95f6b037e1fbfaa14520c5d98cc4118a99f813fec6803633baeceba58b",
+      "validation_manifest": "data/processed/e4_sid_real/val.csv",
+      "validation_manifest_sha256": "3ae03562a32f0d963a3038506482f9218b3705637efea33b33e3874d77012200",
+      "provenance": "data/processed/e4_sid_real_provenance.json",
+      "provenance_sha256": "90afabed5d23f07a23a842269c51187aa643477748e66369db98847aed01901f",
+      "clean_feature_directory": "data/features/e4_sid_real_clip_vit_b32_quickgelu_openai",
+      "clean_embedding_summary": "reports/e4_sid_real_clip_embedding_summary.json",
+      "clean_embedding_summary_sha256": "625319bc74c94dd32041cfb8fccf8f7fce35d0079fbac5412858e88d00629af5",
+      "transformed_feature_directory": "data/features/e4_sid_real_clip_transformed_seed42",
+      "transformed_embedding_summary": "reports/e4_sid_real_transformed_embedding_summary.json",
+      "transformed_embedding_summary_sha256": "ec11ff11c22cfb2c7d22e11673850887ac319fafb959fc9f845b44da407fe6ab"
+    },
+    "sid_set_train_flux": {
+      "role": "New domain-matched synthetic supervision from SID train only; this balances labels within the SID source but is not claimed to be exact semantic pairing with the selected real images.",
+      "repository": "saberzl/SID_Set",
+      "repository_url": "https://huggingface.co/datasets/saberzl/SID_Set",
+      "source_revision": "dc03ead57929879319ce30a82bfcfb8d317b10bd",
+      "config": "default",
+      "source_split": "train",
+      "source_rows": 210000,
+      "rows_api": "https://datasets-server.huggingface.co/rows",
+      "allowed_source_label": 1,
+      "allowed_source_meaning": "full_synthetic_FLUX",
+      "forbidden_source_labels": {
+        "0": "real",
+        "2": "tampered"
+      },
+      "declared_license": "CC-BY-4.0",
+      "train_manifest": "data/processed/e5_sid_flux/train.csv",
+      "validation_manifest": "data/processed/e5_sid_flux/val.csv",
+      "provenance": "data/processed/e5_sid_flux_provenance.json",
+      "image_root": "data/raw/e5_sid_flux/images",
+      "clean_feature_directory": "data/features/e5_sid_flux_clip_vit_b32_quickgelu_openai",
+      "transformed_feature_directory": "data/features/e5_sid_flux_clip_transformed_seed42"
+    }
+  },
+  "sid_flux_sampling": {
+    "seed": 505,
+    "page_size": 100,
+    "page_count": 2100,
+    "train_count": 3000,
+    "validation_count": 1000,
+    "total_count": 4000,
+    "candidate_buffer": 250,
+    "page_ordering": "Sort page indices by SHA-256 of 'e5:<seed>:page:<page_index>'.",
+    "candidate_ranking": "Sort eligible label-1 rows by SHA-256 of 'e5:<seed>:row:<row_idx>:<img_id>'; allocate the first 3000 accepted unique images to train and the next 1000 to validation.",
+    "content_deduplication": "Reject byte-identical content across E5 FLUX train, E5 FLUX validation, E5 real development data, and the frozen Section 4B audit.",
+    "identity_deduplication": "Reject any img_id already present in E5 real development data or the frozen Section 4B audit.",
+    "manual_cherry_picking_allowed": false
+  },
+  "forbidden_development_data": {
+    "section4_sid_flux_audit": {
+      "dataset_split": "SID-Set validation",
+      "manifest": "data/processed/sid_set_flux_heldout.csv",
+      "manifest_sha256": "9631bfba3bb24869ce4edb6b52db1e7e19b68716f28e1b61b73c70e5ab40d301",
+      "provenance": "data/processed/sid_set_flux_heldout_provenance.json",
+      "provenance_sha256": "1c5ad49e8e4598c57b2dd1010eed538e83ec8345edbee47109128c5f6ebb6379",
+      "allowed_for_training": false,
+      "allowed_for_validation": false,
+      "allowed_for_model_threshold_or_hyperparameter_selection": false,
+      "allowed_as_posthoc_regression_diagnostic_only": true
+    },
+    "organiser_validation_subset": {
+      "allowed_for_training": false,
+      "allowed_for_validation": false,
+      "allowed_for_model_threshold_or_hyperparameter_selection": false,
+      "used": false
+    }
+  },
+  "representation": {
+    "library": "open_clip_torch",
+    "model_name": "ViT-B-32-quickgelu",
+    "pretrained": "openai",
+    "feature_dimension": 512,
+    "l2_normalized": true,
+    "encoder_trainable_parameters": 0
+  },
+  "initialization": {
+    "model": "E3 supervised plus consistency, before threshold selection",
+    "checkpoint": "checkpoints/clip_linear_e3_consistency.npz",
+    "checkpoint_sha256": "3fd8c77c2f265a8f1929ca6f9bb380c0221e20b50a30fdc60148f2b0502e70bc",
+    "reason": "E3 is the last model selected before the E4 domain-failure evidence and avoids inheriting E4's real-only overcorrection."
+  },
+  "representative_conditions": [
+    "clean",
+    "jpeg_q50",
+    "gaussian_blur_sigma1",
+    "resize_0_5x",
+    "gaussian_noise_sigma0_05",
+    "color_jitter_seeded_20pct",
+    "center_crop_80pct"
+  ],
+  "training": {
+    "trainable_parameters": 513,
+    "group_sampling_per_epoch": {
+      "cifake_real": 0.25,
+      "cifake_ai_generated": 0.25,
+      "sid_set_train_real": 0.25,
+      "sid_set_train_flux": 0.25
+    },
+    "examples_per_epoch": 60000,
+    "class_balance_per_epoch": {
+      "real": 0.5,
+      "ai_generated": 0.5
+    },
+    "source_balance_per_epoch": {
+      "cifake": 0.5,
+      "sid_set_train": 0.5
+    },
+    "pair_definition": "Each sampled clean embedding is paired with one registered transformed embedding of the identical path and label; real and AI groups use the same transformation registry and sampling distribution.",
+    "supervised_loss": "0.5 * (BCE(clean_logit, label) + BCE(transformed_logit, label))",
+    "consistency_loss": "MSE(sigmoid(clean_logit), sigmoid(transformed_logit))",
+    "anchor_loss": "mean((coefficient - E3_coefficient)^2) + (intercept - E3_intercept)^2 / 513",
+    "anchor_weights": [
+      0.0,
+      0.001,
+      0.01,
+      0.1
+    ],
+    "all_anchor_candidates_must_run": true,
+    "batch_size": 1024,
+    "maximum_epochs": 40,
+    "optimizer": "AdamW",
+    "learning_rate": 0.005,
+    "weight_decay": 0.0001,
+    "consistency_weight": 1.0,
+    "early_stopping_patience": 8,
+    "random_seed": 505
+  },
+  "validation_and_decision_selection": {
+    "data": "CIFAKE validation, frozen E5 SID-train real validation, and new E5 SID-train FLUX validation only; no test, prior audit, or organiser data.",
+    "score_grid_minimum": 0.001,
+    "score_grid_maximum": 0.999,
+    "score_grid_step": 0.001,
+    "deployment_decision": {
+      "real": "score <= real_threshold",
+      "uncertain": "real_threshold < score < ai_threshold",
+      "ai_generated": "score >= ai_threshold",
+      "threshold_order_required": "real_threshold < ai_threshold"
+    },
+    "confidence_level": 0.95,
+    "confident_error_constraints": {
+      "maximum_wilson_upper_real_called_ai": 0.05,
+      "maximum_wilson_upper_ai_called_real": 0.1,
+      "scope": "Every source-by-condition validation group separately: CIFAKE real, SID real, CIFAKE AI, and SID FLUX across clean plus all six representative transformations."
+    },
+    "anti_trivial_abstention_constraints": {
+      "minimum_clean_decisive_coverage_per_group": 0.6,
+      "minimum_worst_source_condition_decisive_coverage": 0.25,
+      "minimum_mean_source_condition_decisive_coverage": 0.5
+    },
+    "candidate_feasibility": "An epoch, anchor weight, and threshold pair is feasible only if every confident-error and anti-trivial-abstention constraint is satisfied.",
+    "selection_objective": "Among feasible candidates, maximize worst source-by-condition decisive coverage, then mean decisive coverage, then worst decisive accuracy, then worst ROC-AUC.",
+    "tie_break_1": "Lower anchor weight.",
+    "tie_break_2": "Earlier epoch.",
+    "tie_break_3": "Narrower uncertainty interval.",
+    "no_feasible_candidate_rule": "Reject E5 for deployment; do not relax constraints after observing results.",
+    "binary_benchmark_threshold": "Select separately on development validation to maximize worst source-by-condition balanced accuracy; report for scientific comparison only and never describe it as the risk-controlled deployment decision."
+  },
+  "pre_evaluation_acceptance_gates": {
+    "source_and_class_balance_verified": true,
+    "all_four_anchor_candidates_completed": true,
+    "risk_controlled_threshold_pair_feasible": true,
+    "minimum_validation_coverage_constraints_met": true,
+    "test_audit_and_organiser_data_loaded_during_development": false,
+    "failure_action": "Keep E3 as baseline, report E5 as rejected, and do not run a fresh external test merely to search for a favourable domain."
+  },
+  "fresh_external_evaluation": {
+    "required_before_any_E5_success_claim": true,
+    "separate_protocol_must_be_frozen_before_download_or_feature_inspection": true,
+    "minimum_real_images": 1000,
+    "minimum_ai_images": 1000,
+    "real_source_must_be_absent_from_E5_development": true,
+    "generator_family_must_be_absent_from_E5_development": true,
+    "organiser_validation_subset_forbidden": true,
+    "single_use_no_threshold_changes_after_results": true,
+    "prior_section4_sid_flux_audit_qualifies_as_fresh_test": false
+  },
+  "privacy_and_publication": {
+    "raw_sid_images_must_not_be_committed": true,
+    "individual_sid_images_allowed_in_public_demo": false,
+    "source_urls_persisted": false,
+    "aggregate_metrics_and_non_image_figures_allowed": true,
+    "per_image_attribution_limitation_must_be_disclosed": true
+  }
+}

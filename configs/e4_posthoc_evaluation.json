@@ -1,0 +1,95 @@
+{
+  "protocol_version": 1,
+  "experiment_name": "e4_frozen_posthoc_comparison",
+  "status": "frozen_after_e4_training_before_e4_test_evaluation",
+  "research_question": "Did validation-selected E4 real-domain adaptation reduce SID-Set real false positives while retaining CIFAKE transformation robustness and FLUX recall relative to frozen E3?",
+  "positioning": {
+    "E3_remains_original_primary_model": true,
+    "E4_is_post_hoc_follow_up": true,
+    "E4_results_are_design_independent_fresh_test": false,
+    "reason": "Both CIFAKE test and the SID-Set/FLUX audit were inspected before E4 was designed; their E4 results are therefore post-hoc evidence only.",
+    "fresh_external_test_still_required": true
+  },
+  "frozen_inputs": {
+    "e4_development_protocol": {
+      "path": "configs/e4_domain_adaptation.json",
+      "sha256": "c2a38b37e25b5f2b4bd0f38dbc9cd241fbe8b4b66ea8982730f93835881b9293"
+    },
+    "e4_training_report": {
+      "path": "reports/e4_training.json",
+      "sha256": "5581d1f1361e7690674ebf9922b56eaec9e9d9a3d84046c2a26c8b1f6aef9344"
+    },
+    "E3": {
+      "checkpoint": "checkpoints/clip_linear_e3_thresholded.npz",
+      "checkpoint_sha256": "1523bc38fc4626a3e252464da146ad66af074c4196ebb2f44719ec149fd3482a",
+      "threshold": 0.437,
+      "role": "Original validation-selected primary model"
+    },
+    "E4": {
+      "checkpoint": "checkpoints/clip_linear_e4_domain_adapted.npz",
+      "checkpoint_sha256": "7379642904d17627d8e9df708e352ec141aa9c609ef7400cd4b9e8896254f542",
+      "threshold": 0.6930000000000001,
+      "role": "Post-hoc real-domain-adapted follow-up"
+    },
+    "cifake_full_matrix": {
+      "protocol": "configs/section4_evaluation.json",
+      "protocol_sha256": "b1b9d42a92fb43ce3ebc5ec100e5f8d136abcfc394bf62df88ef16cf3c6f9cd2",
+      "original_report": "reports/section4_full_transformation_matrix.json",
+      "original_report_sha256": "e416bfd3a3e56e4803c7b572fde499fd7a17765acf5fb3bd1ebeaa6a8ef16e92"
+    },
+    "sid_flux_audit": {
+      "protocol": "configs/section4b_held_out_generator.json",
+      "protocol_sha256": "53424a69d0c7835ee0868f68a0f15f830aa2192a0467937ec64f6d35ff8db555",
+      "embedding_summary": "reports/section4b_clip_embedding_summary.json",
+      "embedding_summary_sha256": "f0e429869c54f68f8481af2390b95ef87dd7b4915399c432e42c547dea294465",
+      "feature_cache": "data/features/clip_vit_b32_quickgelu_openai/sid_set_flux_heldout.npz",
+      "feature_cache_sha256": "d0d4832a2610632eaaddb3b9db0693a4fbdad6b957cea139193b63d3bf5b3fa1",
+      "original_report": "reports/section4b_held_out_generator_evaluation.json",
+      "original_report_sha256": "b3322e19d3435340545dec65248d4f71713a6fa81d4d26a4fbd4d3b6683fd381"
+    }
+  },
+  "frozen_rules": {
+    "retraining_allowed": false,
+    "threshold_changes_allowed": false,
+    "epoch_reselection_allowed": false,
+    "condition_selection_after_results_allowed": false,
+    "overwrite_original_section4_artifacts_allowed": false,
+    "same_paths_labels_and_features_for_E3_and_E4": true,
+    "organiser_validation_subset_used": false
+  },
+  "evaluation": {
+    "cifake_conditions": [
+      "clean",
+      "jpeg_q90",
+      "jpeg_q70",
+      "jpeg_q50",
+      "jpeg_q30",
+      "gaussian_blur_sigma0_5",
+      "gaussian_blur_sigma1",
+      "gaussian_blur_sigma2",
+      "resize_0_5x",
+      "resize_0_25x",
+      "gaussian_noise_sigma0_02",
+      "gaussian_noise_sigma0_05",
+      "gaussian_noise_sigma0_10",
+      "color_jitter_seeded_20pct",
+      "center_crop_80pct"
+    ],
+    "primary_metrics": [
+      "real false-positive rate",
+      "AI recall",
+      "balanced accuracy",
+      "ROC-AUC",
+      "worst-condition balanced accuracy",
+      "prediction-flip rate"
+    ],
+    "comparison_direction": "E4 minus E3"
+  },
+  "outputs": {
+    "report": "reports/e4_posthoc_evaluation.json",
+    "full_matrix_figure": "reports/figures/e4_posthoc_full_matrix.png",
+    "audit_figure": "reports/figures/e4_posthoc_sid_flux_audit.png",
+    "score_distribution_figure": "reports/figures/e4_posthoc_sid_flux_distributions.png",
+    "probabilities": "outputs/e4_posthoc_probabilities.npz"
+  }
+}

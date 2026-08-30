@@ -1,0 +1,74 @@
+{
+  "protocol_version": 1,
+  "experiment_name": "section4d_frozen_error_analysis",
+  "purpose": "Characterise frozen E3 failures across transformations and held-out FLUX data without changing the model, threshold, or primary-model decision.",
+  "inputs": {
+    "full_matrix_report": {
+      "path": "reports/section4_full_transformation_matrix.json",
+      "sha256": "e416bfd3a3e56e4803c7b572fde499fd7a17765acf5fb3bd1ebeaa6a8ef16e92"
+    },
+    "full_matrix_probabilities": {
+      "path": "outputs/section4_full_matrix_probabilities.npz",
+      "sha256": "a5acfdc2b0c1668634314bb2a78bfb5bc5c5e5d26b2c809da9df84f76679ef35"
+    },
+    "held_out_report": {
+      "path": "reports/section4b_held_out_generator_evaluation.json",
+      "sha256": "b3322e19d3435340545dec65248d4f71713a6fa81d4d26a4fbd4d3b6683fd381"
+    },
+    "held_out_probabilities": {
+      "path": "outputs/section4b_heldout_probabilities.npz",
+      "sha256": "5019071fad72b0edaefb2ff936a5be0794282c706ae1e1678ae3bcc3b52f0783"
+    },
+    "bootstrap_report": {
+      "path": "reports/section4c_bootstrap_uncertainty.json",
+      "sha256": "c5897d06bc206a123e01046bf57172dfef62e3fa94711c856340623f7c935f40"
+    },
+    "held_out_manifest": "data/processed/sid_set_flux_heldout.csv"
+  },
+  "model": {
+    "name": "E3",
+    "checkpoint": "checkpoints/clip_linear_e3_thresholded.npz",
+    "frozen_threshold": 0.437,
+    "selection_basis": "Preselected using Section 3 validation data before all Section 4 test analysis."
+  },
+  "analysis": {
+    "condition_error_directions": true,
+    "transformation_induced_and_recovered_errors": true,
+    "cross_condition_error_persistence": true,
+    "cross_condition_error_jaccard": true,
+    "held_out_image_properties": [
+      "width",
+      "height",
+      "aspect_ratio",
+      "megapixels",
+      "mean_luminance",
+      "luminance_standard_deviation",
+      "mean_saturation",
+      "grayscale_entropy",
+      "edge_strength"
+    ],
+    "property_thumbnail_size": 64,
+    "representative_records_per_error_type": 10,
+    "representative_selection": "Largest absolute confidence margin among errors, with path replaced by the first 12 hexadecimal characters of SHA-256(path)."
+  },
+  "privacy_and_licensing": {
+    "sid_set_images_publicly_displayed": false,
+    "sid_set_paths_or_img_ids_published": false,
+    "only_aggregate_properties_and_anonymised_identifiers_published": true,
+    "per_image_records": "outputs/section4d_error_records.json",
+    "per_image_records_must_remain_git_ignored": true
+  },
+  "frozen_guardrails": {
+    "retraining_allowed": false,
+    "threshold_changes_allowed": false,
+    "model_reselection_allowed": false,
+    "error_analysis_allowed_to_change_models_or_thresholds": false,
+    "organiser_validation_subset_used": false
+  },
+  "interpretation_limits": [
+    "Image-property associations are descriptive and do not establish causal failure mechanisms.",
+    "SID-Set real and FLUX images may differ in source, content, resolution, and processing pipeline.",
+    "Only three held-out FLUX false negatives exist, so their aggregate profile is unstable.",
+    "The analysis covers one external generator and cannot establish universal cross-generator behaviour."
+  ]
+}

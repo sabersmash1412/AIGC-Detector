@@ -1,0 +1,63 @@
+{
+  "experiment": "frozen_clip_embedding_cache",
+  "purpose": "Reusable clean-image embeddings; no classifier training or evaluation.",
+  "cache_format_version": 1,
+  "model": {
+    "library": "open_clip_torch",
+    "library_version": "3.3.0",
+    "model_name": "ViT-B-32-quickgelu",
+    "pretrained": "openai",
+    "total_parameters": 151277313,
+    "trainable_parameters": 0,
+    "feature_dimension": 512,
+    "l2_normalized": true
+  },
+  "splits": {
+    "train": {
+      "samples": 3000,
+      "feature_shape": [
+        3000,
+        512
+      ],
+      "feature_dtype": "float32",
+      "all_finite": true,
+      "maximum_l2_norm_error": 1.7881393432617188e-07,
+      "class_counts": {
+        "real_0": 0,
+        "ai_generated_1": 3000
+      },
+      "status": "extracted",
+      "manifest": "data/processed/e5_sid_flux/train.csv",
+      "manifest_sha256": "f3d2b0d2fde72c8822d2558c04478a100349e0543ded4db88b77830871d839e4",
+      "cache_path": "data/features/e5_sid_flux_clip_vit_b32_quickgelu_openai/train.npz",
+      "cache_bytes": 6938669,
+      "cache_sha256": "4cc6ff4d5a8ece10994f2ae072240aa287ae74aa17e5f16ac4cd4107cd7995b7",
+      "extraction_device": "mps",
+      "extraction_seconds": 66.55474312500155,
+      "images_per_second": 45.07567543857048
+    },
+    "val": {
+      "samples": 1000,
+      "feature_shape": [
+        1000,
+        512
+      ],
+      "feature_dtype": "float32",
+      "all_finite": true,
+      "maximum_l2_norm_error": 1.1920928955078125e-07,
+      "class_counts": {
+        "real_0": 0,
+        "ai_generated_1": 1000
+      },
+      "status": "extracted",
+      "manifest": "data/processed/e5_sid_flux/val.csv",
+      "manifest_sha256": "24d9d6faa350a8dfbef8834b050e24a39d1d888d7bec53a78025fe2508fef85e",
+      "cache_path": "data/features/e5_sid_flux_clip_vit_b32_quickgelu_openai/val.npz",
+      "cache_bytes": 2314661,
+      "cache_sha256": "a5e5b5001d9fc8b188fab01c9a5a0822c56b6ee28bf8fd5c0cbffb28e966029c",
+      "extraction_device": "mps",
+      "extraction_seconds": 22.965090249999776,
+      "images_per_second": 43.54435315141031
+    }
+  }
+}

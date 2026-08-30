@@ -13,10 +13,18 @@
   },
   "transform_seed": 42,
   "conditions": [
+    "jpeg_q90",
+    "jpeg_q70",
     "jpeg_q50",
+    "jpeg_q30",
+    "gaussian_blur_sigma0_5",
     "gaussian_blur_sigma1",
+    "gaussian_blur_sigma2",
     "resize_0_5x",
+    "resize_0_25x",
+    "gaussian_noise_sigma0_02",
     "gaussian_noise_sigma0_05",
+    "gaussian_noise_sigma0_10",
     "color_jitter_seeded_20pct",
     "center_crop_80pct"
   ],
@@ -509,6 +517,210 @@
       "extraction_device": "mps",
       "extraction_seconds": 27.63993204200233,
       "images_per_second": 72.35907805275173
+    },
+    "test/jpeg_q90": {
+      "status": "extracted",
+      "split": "test",
+      "condition": "jpeg_q90",
+      "display_name": "JPEG Q90",
+      "parameters": {
+        "quality": 90,
+        "subsampling": 2
+      },
+      "transform_seed": 42,
+      "samples": 2000,
+      "feature_shape": [
+        2000,
+        512
+      ],
+      "feature_dimension": 512,
+      "cache_path": "data/features/clip_transformed_seed42/test/jpeg_q90.npz",
+      "cache_bytes": 4428533,
+      "cache_sha256": "65dcee5240d15715313658845a79bd197819bb451c81d81b60bd668aac0f0b4f",
+      "clean_cache_sha256": "0311d1639a0e36a0f14499238f735333bafb8e970fff2a2164e830c126d03b72",
+      "path_and_label_alignment_verified": true,
+      "extraction_device": "mps",
+      "extraction_seconds": 31.513350125002034,
+      "images_per_second": 63.465166098390846
+    },
+    "test/jpeg_q70": {
+      "status": "extracted",
+      "split": "test",
+      "condition": "jpeg_q70",
+      "display_name": "JPEG Q70",
+      "parameters": {
+        "quality": 70,
+        "subsampling": 2
+      },
+      "transform_seed": 42,
+      "samples": 2000,
+      "feature_shape": [
+        2000,
+        512
+      ],
+      "feature_dimension": 512,
+      "cache_path": "data/features/clip_transformed_seed42/test/jpeg_q70.npz",
+      "cache_bytes": 4428533,
+      "cache_sha256": "1ec507e66f8500a5f7c5f2575826dbf4dce3ce19cbf28c840160ad2b33dde0a2",
+      "clean_cache_sha256": "0311d1639a0e36a0f14499238f735333bafb8e970fff2a2164e830c126d03b72",
+      "path_and_label_alignment_verified": true,
+      "extraction_device": "mps",
+      "extraction_seconds": 39.093247917000554,
+      "images_per_second": 51.1597297887919
+    },
+    "test/jpeg_q30": {
+      "status": "extracted",
+      "split": "test",
+      "condition": "jpeg_q30",
+      "display_name": "JPEG Q30",
+      "parameters": {
+        "quality": 30,
+        "subsampling": 2
+      },
+      "transform_seed": 42,
+      "samples": 2000,
+      "feature_shape": [
+        2000,
+        512
+      ],
+      "feature_dimension": 512,
+      "cache_path": "data/features/clip_transformed_seed42/test/jpeg_q30.npz",
+      "cache_bytes": 4428533,
+      "cache_sha256": "022b6d652df87932c37dacc947b8cded27ffa2a8b5bfe2c9d223bd960781ea23",
+      "clean_cache_sha256": "0311d1639a0e36a0f14499238f735333bafb8e970fff2a2164e830c126d03b72",
+      "path_and_label_alignment_verified": true,
+      "extraction_device": "mps",
+      "extraction_seconds": 28.706953624998278,
+      "images_per_second": 69.6695311570219
+    },
+    "test/gaussian_blur_sigma0_5": {
+      "status": "extracted",
+      "split": "test",
+      "condition": "gaussian_blur_sigma0_5",
+      "display_name": "Blur \u03c3=0.5",
+      "parameters": {
+        "sigma": 0.5
+      },
+      "transform_seed": 42,
+      "samples": 2000,
+      "feature_shape": [
+        2000,
+        512
+      ],
+      "feature_dimension": 512,
+      "cache_path": "data/features/clip_transformed_seed42/test/gaussian_blur_sigma0_5.npz",
+      "cache_bytes": 4428521,
+      "cache_sha256": "7e30b45f6845beb7e2807ebda1ca64930f7b2e1231cb38e052ca4922f79834b7",
+      "clean_cache_sha256": "0311d1639a0e36a0f14499238f735333bafb8e970fff2a2164e830c126d03b72",
+      "path_and_label_alignment_verified": true,
+      "extraction_device": "mps",
+      "extraction_seconds": 28.88426537500345,
+      "images_per_second": 69.2418510228343
+    },
+    "test/gaussian_blur_sigma2": {
+      "status": "extracted",
+      "split": "test",
+      "condition": "gaussian_blur_sigma2",
+      "display_name": "Blur \u03c3=2",
+      "parameters": {
+        "sigma": 2.0
+      },
+      "transform_seed": 42,
+      "samples": 2000,
+      "feature_shape": [
+        2000,
+        512
+      ],
+      "feature_dimension": 512,
+      "cache_path": "data/features/clip_transformed_seed42/test/gaussian_blur_sigma2.npz",
+      "cache_bytes": 4428513,
+      "cache_sha256": "e1e2e1963761275c5b7dd442acb04ae3edd7a38e2004987fef336b7fda5f2474",
+      "clean_cache_sha256": "0311d1639a0e36a0f14499238f735333bafb8e970fff2a2164e830c126d03b72",
+      "path_and_label_alignment_verified": true,
+      "extraction_device": "mps",
+      "extraction_seconds": 29.28921629099932,
+      "images_per_second": 68.2845174186039
+    },
+    "test/resize_0_25x": {
+      "status": "extracted",
+      "split": "test",
+      "condition": "resize_0_25x",
+      "display_name": "Resize 0.25\u00d7",
+      "parameters": {
+        "downscale_factor": 0.25,
+        "upscale_to_original": true
+      },
+      "transform_seed": 42,
+      "samples": 2000,
+      "feature_shape": [
+        2000,
+        512
+      ],
+      "feature_dimension": 512,
+      "cache_path": "data/features/clip_transformed_seed42/test/resize_0_25x.npz",
+      "cache_bytes": 4428637,
+      "cache_sha256": "b8df5b202e9b55f95a38123792e84c29184432626ee9b93e7a4af09c7d6232c1",
+      "clean_cache_sha256": "0311d1639a0e36a0f14499238f735333bafb8e970fff2a2164e830c126d03b72",
+      "path_and_label_alignment_verified": true,
+      "extraction_device": "mps",
+      "extraction_seconds": 28.78441808399657,
+      "images_per_second": 69.48203691885475
+    },
+    "test/gaussian_noise_sigma0_02": {
+      "status": "extracted",
+      "split": "test",
+      "condition": "gaussian_noise_sigma0_02",
+      "display_name": "Noise \u03c3=0.02",
+      "parameters": {
+        "sigma": 0.02,
+        "pixel_range": [
+          0.0,
+          1.0
+        ]
+      },
+      "transform_seed": 42,
+      "samples": 2000,
+      "feature_shape": [
+        2000,
+        512
+      ],
+      "feature_dimension": 512,
+      "cache_path": "data/features/clip_transformed_seed42/test/gaussian_noise_sigma0_02.npz",
+      "cache_bytes": 4428629,
+      "cache_sha256": "e77c1f1ff0eaafe2cdcd5a7e789dd651276ddd8e7ef48c709a783ee12b5c6371",
+      "clean_cache_sha256": "0311d1639a0e36a0f14499238f735333bafb8e970fff2a2164e830c126d03b72",
+      "path_and_label_alignment_verified": true,
+      "extraction_device": "mps",
+      "extraction_seconds": 28.530943750003644,
+      "images_per_second": 70.09932855795367
+    },
+    "test/gaussian_noise_sigma0_10": {
+      "status": "extracted",
+      "split": "test",
+      "condition": "gaussian_noise_sigma0_10",
+      "display_name": "Noise \u03c3=0.10",
+      "parameters": {
+        "sigma": 0.1,
+        "pixel_range": [
+          0.0,
+          1.0
+        ]
+      },
+      "transform_seed": 42,
+      "samples": 2000,
+      "feature_shape": [
+        2000,
+        512
+      ],
+      "feature_dimension": 512,
+      "cache_path": "data/features/clip_transformed_seed42/test/gaussian_noise_sigma0_10.npz",
+      "cache_bytes": 4428625,
+      "cache_sha256": "6186c34b82b3c386f3bdd87a478b83bd50d87d734109c9346ffbd3c257fbfa4e",
+      "clean_cache_sha256": "0311d1639a0e36a0f14499238f735333bafb8e970fff2a2164e830c126d03b72",
+      "path_and_label_alignment_verified": true,
+      "extraction_device": "mps",
+      "extraction_seconds": 27.644349375004822,
+      "images_per_second": 72.34751568464617
     }
   }
 }

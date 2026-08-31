@@ -1,0 +1,43 @@
+{
+  "experiment": "e5_fresh_external_evaluation_lock",
+  "status": "PASS",
+  "frozen_at_utc": "2026-08-31T00:26:47Z",
+  "protocol": {
+    "path": "configs/e5_fresh_external_evaluation.json",
+    "sha256": "4c58f809d3de48a540f16f02b6ff0727b1df2ace4d6dbde6a9605c6cff97e01f",
+    "version": 1
+  },
+  "frozen_e5": {
+    "development_protocol_sha256": "3dd816ba8ec6f308fc34a34cbb6a441b2f6d17de17121b4c3cb6f38d2cab0ecc",
+    "training_report_sha256": "9a70dd250d94501a441344a302a58c8fe5053ba88f8d950360db4773fea513b3",
+    "checkpoint_sha256": "b6c25a38a86692a74280650f516105c01efbaabe91f8da728b1a455cbf1756c4",
+    "anchor_weight": 0.01,
+    "epoch": 40,
+    "real_threshold": 0.23700000000000002,
+    "ai_threshold": 0.8170000000000001
+  },
+  "external_selection": {
+    "benchmark": "Synthbuster v1 with RAISE-1k real photographs",
+    "real_source": "RAISE-1k",
+    "generator": "Adobe Firefly",
+    "images_per_class": 1000,
+    "organiser_validation_subset_used": false
+  },
+  "external_artifacts_present_at_freeze": false,
+  "checked_absent_paths": [
+    "data/raw/e5_synthbuster_firefly",
+    "data/processed/e5_synthbuster_firefly.csv",
+    "data/processed/e5_synthbuster_firefly_provenance.json",
+    "data/features/e5_synthbuster_firefly_clip_vit_b32_quickgelu_openai.npz",
+    "data/features/e5_synthbuster_firefly_transformed_seed42",
+    "reports/e5_external_evaluation.json",
+    "outputs/e5_external_probabilities.npz"
+  ],
+  "guardrails": {
+    "single_use": true,
+    "retraining_after_results_allowed": false,
+    "threshold_changes_after_results_allowed": false,
+    "model_reselection_after_results_allowed": false,
+    "manual_image_inspection_before_scoring_allowed": false
+  }
+}

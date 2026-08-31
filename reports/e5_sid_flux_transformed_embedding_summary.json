@@ -1,0 +1,354 @@
+{
+  "experiment": "paired_transformed_clip_embedding_cache",
+  "purpose": "Paired transformed embeddings for E5 FLUX-only source-matched adaptation.",
+  "single_class_real_mode": false,
+  "single_class_ai_mode": true,
+  "single_class_label": 1,
+  "test_cache_policy": "Explicit --allow-test required after model settings are frozen.",
+  "model": {
+    "library": "open_clip_torch",
+    "library_version": "3.3.0",
+    "model_name": "ViT-B-32-quickgelu",
+    "pretrained": "openai",
+    "feature_dimension": 512,
+    "trainable_parameters": 0,
+    "l2_normalized": true
+  },
+  "transform_seed": 42,
+  "conditions": [
+    "jpeg_q50",
+    "gaussian_blur_sigma1",
+    "resize_0_5x",
+    "gaussian_noise_sigma0_05",
+    "color_jitter_seeded_20pct",
+    "center_crop_80pct"
+  ],
+  "caches": {
+    "train/jpeg_q50": {
+      "status": "extracted",
+      "split": "train",
+      "condition": "jpeg_q50",
+      "display_name": "JPEG Q50",
+      "parameters": {
+        "quality": 50,
+        "subsampling": 2
+      },
+      "transform_seed": 42,
+      "samples": 3000,
+      "feature_shape": [
+        3000,
+        512
+      ],
+      "feature_dimension": 512,
+      "cache_path": "data/features/e5_sid_flux_clip_transformed_seed42/train/jpeg_q50.npz",
+      "cache_bytes": 6940537,
+      "cache_sha256": "9e7cd6670fe98a1728314aabb3aed40e9887b4280f8381cb6e8b2d5b764f972d",
+      "clean_cache_sha256": "4cc6ff4d5a8ece10994f2ae072240aa287ae74aa17e5f16ac4cd4107cd7995b7",
+      "path_and_label_alignment_verified": true,
+      "extraction_device": "mps",
+      "extraction_seconds": 87.974507292005,
+      "images_per_second": 34.10078774345845
+    },
+    "train/gaussian_blur_sigma1": {
+      "status": "extracted",
+      "split": "train",
+      "condition": "gaussian_blur_sigma1",
+      "display_name": "Blur \u03c3=1",
+      "parameters": {
+        "sigma": 1.0
+      },
+      "transform_seed": 42,
+      "samples": 3000,
+      "feature_shape": [
+        3000,
+        512
+      ],
+      "feature_dimension": 512,
+      "cache_path": "data/features/e5_sid_flux_clip_transformed_seed42/train/gaussian_blur_sigma1.npz",
+      "cache_bytes": 6940517,
+      "cache_sha256": "ce565c3ba7b46f6ef0e7f2a4be9c309d6a658ab78d91849a79415b6880a7e680",
+      "clean_cache_sha256": "4cc6ff4d5a8ece10994f2ae072240aa287ae74aa17e5f16ac4cd4107cd7995b7",
+      "path_and_label_alignment_verified": true,
+      "extraction_device": "mps",
+      "extraction_seconds": 146.65760675001366,
+      "images_per_second": 20.45580905403477
+    },
+    "train/resize_0_5x": {
+      "status": "extracted",
+      "split": "train",
+      "condition": "resize_0_5x",
+      "display_name": "Resize 0.5\u00d7",
+      "parameters": {
+        "downscale_factor": 0.5,
+        "upscale_to_original": true
+      },
+      "transform_seed": 42,
+      "samples": 3000,
+      "feature_shape": [
+        3000,
+        512
+      ],
+      "feature_dimension": 512,
+      "cache_path": "data/features/e5_sid_flux_clip_transformed_seed42/train/resize_0_5x.npz",
+      "cache_bytes": 6940633,
+      "cache_sha256": "e461074e39c4b4e828594f19ed34638643705b049991d9a0cfa4256084ffb3e3",
+      "clean_cache_sha256": "4cc6ff4d5a8ece10994f2ae072240aa287ae74aa17e5f16ac4cd4107cd7995b7",
+      "path_and_label_alignment_verified": true,
+      "extraction_device": "mps",
+      "extraction_seconds": 130.23934029199881,
+      "images_per_second": 23.03451471171421
+    },
+    "train/gaussian_noise_sigma0_05": {
+      "status": "extracted",
+      "split": "train",
+      "condition": "gaussian_noise_sigma0_05",
+      "display_name": "Noise \u03c3=0.05",
+      "parameters": {
+        "sigma": 0.05,
+        "pixel_range": [
+          0.0,
+          1.0
+        ]
+      },
+      "transform_seed": 42,
+      "samples": 3000,
+      "feature_shape": [
+        3000,
+        512
+      ],
+      "feature_dimension": 512,
+      "cache_path": "data/features/e5_sid_flux_clip_transformed_seed42/train/gaussian_noise_sigma0_05.npz",
+      "cache_bytes": 6940633,
+      "cache_sha256": "9feb9cb5409d0525ea417671ce62b4ae069c7d385b5a3914c872e1a21e024f6a",
+      "clean_cache_sha256": "4cc6ff4d5a8ece10994f2ae072240aa287ae74aa17e5f16ac4cd4107cd7995b7",
+      "path_and_label_alignment_verified": true,
+      "extraction_device": "mps",
+      "extraction_seconds": 195.1142159160081,
+      "images_per_second": 15.37560954190763
+    },
+    "train/color_jitter_seeded_20pct": {
+      "status": "extracted",
+      "split": "train",
+      "condition": "color_jitter_seeded_20pct",
+      "display_name": "Colour jitter \u00b120%",
+      "parameters": {
+        "brightness_factor_range": [
+          0.8,
+          1.2
+        ],
+        "contrast_factor_range": [
+          0.8,
+          1.2
+        ],
+        "saturation_factor_range": [
+          0.8,
+          1.2
+        ],
+        "factor_and_operation_order": "deterministic per image path"
+      },
+      "transform_seed": 42,
+      "samples": 3000,
+      "feature_shape": [
+        3000,
+        512
+      ],
+      "feature_dimension": 512,
+      "cache_path": "data/features/e5_sid_flux_clip_transformed_seed42/train/color_jitter_seeded_20pct.npz",
+      "cache_bytes": 6941153,
+      "cache_sha256": "597426f04fada1ef42e5c44ca0a163bde9dfc01d70abce496751b33207c0167c",
+      "clean_cache_sha256": "4cc6ff4d5a8ece10994f2ae072240aa287ae74aa17e5f16ac4cd4107cd7995b7",
+      "path_and_label_alignment_verified": true,
+      "extraction_device": "mps",
+      "extraction_seconds": 88.48080133300391,
+      "images_per_second": 33.9056603783377
+    },
+    "train/center_crop_80pct": {
+      "status": "extracted",
+      "split": "train",
+      "condition": "center_crop_80pct",
+      "display_name": "Centre crop 80%",
+      "parameters": {
+        "retained_fraction": 0.8,
+        "resize_to_original": true
+      },
+      "transform_seed": 42,
+      "samples": 3000,
+      "feature_shape": [
+        3000,
+        512
+      ],
+      "feature_dimension": 512,
+      "cache_path": "data/features/e5_sid_flux_clip_transformed_seed42/train/center_crop_80pct.npz",
+      "cache_bytes": 6940657,
+      "cache_sha256": "f22b33462eebf36721fb40e433cd78cb640bcaf85a2f13b9cd8119e87f75c496",
+      "clean_cache_sha256": "4cc6ff4d5a8ece10994f2ae072240aa287ae74aa17e5f16ac4cd4107cd7995b7",
+      "path_and_label_alignment_verified": true,
+      "extraction_device": "mps",
+      "extraction_seconds": 103.16502737499832,
+      "images_per_second": 29.079622003057207
+    },
+    "val/jpeg_q50": {
+      "status": "extracted",
+      "split": "val",
+      "condition": "jpeg_q50",
+      "display_name": "JPEG Q50",
+      "parameters": {
+        "quality": 50,
+        "subsampling": 2
+      },
+      "transform_seed": 42,
+      "samples": 1000,
+      "feature_shape": [
+        1000,
+        512
+      ],
+      "feature_dimension": 512,
+      "cache_path": "data/features/e5_sid_flux_clip_transformed_seed42/val/jpeg_q50.npz",
+      "cache_bytes": 2316529,
+      "cache_sha256": "33bcac0f6783690d0e4352416b71169c8bcc13dc2c0079b7a249149a58747749",
+      "clean_cache_sha256": "a5e5b5001d9fc8b188fab01c9a5a0822c56b6ee28bf8fd5c0cbffb28e966029c",
+      "path_and_label_alignment_verified": true,
+      "extraction_device": "mps",
+      "extraction_seconds": 28.259904582999297,
+      "images_per_second": 35.38582365212881
+    },
+    "val/gaussian_blur_sigma1": {
+      "status": "extracted",
+      "split": "val",
+      "condition": "gaussian_blur_sigma1",
+      "display_name": "Blur \u03c3=1",
+      "parameters": {
+        "sigma": 1.0
+      },
+      "transform_seed": 42,
+      "samples": 1000,
+      "feature_shape": [
+        1000,
+        512
+      ],
+      "feature_dimension": 512,
+      "cache_path": "data/features/e5_sid_flux_clip_transformed_seed42/val/gaussian_blur_sigma1.npz",
+      "cache_bytes": 2316509,
+      "cache_sha256": "a95f660c6b97fabe0a458d229a4c9ee00ce3f8187ad1fbeaf189dd448e08bd90",
+      "clean_cache_sha256": "a5e5b5001d9fc8b188fab01c9a5a0822c56b6ee28bf8fd5c0cbffb28e966029c",
+      "path_and_label_alignment_verified": true,
+      "extraction_device": "mps",
+      "extraction_seconds": 48.987631500000134,
+      "images_per_second": 20.413315961193128
+    },
+    "val/resize_0_5x": {
+      "status": "extracted",
+      "split": "val",
+      "condition": "resize_0_5x",
+      "display_name": "Resize 0.5\u00d7",
+      "parameters": {
+        "downscale_factor": 0.5,
+        "upscale_to_original": true
+      },
+      "transform_seed": 42,
+      "samples": 1000,
+      "feature_shape": [
+        1000,
+        512
+      ],
+      "feature_dimension": 512,
+      "cache_path": "data/features/e5_sid_flux_clip_transformed_seed42/val/resize_0_5x.npz",
+      "cache_bytes": 2316625,
+      "cache_sha256": "74b064008f973a710b153dc516c1af4f1a3ec08e62c1091bf5507af06fa9833f",
+      "clean_cache_sha256": "a5e5b5001d9fc8b188fab01c9a5a0822c56b6ee28bf8fd5c0cbffb28e966029c",
+      "path_and_label_alignment_verified": true,
+      "extraction_device": "mps",
+      "extraction_seconds": 43.36000579199754,
+      "images_per_second": 23.062727546603757
+    },
+    "val/gaussian_noise_sigma0_05": {
+      "status": "extracted",
+      "split": "val",
+      "condition": "gaussian_noise_sigma0_05",
+      "display_name": "Noise \u03c3=0.05",
+      "parameters": {
+        "sigma": 0.05,
+        "pixel_range": [
+          0.0,
+          1.0
+        ]
+      },
+      "transform_seed": 42,
+      "samples": 1000,
+      "feature_shape": [
+        1000,
+        512
+      ],
+      "feature_dimension": 512,
+      "cache_path": "data/features/e5_sid_flux_clip_transformed_seed42/val/gaussian_noise_sigma0_05.npz",
+      "cache_bytes": 2316625,
+      "cache_sha256": "2ae4e75abc0e094cae5d6312ca56bbe83732e77c19676fae2fb1d0f86ff9119f",
+      "clean_cache_sha256": "a5e5b5001d9fc8b188fab01c9a5a0822c56b6ee28bf8fd5c0cbffb28e966029c",
+      "path_and_label_alignment_verified": true,
+      "extraction_device": "mps",
+      "extraction_seconds": 64.78522987500764,
+      "images_per_second": 15.435617067799777
+    },
+    "val/color_jitter_seeded_20pct": {
+      "status": "extracted",
+      "split": "val",
+      "condition": "color_jitter_seeded_20pct",
+      "display_name": "Colour jitter \u00b120%",
+      "parameters": {
+        "brightness_factor_range": [
+          0.8,
+          1.2
+        ],
+        "contrast_factor_range": [
+          0.8,
+          1.2
+        ],
+        "saturation_factor_range": [
+          0.8,
+          1.2
+        ],
+        "factor_and_operation_order": "deterministic per image path"
+      },
+      "transform_seed": 42,
+      "samples": 1000,
+      "feature_shape": [
+        1000,
+        512
+      ],
+      "feature_dimension": 512,
+      "cache_path": "data/features/e5_sid_flux_clip_transformed_seed42/val/color_jitter_seeded_20pct.npz",
+      "cache_bytes": 2317145,
+      "cache_sha256": "77876060ed636e8e05233c254bb24a367c0033510c3bd189b1e52ba4cc9ff0b7",
+      "clean_cache_sha256": "a5e5b5001d9fc8b188fab01c9a5a0822c56b6ee28bf8fd5c0cbffb28e966029c",
+      "path_and_label_alignment_verified": true,
+      "extraction_device": "mps",
+      "extraction_seconds": 30.50182424999366,
+      "images_per_second": 32.784924331213006
+    },
+    "val/center_crop_80pct": {
+      "status": "extracted",
+      "split": "val",
+      "condition": "center_crop_80pct",
+      "display_name": "Centre crop 80%",
+      "parameters": {
+        "retained_fraction": 0.8,
+        "resize_to_original": true
+      },
+      "transform_seed": 42,
+      "samples": 1000,
+      "feature_shape": [
+        1000,
+        512
+      ],
+      "feature_dimension": 512,
+      "cache_path": "data/features/e5_sid_flux_clip_transformed_seed42/val/center_crop_80pct.npz",
+      "cache_bytes": 2316649,
+      "cache_sha256": "d0b108da9ea9ef39dc21e2d8cb84277793ada5cf72cbbe2c3fe479a41128a195",
+      "clean_cache_sha256": "a5e5b5001d9fc8b188fab01c9a5a0822c56b6ee28bf8fd5c0cbffb28e966029c",
+      "path_and_label_alignment_verified": true,
+      "extraction_device": "mps",
+      "extraction_seconds": 34.346386541001266,
+      "images_per_second": 29.115144290542535
+    }
+  }
+}

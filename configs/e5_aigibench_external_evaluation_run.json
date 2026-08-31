@@ -1,0 +1,147 @@
+{
+  "protocol_version": 1,
+  "experiment_name": "e5_aigibench_midjourney_single_use_external_evaluation_run",
+  "status": "frozen_after_all_feature_extraction_before_any_checkpoint_load_or_score_computation",
+  "frozen_at_utc": "2026-08-31T06:48:26Z",
+  "purpose": "Bind the already frozen AIGIBench protocol and deduplication amendment to the exact clean and transformed feature caches, comparison checkpoints, thresholds, gates, and output paths used by the one-time external evaluation.",
+  "research_claim_limit": "A pass supports E5 generalisation to this one Open Images V7 versus Midjourney V6 audit under the frozen transformations. It does not establish universal or production-safe AI-image detection.",
+  "protocol_dependencies": {
+    "base_protocol": {
+      "path": "configs/e5_fresh_external_aigibench_midjourney.json",
+      "sha256": "479dedced86c27cd8093a27477b0c2037ee2fc15b60ee109837b69079d1426f5"
+    },
+    "base_lock": {
+      "path": "reports/e5_aigibench_external_evaluation_lock.json",
+      "sha256": "ac81536c42edec82effefd7bf9a71c8ef0e75b397711dd8f3facb80dcaa405fa"
+    },
+    "deduplication_amendment": {
+      "path": "configs/e5_aigibench_deduplication_amendment.json",
+      "sha256": "1c0957d862a6f2808b40f00837b82765150e64113b0c5a3b55d716f0a2dd2653"
+    },
+    "amendment_lock": {
+      "path": "reports/e5_aigibench_deduplication_amendment_lock.json",
+      "sha256": "de0e4506ce59bfcf8cc663af1d761108d402ec516a400945957cc83199b71a4c"
+    }
+  },
+  "frozen_external_data": {
+    "manifest": {
+      "path": "data/processed/e5_aigibench_midjourney.csv",
+      "sha256": "280e7c9fb4da81eab23db39c9a5c0a01984e1f9977e9fa91f4b35c458856abe7"
+    },
+    "provenance": {
+      "path": "data/processed/e5_aigibench_midjourney_provenance.json",
+      "sha256": "c6c91a11e63eb9167b735a467d1f7ebfb521444224bf11adae25c1ca74decea8"
+    },
+    "clean_summary": {
+      "path": "reports/e5_aigibench_clip_embedding_summary.json",
+      "sha256": "897e2caf8d09a2280deb462039c77a925da51802dd44b7936412d171ff9e28a0"
+    },
+    "clean_cache": {
+      "path": "data/features/e5_aigibench_midjourney_clip_vit_b32_quickgelu_openai.npz",
+      "sha256": "c1c41ee4e240830bd39f79843ab32bd4930beae9d3e775f83fc23400d6cc17b8"
+    },
+    "transformed_summary": {
+      "path": "reports/e5_aigibench_transformed_embedding_summary.json",
+      "sha256": "06439fddabdf09811733e823d55a72af1c6e8bea4ac8cc17227b91be4d5fc61c"
+    },
+    "transformed_cache_root": "data/features/e5_aigibench_midjourney_transformed_seed42",
+    "samples": 2000,
+    "class_counts": {
+      "real_0": 1000,
+      "midjourney_v6_ai_generated_1": 1000
+    },
+    "feature_dimension": 512,
+    "transform_seed": 42,
+    "final_selected_member_list_sha256": "dd6ce9cea5ebe8b62506a3345f863e9972069da686c990bce34749f8bb7ae24b"
+  },
+  "comparison_models": {
+    "E3": {
+      "checkpoint": "checkpoints/clip_linear_e3_thresholded.npz",
+      "checkpoint_sha256": "1523bc38fc4626a3e252464da146ad66af074c4196ebb2f44719ec149fd3482a",
+      "threshold": 0.437,
+      "role": "Original validation-selected binary baseline"
+    },
+    "E4": {
+      "checkpoint": "checkpoints/clip_linear_e4_domain_adapted.npz",
+      "checkpoint_sha256": "7379642904d17627d8e9df708e352ec141aa9c609ef7400cd4b9e8896254f542",
+      "threshold": 0.6930000000000001,
+      "role": "Documented failed real-only post-hoc adaptation"
+    },
+    "E5": {
+      "checkpoint": "checkpoints/clip_linear_e5_source_matched.npz",
+      "checkpoint_sha256": "b6c25a38a86692a74280650f516105c01efbaabe91f8da728b1a455cbf1756c4",
+      "checkpoint_kind": "e5_source_matched_risk_controlled_linear_head_v1",
+      "selected_anchor_weight": 0.01,
+      "selected_epoch": 40,
+      "real_threshold": 0.23700000000000002,
+      "ai_threshold": 0.8170000000000001,
+      "binary_benchmark_threshold": 0.52,
+      "role": "Primary risk-controlled three-way detector and non-safety binary benchmark"
+    }
+  },
+  "conditions": {
+    "full_matrix": [
+      "clean",
+      "jpeg_q90",
+      "jpeg_q70",
+      "jpeg_q50",
+      "jpeg_q30",
+      "gaussian_blur_sigma0_5",
+      "gaussian_blur_sigma1",
+      "gaussian_blur_sigma2",
+      "resize_0_5x",
+      "resize_0_25x",
+      "gaussian_noise_sigma0_02",
+      "gaussian_noise_sigma0_05",
+      "gaussian_noise_sigma0_10",
+      "color_jitter_seeded_20pct",
+      "center_crop_80pct"
+    ],
+    "primary_claim_conditions": [
+      "clean",
+      "jpeg_q50",
+      "gaussian_blur_sigma1",
+      "resize_0_5x",
+      "gaussian_noise_sigma0_05",
+      "color_jitter_seeded_20pct",
+      "center_crop_80pct"
+    ],
+    "mandatory_stress_only_conditions": [
+      "jpeg_q90",
+      "jpeg_q70",
+      "jpeg_q30",
+      "gaussian_blur_sigma0_5",
+      "gaussian_blur_sigma2",
+      "resize_0_25x",
+      "gaussian_noise_sigma0_02",
+      "gaussian_noise_sigma0_10"
+    ]
+  },
+  "frozen_success_criteria": {
+    "confidence_level": 0.95,
+    "maximum_wilson_upper_real_called_ai": 0.05,
+    "maximum_wilson_upper_ai_called_real": 0.1,
+    "minimum_clean_decisive_coverage_per_class": 0.6,
+    "minimum_worst_primary_class_condition_decisive_coverage": 0.25,
+    "minimum_mean_primary_class_condition_decisive_coverage": 0.5,
+    "minimum_worst_primary_condition_roc_auc": 0.8,
+    "all_criteria_required_for_pass": true
+  },
+  "outputs": {
+    "report": "reports/e5_aigibench_external_evaluation.json",
+    "probabilities": "outputs/e5_aigibench_external_probabilities.npz",
+    "robustness_figure": "reports/figures/e5_aigibench_external_robustness_matrix.png",
+    "triage_figure": "reports/figures/e5_aigibench_external_triage_matrix.png",
+    "distribution_figure": "reports/figures/e5_aigibench_external_clean_distributions.png",
+    "comparison_figure": "reports/figures/e5_aigibench_external_model_comparison.png"
+  },
+  "single_use_guardrails": {
+    "checkpoint_loaded_or_scores_computed_at_freeze": false,
+    "evaluation_outputs_present_at_freeze": false,
+    "retraining_after_results_allowed": false,
+    "threshold_changes_after_results_allowed": false,
+    "model_reselection_after_results_allowed": false,
+    "dataset_or_condition_removal_after_results_allowed": false,
+    "organiser_validation_subset_used": false
+  }
+}

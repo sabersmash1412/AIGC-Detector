@@ -1,0 +1,441 @@
+{
+  "experiment": "e5_aigibench_midjourney_frozen_transformed_clip_embeddings",
+  "purpose": "Complete frozen robustness-matrix embeddings only; no E5 checkpoint, scores, thresholds, predictions, or metrics.",
+  "amendment": {
+    "path": "configs/e5_aigibench_deduplication_amendment.json",
+    "sha256": "1c0957d862a6f2808b40f00837b82765150e64113b0c5a3b55d716f0a2dd2653",
+    "version": 2
+  },
+  "clean_reference": {
+    "summary_path": "reports/e5_aigibench_clip_embedding_summary.json",
+    "summary_sha256": "897e2caf8d09a2280deb462039c77a925da51802dd44b7936412d171ff9e28a0",
+    "cache_path": "data/features/e5_aigibench_midjourney_clip_vit_b32_quickgelu_openai.npz",
+    "cache_sha256": "c1c41ee4e240830bd39f79843ab32bd4930beae9d3e775f83fc23400d6cc17b8",
+    "manifest_sha256": "280e7c9fb4da81eab23db39c9a5c0a01984e1f9977e9fa91f4b35c458856abe7",
+    "samples": 2000,
+    "class_counts": {
+      "real_0": 1000,
+      "ai_generated_1": 1000
+    }
+  },
+  "model": {
+    "library": "open_clip_torch",
+    "library_version": "3.3.0",
+    "model_name": "ViT-B-32-quickgelu",
+    "pretrained": "openai",
+    "feature_dimension": 512,
+    "trainable_parameters": 0,
+    "l2_normalized": true
+  },
+  "transform_seed": 42,
+  "full_matrix": [
+    "clean",
+    "jpeg_q90",
+    "jpeg_q70",
+    "jpeg_q50",
+    "jpeg_q30",
+    "gaussian_blur_sigma0_5",
+    "gaussian_blur_sigma1",
+    "gaussian_blur_sigma2",
+    "resize_0_5x",
+    "resize_0_25x",
+    "gaussian_noise_sigma0_02",
+    "gaussian_noise_sigma0_05",
+    "gaussian_noise_sigma0_10",
+    "color_jitter_seeded_20pct",
+    "center_crop_80pct"
+  ],
+  "transformed_conditions": [
+    "jpeg_q90",
+    "jpeg_q70",
+    "jpeg_q50",
+    "jpeg_q30",
+    "gaussian_blur_sigma0_5",
+    "gaussian_blur_sigma1",
+    "gaussian_blur_sigma2",
+    "resize_0_5x",
+    "resize_0_25x",
+    "gaussian_noise_sigma0_02",
+    "gaussian_noise_sigma0_05",
+    "gaussian_noise_sigma0_10",
+    "color_jitter_seeded_20pct",
+    "center_crop_80pct"
+  ],
+  "caches": {
+    "jpeg_q90": {
+      "status": "extracted",
+      "split": "external_test",
+      "condition": "jpeg_q90",
+      "display_name": "JPEG Q90",
+      "parameters": {
+        "quality": 90,
+        "subsampling": 2
+      },
+      "transform_seed": 42,
+      "samples": 2000,
+      "feature_shape": [
+        2000,
+        512
+      ],
+      "feature_dimension": 512,
+      "cache_path": "data/features/e5_aigibench_midjourney_transformed_seed42/jpeg_q90.npz",
+      "cache_bytes": 4596569,
+      "cache_sha256": "a5ef7d599fd806ba3e5eaaf4d3b1885f2216307816c793a5910ca08e0e5103aa",
+      "clean_cache_sha256": "c1c41ee4e240830bd39f79843ab32bd4930beae9d3e775f83fc23400d6cc17b8",
+      "path_and_label_alignment_verified": true,
+      "extraction_device": "mps",
+      "extraction_seconds": 114.09722200001124,
+      "images_per_second": 17.528910563657746
+    },
+    "jpeg_q70": {
+      "status": "extracted",
+      "split": "external_test",
+      "condition": "jpeg_q70",
+      "display_name": "JPEG Q70",
+      "parameters": {
+        "quality": 70,
+        "subsampling": 2
+      },
+      "transform_seed": 42,
+      "samples": 2000,
+      "feature_shape": [
+        2000,
+        512
+      ],
+      "feature_dimension": 512,
+      "cache_path": "data/features/e5_aigibench_midjourney_transformed_seed42/jpeg_q70.npz",
+      "cache_bytes": 4596569,
+      "cache_sha256": "689396b9761dbe5df0299ef869556cd3b92368e11333bd16a7e35cc1ab53b960",
+      "clean_cache_sha256": "c1c41ee4e240830bd39f79843ab32bd4930beae9d3e775f83fc23400d6cc17b8",
+      "path_and_label_alignment_verified": true,
+      "extraction_device": "mps",
+      "extraction_seconds": 111.16534070800117,
+      "images_per_second": 17.991219090970223
+    },
+    "jpeg_q50": {
+      "status": "extracted",
+      "split": "external_test",
+      "condition": "jpeg_q50",
+      "display_name": "JPEG Q50",
+      "parameters": {
+        "quality": 50,
+        "subsampling": 2
+      },
+      "transform_seed": 42,
+      "samples": 2000,
+      "feature_shape": [
+        2000,
+        512
+      ],
+      "feature_dimension": 512,
+      "cache_path": "data/features/e5_aigibench_midjourney_transformed_seed42/jpeg_q50.npz",
+      "cache_bytes": 4596569,
+      "cache_sha256": "4890373552a3a72c66578a8d3bc85c6b1f3192c4483340a5fb04bf2943156bc6",
+      "clean_cache_sha256": "c1c41ee4e240830bd39f79843ab32bd4930beae9d3e775f83fc23400d6cc17b8",
+      "path_and_label_alignment_verified": true,
+      "extraction_device": "mps",
+      "extraction_seconds": 109.86716566700488,
+      "images_per_second": 18.203800815812222
+    },
+    "jpeg_q30": {
+      "status": "extracted",
+      "split": "external_test",
+      "condition": "jpeg_q30",
+      "display_name": "JPEG Q30",
+      "parameters": {
+        "quality": 30,
+        "subsampling": 2
+      },
+      "transform_seed": 42,
+      "samples": 2000,
+      "feature_shape": [
+        2000,
+        512
+      ],
+      "feature_dimension": 512,
+      "cache_path": "data/features/e5_aigibench_midjourney_transformed_seed42/jpeg_q30.npz",
+      "cache_bytes": 4596569,
+      "cache_sha256": "2f6f8117e309fe7716f003543ee522520b1e2ea0becdce7b7526aa07ef3099e8",
+      "clean_cache_sha256": "c1c41ee4e240830bd39f79843ab32bd4930beae9d3e775f83fc23400d6cc17b8",
+      "path_and_label_alignment_verified": true,
+      "extraction_device": "mps",
+      "extraction_seconds": 109.18144145800034,
+      "images_per_second": 18.31813148179909
+    },
+    "gaussian_blur_sigma0_5": {
+      "status": "extracted",
+      "split": "external_test",
+      "condition": "gaussian_blur_sigma0_5",
+      "display_name": "Blur \u03c3=0.5",
+      "parameters": {
+        "sigma": 0.5
+      },
+      "transform_seed": 42,
+      "samples": 2000,
+      "feature_shape": [
+        2000,
+        512
+      ],
+      "feature_dimension": 512,
+      "cache_path": "data/features/e5_aigibench_midjourney_transformed_seed42/gaussian_blur_sigma0_5.npz",
+      "cache_bytes": 4596557,
+      "cache_sha256": "16e555b3b6dc727657f517aee2c28b766dceff45e349b44b70d65ec6801c9f80",
+      "clean_cache_sha256": "c1c41ee4e240830bd39f79843ab32bd4930beae9d3e775f83fc23400d6cc17b8",
+      "path_and_label_alignment_verified": true,
+      "extraction_device": "mps",
+      "extraction_seconds": 150.15352199999325,
+      "images_per_second": 13.319700885871262
+    },
+    "gaussian_blur_sigma1": {
+      "status": "extracted",
+      "split": "external_test",
+      "condition": "gaussian_blur_sigma1",
+      "display_name": "Blur \u03c3=1",
+      "parameters": {
+        "sigma": 1.0
+      },
+      "transform_seed": 42,
+      "samples": 2000,
+      "feature_shape": [
+        2000,
+        512
+      ],
+      "feature_dimension": 512,
+      "cache_path": "data/features/e5_aigibench_midjourney_transformed_seed42/gaussian_blur_sigma1.npz",
+      "cache_bytes": 4596549,
+      "cache_sha256": "2c1883dcdadd8fff799bf0e82aebf7b7f528e4108a7da744b9cce08613c3e724",
+      "clean_cache_sha256": "c1c41ee4e240830bd39f79843ab32bd4930beae9d3e775f83fc23400d6cc17b8",
+      "path_and_label_alignment_verified": true,
+      "extraction_device": "mps",
+      "extraction_seconds": 149.92352112499066,
+      "images_per_second": 13.340134923409435
+    },
+    "gaussian_blur_sigma2": {
+      "status": "extracted",
+      "split": "external_test",
+      "condition": "gaussian_blur_sigma2",
+      "display_name": "Blur \u03c3=2",
+      "parameters": {
+        "sigma": 2.0
+      },
+      "transform_seed": 42,
+      "samples": 2000,
+      "feature_shape": [
+        2000,
+        512
+      ],
+      "feature_dimension": 512,
+      "cache_path": "data/features/e5_aigibench_midjourney_transformed_seed42/gaussian_blur_sigma2.npz",
+      "cache_bytes": 4596549,
+      "cache_sha256": "7157b608fc67ae3804124c8dce0aaa2ccf1a2d700190ef240c25057f14fcb552",
+      "clean_cache_sha256": "c1c41ee4e240830bd39f79843ab32bd4930beae9d3e775f83fc23400d6cc17b8",
+      "path_and_label_alignment_verified": true,
+      "extraction_device": "mps",
+      "extraction_seconds": 151.08639574999688,
+      "images_per_second": 13.23745920386774
+    },
+    "resize_0_5x": {
+      "status": "extracted",
+      "split": "external_test",
+      "condition": "resize_0_5x",
+      "display_name": "Resize 0.5\u00d7",
+      "parameters": {
+        "downscale_factor": 0.5,
+        "upscale_to_original": true
+      },
+      "transform_seed": 42,
+      "samples": 2000,
+      "feature_shape": [
+        2000,
+        512
+      ],
+      "feature_dimension": 512,
+      "cache_path": "data/features/e5_aigibench_midjourney_transformed_seed42/resize_0_5x.npz",
+      "cache_bytes": 4596665,
+      "cache_sha256": "b82a8bd6e7d6df4f850ac83fef9ae70cac85fc4c550e79de4ff174cac1cd66b4",
+      "clean_cache_sha256": "c1c41ee4e240830bd39f79843ab32bd4930beae9d3e775f83fc23400d6cc17b8",
+      "path_and_label_alignment_verified": true,
+      "extraction_device": "mps",
+      "extraction_seconds": 139.0093258329871,
+      "images_per_second": 14.387523916222012
+    },
+    "resize_0_25x": {
+      "status": "extracted",
+      "split": "external_test",
+      "condition": "resize_0_25x",
+      "display_name": "Resize 0.25\u00d7",
+      "parameters": {
+        "downscale_factor": 0.25,
+        "upscale_to_original": true
+      },
+      "transform_seed": 42,
+      "samples": 2000,
+      "feature_shape": [
+        2000,
+        512
+      ],
+      "feature_dimension": 512,
+      "cache_path": "data/features/e5_aigibench_midjourney_transformed_seed42/resize_0_25x.npz",
+      "cache_bytes": 4596673,
+      "cache_sha256": "8b17e5394a7051d82c722df3febdd408ddb39910e1ba6bd9784b779b3ea9f1b2",
+      "clean_cache_sha256": "c1c41ee4e240830bd39f79843ab32bd4930beae9d3e775f83fc23400d6cc17b8",
+      "path_and_label_alignment_verified": true,
+      "extraction_device": "mps",
+      "extraction_seconds": 129.8026145420008,
+      "images_per_second": 15.408010131820966
+    },
+    "gaussian_noise_sigma0_02": {
+      "status": "extracted",
+      "split": "external_test",
+      "condition": "gaussian_noise_sigma0_02",
+      "display_name": "Noise \u03c3=0.02",
+      "parameters": {
+        "sigma": 0.02,
+        "pixel_range": [
+          0.0,
+          1.0
+        ]
+      },
+      "transform_seed": 42,
+      "samples": 2000,
+      "feature_shape": [
+        2000,
+        512
+      ],
+      "feature_dimension": 512,
+      "cache_path": "data/features/e5_aigibench_midjourney_transformed_seed42/gaussian_noise_sigma0_02.npz",
+      "cache_bytes": 4596665,
+      "cache_sha256": "6138dfaba6e2f712bdbcc88f09de57c3271c454f3f0f09406965a9ed0ad6fa8d",
+      "clean_cache_sha256": "c1c41ee4e240830bd39f79843ab32bd4930beae9d3e775f83fc23400d6cc17b8",
+      "path_and_label_alignment_verified": true,
+      "extraction_device": "mps",
+      "extraction_seconds": 179.2406554170011,
+      "images_per_second": 11.158182809290812
+    },
+    "gaussian_noise_sigma0_05": {
+      "status": "extracted",
+      "split": "external_test",
+      "condition": "gaussian_noise_sigma0_05",
+      "display_name": "Noise \u03c3=0.05",
+      "parameters": {
+        "sigma": 0.05,
+        "pixel_range": [
+          0.0,
+          1.0
+        ]
+      },
+      "transform_seed": 42,
+      "samples": 2000,
+      "feature_shape": [
+        2000,
+        512
+      ],
+      "feature_dimension": 512,
+      "cache_path": "data/features/e5_aigibench_midjourney_transformed_seed42/gaussian_noise_sigma0_05.npz",
+      "cache_bytes": 4596665,
+      "cache_sha256": "990abbd8b728333c962feed4d8f3b555781dba2ed7e182881b4700b65e7da586",
+      "clean_cache_sha256": "c1c41ee4e240830bd39f79843ab32bd4930beae9d3e775f83fc23400d6cc17b8",
+      "path_and_label_alignment_verified": true,
+      "extraction_device": "mps",
+      "extraction_seconds": 179.45449983399885,
+      "images_per_second": 11.144886318537925
+    },
+    "gaussian_noise_sigma0_10": {
+      "status": "extracted",
+      "split": "external_test",
+      "condition": "gaussian_noise_sigma0_10",
+      "display_name": "Noise \u03c3=0.10",
+      "parameters": {
+        "sigma": 0.1,
+        "pixel_range": [
+          0.0,
+          1.0
+        ]
+      },
+      "transform_seed": 42,
+      "samples": 2000,
+      "feature_shape": [
+        2000,
+        512
+      ],
+      "feature_dimension": 512,
+      "cache_path": "data/features/e5_aigibench_midjourney_transformed_seed42/gaussian_noise_sigma0_10.npz",
+      "cache_bytes": 4596661,
+      "cache_sha256": "64e53e9c3cc002b6ca45301c918b85dd73d2104b9b97b9439851b6529e8ae267",
+      "clean_cache_sha256": "c1c41ee4e240830bd39f79843ab32bd4930beae9d3e775f83fc23400d6cc17b8",
+      "path_and_label_alignment_verified": true,
+      "extraction_device": "mps",
+      "extraction_seconds": 179.4862304579874,
+      "images_per_second": 11.142916060450347
+    },
+    "color_jitter_seeded_20pct": {
+      "status": "extracted",
+      "split": "external_test",
+      "condition": "color_jitter_seeded_20pct",
+      "display_name": "Colour jitter \u00b120%",
+      "parameters": {
+        "brightness_factor_range": [
+          0.8,
+          1.2
+        ],
+        "contrast_factor_range": [
+          0.8,
+          1.2
+        ],
+        "saturation_factor_range": [
+          0.8,
+          1.2
+        ],
+        "factor_and_operation_order": "deterministic per image path"
+      },
+      "transform_seed": 42,
+      "samples": 2000,
+      "feature_shape": [
+        2000,
+        512
+      ],
+      "feature_dimension": 512,
+      "cache_path": "data/features/e5_aigibench_midjourney_transformed_seed42/color_jitter_seeded_20pct.npz",
+      "cache_bytes": 4597185,
+      "cache_sha256": "788706838e01ac33cf98c2d48953d6486139c7dddb8ec13542e797b8d6cdc202",
+      "clean_cache_sha256": "c1c41ee4e240830bd39f79843ab32bd4930beae9d3e775f83fc23400d6cc17b8",
+      "path_and_label_alignment_verified": true,
+      "extraction_device": "mps",
+      "extraction_seconds": 112.83703029199387,
+      "images_per_second": 17.724677748293292
+    },
+    "center_crop_80pct": {
+      "status": "extracted",
+      "split": "external_test",
+      "condition": "center_crop_80pct",
+      "display_name": "Centre crop 80%",
+      "parameters": {
+        "retained_fraction": 0.8,
+        "resize_to_original": true
+      },
+      "transform_seed": 42,
+      "samples": 2000,
+      "feature_shape": [
+        2000,
+        512
+      ],
+      "feature_dimension": 512,
+      "cache_path": "data/features/e5_aigibench_midjourney_transformed_seed42/center_crop_80pct.npz",
+      "cache_bytes": 4596689,
+      "cache_sha256": "b63b61d6a4fe322e0dc4809c40d89ee83799f98d8dbbd575c47b65c01d386416",
+      "clean_cache_sha256": "c1c41ee4e240830bd39f79843ab32bd4930beae9d3e775f83fc23400d6cc17b8",
+      "path_and_label_alignment_verified": true,
+      "extraction_device": "mps",
+      "extraction_seconds": 124.07390808300988,
+      "images_per_second": 16.119424550260224
+    }
+  },
+  "frozen_guardrails": {
+    "e5_checkpoint_loaded": false,
+    "classifier_training_performed": false,
+    "threshold_selection_performed": false,
+    "model_selection_performed": false,
+    "predictions_or_metrics_computed": false,
+    "organiser_validation_subset_used": false
+  }
+}

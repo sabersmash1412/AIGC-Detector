@@ -1,0 +1,73 @@
+{
+  "experiment": "e5_aigibench_midjourney_prefeature_integrity_audit",
+  "status": "BLOCKED_DUPLICATE_CONTENT_BEFORE_FEATURE_EXTRACTION",
+  "recorded_at_utc": "2026-08-31T04:43:48Z",
+  "protocol": {
+    "path": "configs/e5_fresh_external_aigibench_midjourney.json",
+    "sha256": "479dedced86c27cd8093a27477b0c2037ee2fc15b60ee109837b69079d1426f5"
+  },
+  "lock_report": {
+    "path": "reports/e5_aigibench_external_evaluation_lock.json",
+    "sha256": "ac81536c42edec82effefd7bf9a71c8ef0e75b397711dd8f3facb80dcaa405fa"
+  },
+  "acquisition": {
+    "downloaded_files": 2000,
+    "real_files": 1000,
+    "ai_generated_files": 1000,
+    "manifest_written": false,
+    "provenance_written": false,
+    "features_extracted": false,
+    "images_displayed_or_manually_inspected": false,
+    "predictions_generated": false,
+    "metrics_observed": false
+  },
+  "content_integrity": {
+    "unique_real_files": 1000,
+    "unique_ai_generated_files": 996,
+    "cross_class_duplicate_groups": 0,
+    "within_real_duplicate_groups": 0,
+    "within_ai_duplicate_groups": 4,
+    "extra_duplicate_files": 4,
+    "duplicate_groups": [
+      {
+        "sha256": "6fae180246472b26096c03b1d45d9be8c3ca12673545403953ec04fad77ae707",
+        "bytes_per_file": 2216924,
+        "files": [
+          "data/raw/e5_aigibench_midjourney/ai_generated/image_438.png",
+          "data/raw/e5_aigibench_midjourney/ai_generated/image_439.png"
+        ]
+      },
+      {
+        "sha256": "b2095e5300e0e18aa7eca9417171ec8c15ca0b0816d16ccb1dca0d1ed8c3037f",
+        "bytes_per_file": 1093032,
+        "files": [
+          "data/raw/e5_aigibench_midjourney/ai_generated/image_1624.png",
+          "data/raw/e5_aigibench_midjourney/ai_generated/image_1625.png"
+        ]
+      },
+      {
+        "sha256": "d7be1988886fe981f6aeb7d5f248c45dbbe214fdfec494250ea781afc372f939",
+        "bytes_per_file": 1722617,
+        "files": [
+          "data/raw/e5_aigibench_midjourney/ai_generated/image_1065.png",
+          "data/raw/e5_aigibench_midjourney/ai_generated/image_1066.png"
+        ]
+      },
+      {
+        "sha256": "faa445f84e0e97b8b6e5c2db118ba052e287277657372912fb83992959950f8c",
+        "bytes_per_file": 2060967,
+        "files": [
+          "data/raw/e5_aigibench_midjourney/ai_generated/image_791.png",
+          "data/raw/e5_aigibench_midjourney/ai_generated/image_792.png"
+        ]
+      }
+    ]
+  },
+  "decision": {
+    "original_protocol_passed_acquisition": false,
+    "silent_duplicate_retention_allowed": false,
+    "manual_replacement_allowed": false,
+    "model_or_threshold_change_allowed": false,
+    "scientifically_permitted_next_step": "Freeze a pre-feature amendment that applies a deterministic content-hash deduplication rule to the complete already-frozen candidate ordering, then acquire only the additional candidates required to reach exactly 1000 unique images per class."
+  }
+}

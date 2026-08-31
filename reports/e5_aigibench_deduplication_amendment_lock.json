@@ -1,0 +1,64 @@
+{
+  "experiment": "e5_aigibench_deduplication_amendment_lock",
+  "status": "PASS",
+  "frozen_at_utc": "2026-08-31T04:43:48Z",
+  "amendment": {
+    "path": "configs/e5_aigibench_deduplication_amendment.json",
+    "sha256": "1c0957d862a6f2808b40f00837b82765150e64113b0c5a3b55d716f0a2dd2653",
+    "version": 2
+  },
+  "base_protocol": {
+    "path": "configs/e5_fresh_external_aigibench_midjourney.json",
+    "sha256": "479dedced86c27cd8093a27477b0c2037ee2fc15b60ee109837b69079d1426f5"
+  },
+  "duplicate_audit": {
+    "path": "reports/e5_aigibench_duplicate_audit.json",
+    "sha256": "9b730984292cc69bb5a9e8aa72d8f42b0c6c55fc9276dc9d0ab78ed4359d7e80",
+    "duplicate_groups": 4,
+    "extra_duplicate_files": 4,
+    "duplicate_scope": "within_ai_class_only",
+    "features_or_predictions_existed": false
+  },
+  "observed_prefeature_state": {
+    "real_files": 1000,
+    "ai_files": 1000,
+    "unique_real": 1000,
+    "unique_ai": 996,
+    "cross_class_duplicate_groups": 0,
+    "within_ai_duplicate_groups": 4,
+    "features_predictions_or_metrics_present": false
+  },
+  "checked_absent_paths": [
+    "data/processed/e5_aigibench_midjourney.csv",
+    "data/processed/e5_aigibench_midjourney_provenance.json",
+    "data/features/e5_aigibench_midjourney_clip_vit_b32_quickgelu_openai.npz",
+    "data/features/e5_aigibench_midjourney_transformed_seed42",
+    "reports/e5_aigibench_external_evaluation.json",
+    "outputs/e5_aigibench_external_probabilities.npz"
+  ],
+  "frozen_selection": {
+    "target_unique_images_per_class": 1000,
+    "algorithm": "Traverse each complete frozen class ordering. Validate and SHA-256 each candidate. Accept the first occurrence of a byte-content SHA-256 within that class and skip later occurrences. Stop only after 1000 unique candidates are accepted for the class.",
+    "duplicate_tie_break": "The lower frozen candidate rank is retained.",
+    "cross_class_duplicate_action": "fatal_abort",
+    "development_or_prior_audit_overlap_action": "fatal_abort",
+    "corrupt_or_missing_candidate_action": "fatal_abort",
+    "manual_replacement_allowed": false,
+    "filename_or_visual_quality_selection_allowed": false,
+    "model_score_selection_allowed": false,
+    "maximum_candidates_per_class": 3000,
+    "final_selected_member_list_sha256_recorded_after_integrity_selection": true
+  },
+  "guardrails": {
+    "source_and_generator_unchanged": true,
+    "organiser_validation_subset_used": false,
+    "full_transformation_matrix_unchanged": true,
+    "success_criteria_unchanged": true,
+    "single_use_model_evaluation": true,
+    "retraining_after_results_allowed": false,
+    "threshold_changes_after_results_allowed": false,
+    "model_reselection_after_results_allowed": false,
+    "manual_image_inspection_before_scoring_allowed": false,
+    "raw_images_committed_to_git": false
+  }
+}

@@ -24,7 +24,13 @@ def test_checked_in_aigibench_protocol_and_e5_inputs_are_frozen() -> None:
     protocol = _protocol()
     validate_e5_aigibench_protocol(protocol)
     validate_frozen_inputs(protocol, Path.cwd())
-    validate_artifacts_absent(protocol, Path.cwd())
+    receipt = json.loads(
+        Path("reports/e5_aigibench_external_evaluation_lock.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    assert receipt["status"] == "PASS"
+    assert receipt["external_artifacts_present_at_freeze"] is False
 
 
 @pytest.mark.parametrize(

@@ -1,0 +1,92 @@
+{
+  "protocol_version": 2,
+  "experiment_name": "e5_fresh_aigibench_midjourney_content_deduplicated_evaluation",
+  "status": "frozen_before_additional_candidate_payload_access_or_feature_extraction",
+  "frozen_at_utc": "2026-08-31T04:43:48Z",
+  "purpose": "Repair a pre-feature benchmark-integrity failure by applying a deterministic content-hash deduplication rule to the complete previously frozen AIGIBench candidate ordering. The E5 model, thresholds, transformations, success gates, source, and generator remain unchanged.",
+  "scientific_scope": "This is a data-integrity amendment made before features, predictions, or metrics existed. It cannot have been influenced by E5 performance and does not permit model-dependent sample selection.",
+  "base_protocol": {
+    "path": "configs/e5_fresh_external_aigibench_midjourney.json",
+    "sha256": "479dedced86c27cd8093a27477b0c2037ee2fc15b60ee109837b69079d1426f5"
+  },
+  "base_lock_report": {
+    "path": "reports/e5_aigibench_external_evaluation_lock.json",
+    "sha256": "ac81536c42edec82effefd7bf9a71c8ef0e75b397711dd8f3facb80dcaa405fa"
+  },
+  "duplicate_audit": {
+    "path": "reports/e5_aigibench_duplicate_audit.json",
+    "sha256": "9b730984292cc69bb5a9e8aa72d8f42b0c6c55fc9276dc9d0ab78ed4359d7e80",
+    "duplicate_groups": 4,
+    "extra_duplicate_files": 4,
+    "duplicate_scope": "within_ai_class_only",
+    "features_or_predictions_existed": false
+  },
+  "frozen_e5": {
+    "checkpoint_sha256": "b6c25a38a86692a74280650f516105c01efbaabe91f8da728b1a455cbf1756c4",
+    "selected_anchor_weight": 0.01,
+    "selected_epoch": 40,
+    "real_threshold": 0.23700000000000002,
+    "ai_threshold": 0.8170000000000001,
+    "binary_benchmark_threshold": 0.52,
+    "model_or_threshold_change": false
+  },
+  "candidate_population": {
+    "archive_repository_commit": "e44ec40efe5117a5ccdaa6ff0e89ed934d03d310",
+    "archive_remote_bytes": 8999861437,
+    "selection_seed": 42,
+    "ordering_algorithm": "For each class prefix, sort all members by (SHA-256 of UTF-8 '<seed>:<archive_member>'), archive_member).",
+    "real_prefix": "Midjourney/0_real/",
+    "ai_prefix": "Midjourney/1_fake/",
+    "real_candidates": 3000,
+    "ai_candidates": 3000,
+    "real_candidate_order_sha256": "fde08251c9f7509940cbda0681f50e18680995f7a2e1b4233c2f5e414f1cb7b4",
+    "ai_candidate_order_sha256": "df9309b6fce707ece74c754316a5129c9687335032f0adf45f6aa4953c33890c"
+  },
+  "deduplication_selection": {
+    "target_unique_images_per_class": 1000,
+    "algorithm": "Traverse each complete frozen class ordering. Validate and SHA-256 each candidate. Accept the first occurrence of a byte-content SHA-256 within that class and skip later occurrences. Stop only after 1000 unique candidates are accepted for the class.",
+    "duplicate_tie_break": "The lower frozen candidate rank is retained.",
+    "cross_class_duplicate_action": "fatal_abort",
+    "development_or_prior_audit_overlap_action": "fatal_abort",
+    "corrupt_or_missing_candidate_action": "fatal_abort",
+    "manual_replacement_allowed": false,
+    "filename_or_visual_quality_selection_allowed": false,
+    "model_score_selection_allowed": false,
+    "maximum_candidates_per_class": 3000,
+    "final_selected_member_list_sha256_recorded_after_integrity_selection": true
+  },
+  "known_prefeature_state": {
+    "raw_root": "data/raw/e5_aigibench_midjourney",
+    "downloaded_real_files": 1000,
+    "downloaded_ai_files": 1000,
+    "unique_real_files": 1000,
+    "unique_ai_files": 996,
+    "manifest_absent": true,
+    "provenance_absent": true,
+    "clean_features_absent": true,
+    "transformed_features_absent": true,
+    "predictions_absent": true,
+    "metrics_absent": true,
+    "manual_image_inspection_performed": false
+  },
+  "outputs": {
+    "manifest": "data/processed/e5_aigibench_midjourney.csv",
+    "provenance": "data/processed/e5_aigibench_midjourney_provenance.json",
+    "clean_feature_cache": "data/features/e5_aigibench_midjourney_clip_vit_b32_quickgelu_openai.npz",
+    "transformed_feature_root": "data/features/e5_aigibench_midjourney_transformed_seed42",
+    "evaluation_report": "reports/e5_aigibench_external_evaluation.json",
+    "probability_output": "outputs/e5_aigibench_external_probabilities.npz"
+  },
+  "inherited_frozen_rules": {
+    "source_and_generator_unchanged": true,
+    "organiser_validation_subset_used": false,
+    "full_transformation_matrix_unchanged": true,
+    "success_criteria_unchanged": true,
+    "single_use_model_evaluation": true,
+    "retraining_after_results_allowed": false,
+    "threshold_changes_after_results_allowed": false,
+    "model_reselection_after_results_allowed": false,
+    "manual_image_inspection_before_scoring_allowed": false,
+    "raw_images_committed_to_git": false
+  }
+}

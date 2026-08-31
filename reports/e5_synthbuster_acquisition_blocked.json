@@ -1,0 +1,21 @@
+{
+  "experiment": "e5_fresh_synthbuster_firefly_acquisition",
+  "status": "BLOCKED_INFRASTRUCTURE_BEFORE_DATA_ACCESS",
+  "protocol": "configs/e5_fresh_external_evaluation.json",
+  "lock_report": "reports/e5_external_evaluation_lock.json",
+  "blocked_source": "RAISE-1k",
+  "blocked_endpoint": "https://www.grip.unina.it/download/prog/DMimageDetection/real_RAISE_1k.zip",
+  "observations": [
+    "The preparation command stopped at 0/2000 before any image was downloaded.",
+    "Repeated IPv4 HTTP range probes failed before receiving an HTTP response.",
+    "Observed curl outcomes included connection failure code 7 and timeout code 28.",
+    "The separate Zenodo Synthbuster endpoint was reachable, so this was not a general Python, virtual-environment, or internet failure."
+  ],
+  "external_images_persisted": 0,
+  "external_images_decoded_or_displayed": 0,
+  "features_extracted": false,
+  "predictions_generated": false,
+  "metrics_observed": false,
+  "model_or_threshold_changed": false,
+  "scientific_interpretation": "No model result exists for the blocked protocol. A separately preregistered replacement audit may be conducted because its dataset choice cannot have been influenced by external model performance."
+}

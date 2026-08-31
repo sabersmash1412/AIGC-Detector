@@ -1,0 +1,205 @@
+{
+  "protocol_version": 1,
+  "experiment_name": "e5_fresh_aigibench_midjourney_external_evaluation",
+  "status": "frozen_before_selected_image_payload_download_or_feature_inspection",
+  "frozen_at_utc": "2026-08-31T01:00:52Z",
+  "purpose": "Evaluate the frozen E5 risk-controlled detector once on AIGIBench authentic Open Images V7 photographs and unseen Midjourney V6 images, without retraining, threshold changes, image cherry-picking, or model reselection.",
+  "replacement_context": {
+    "supersedes_results_from_prior_protocol": false,
+    "prior_protocol": "configs/e5_fresh_external_evaluation.json",
+    "prior_protocol_outcome": "Acquisition blocked before any image download or scoring.",
+    "blocking_endpoint": "https://www.grip.unina.it/download/prog/DMimageDetection/real_RAISE_1k.zip",
+    "reason": "The official RAISE archive host repeatedly refused or timed out on TCP connections. No prior external image, feature, prediction, or metric was obtained, so this separately frozen audit is not selected in response to model performance.",
+    "blocked_acquisition_report": "reports/e5_synthbuster_acquisition_blocked.json"
+  },
+  "research_claim_limit": "A pass supports generalisation to one new authentic source and one unseen commercial generator under the frozen conditions. It does not establish universal AI-image detection or production safety.",
+  "frozen_e5": {
+    "development_protocol": "configs/e5_source_matched_adaptation.json",
+    "development_protocol_sha256": "3dd816ba8ec6f308fc34a34cbb6a441b2f6d17de17121b4c3cb6f38d2cab0ecc",
+    "training_report": "reports/e5_training.json",
+    "training_report_sha256": "9a70dd250d94501a441344a302a58c8fe5053ba88f8d950360db4773fea513b3",
+    "checkpoint": "checkpoints/clip_linear_e5_source_matched.npz",
+    "checkpoint_sha256": "b6c25a38a86692a74280650f516105c01efbaabe91f8da728b1a455cbf1756c4",
+    "checkpoint_kind": "e5_source_matched_risk_controlled_linear_head_v1",
+    "selected_anchor_weight": 0.01,
+    "selected_epoch": 40,
+    "real_threshold": 0.23700000000000002,
+    "ai_threshold": 0.8170000000000001,
+    "binary_benchmark_threshold": 0.52,
+    "threshold_rule": {
+      "real": "score <= 0.237",
+      "uncertain": "0.237 < score < 0.817",
+      "ai_generated": "score >= 0.817"
+    }
+  },
+  "external_dataset": {
+    "benchmark_name": "AIGIBench Midjourney V6 test subset",
+    "benchmark_repository": "HorizonTEL/AIGIBench",
+    "benchmark_url": "https://huggingface.co/datasets/HorizonTEL/AIGIBench",
+    "paper_title": "Is Artificial Intelligence Generated Image Detection a Solved Problem?",
+    "paper_year": 2025,
+    "license": "CC-BY-NC-SA-4.0",
+    "usage": "Non-commercial research evaluation; preserve attribution and share-alike requirements for any permitted derivative publication.",
+    "archive": {
+      "source_url": "https://huggingface.co/datasets/HorizonTEL/AIGIBench/resolve/e44ec40efe5117a5ccdaa6ff0e89ed934d03d310/test/Midjourney.zip?download=true",
+      "source_archive": "Midjourney.zip",
+      "repository_commit": "e44ec40efe5117a5ccdaa6ff0e89ed934d03d310",
+      "remote_bytes": 8999861437,
+      "xet_content_hash": "11d8c91b5cc0a1326b535f9cf5704e15a1f4012a9c557d148715f040adb2c5b9",
+      "linked_etag": "0cfcaabab04c1255c4398a77c5fec2c8cf1e7559172f3f774ad8729b07b2271e",
+      "byte_ranges_verified": true,
+      "http_range_probe_status": 206,
+      "metadata_verified_at_utc": "2026-08-31T00:59:00Z",
+      "archive_image_count": 6000,
+      "archive_real_count": 3000,
+      "archive_ai_count": 3000
+    },
+    "selection": {
+      "selection_seed": 42,
+      "selection_algorithm": "For each frozen class prefix, sort members by (SHA-256 of UTF-8 '<seed>:<archive_member>'), archive_member), then select the first 1000.",
+      "manifest_order": "All selected real members in selection order followed by all selected AI members in selection order.",
+      "canonical_member_list": "UTF-8 archive member names in manifest order, one per line, including a final newline.",
+      "canonical_member_list_sha256": "2e6edd984c20835a5c870d8a965822e5168e1858617f10c1be18426f970ba113",
+      "selected_real_uncompressed_bytes": 1312912913,
+      "selected_ai_uncompressed_bytes": 1698344695,
+      "selected_total_uncompressed_bytes": 3011257608,
+      "selection_by_filename_or_image_content": false,
+      "manual_selection_allowed": false
+    },
+    "real": {
+      "source_name": "Open Images V7",
+      "expected_archive_prefix": "Midjourney/0_real/",
+      "available_images": 3000,
+      "selected_images": 1000,
+      "project_label": 0,
+      "project_class_name": "real",
+      "authentic_source_absent_from_e5_development": true,
+      "source_description": "Authentic photographs used by the AIGIBench Midjourney V6 test subset."
+    },
+    "synthetic": {
+      "selected_generator": "Midjourney V6",
+      "selected_generator_key": "midjourney_v6",
+      "expected_archive_prefix": "Midjourney/1_fake/",
+      "available_images": 3000,
+      "selected_images": 1000,
+      "project_label": 1,
+      "project_class_name": "ai_generated",
+      "generator_family_absent_from_e5_development": true
+    },
+    "organiser_validation_subset_used": false,
+    "organiser_coco_val2017_forbidden": true,
+    "organiser_dalle_advanced_forbidden": true
+  },
+  "acquisition_and_integrity": {
+    "raw_root": "data/raw/e5_aigibench_midjourney",
+    "manifest": "data/processed/e5_aigibench_midjourney.csv",
+    "provenance": "data/processed/e5_aigibench_midjourney_provenance.json",
+    "clean_feature_cache": "data/features/e5_aigibench_midjourney_clip_vit_b32_quickgelu_openai.npz",
+    "transformed_feature_root": "data/features/e5_aigibench_midjourney_transformed_seed42",
+    "evaluation_report": "reports/e5_aigibench_external_evaluation.json",
+    "probability_output": "outputs/e5_aigibench_external_probabilities.npz",
+    "download_only_after_protocol_commit": true,
+    "prefreeze_access_scope": "HTTP response headers and ZIP central-directory metadata only. No image payload was persisted, decoded, displayed, embedded, or scored.",
+    "archive_policy": "Use the commit-pinned HTTP range source and extract only the deterministic 1000-per-class selection. Validate remote byte size, selected member-list hash, every selected ZIP entry CRC, every decoded image, and record every extracted file SHA-256.",
+    "valid_image_rule": "Every selected file must decode with Pillow, convert to RGB, have positive dimensions, and contain finite pixels.",
+    "count_rule": "Require exactly 1000 valid real and exactly 1000 valid Midjourney V6 images. Any missing or corrupt image aborts evaluation; no replacement is allowed.",
+    "deduplication_rule": "Byte-content SHA-256 values must be unique within the external set and absent from CIFAKE, E4/E5 SID development, and the prior Section 4 SID/FLUX audit. Any overlap is a fatal protocol violation.",
+    "manual_image_exclusion_allowed": false,
+    "manual_image_inspection_before_scoring_allowed": false,
+    "raw_images_committed_to_git": false,
+    "individual_images_allowed_in_public_demo": false,
+    "public_outputs": "Code, protocol, aggregate metrics, non-image figures, and citations only."
+  },
+  "representation": {
+    "library": "open_clip_torch",
+    "model_name": "ViT-B-32-quickgelu",
+    "pretrained": "openai",
+    "feature_dimension": 512,
+    "l2_normalized": true,
+    "encoder_trainable_parameters": 0,
+    "extra_source_alignment_or_resizing_allowed": false,
+    "note": "Only frozen OpenCLIP preprocessing and registered evaluation transforms may alter pixels."
+  },
+  "evaluation_conditions": {
+    "transform_seed": 42,
+    "full_matrix": [
+      "clean",
+      "jpeg_q90",
+      "jpeg_q70",
+      "jpeg_q50",
+      "jpeg_q30",
+      "gaussian_blur_sigma0_5",
+      "gaussian_blur_sigma1",
+      "gaussian_blur_sigma2",
+      "resize_0_5x",
+      "resize_0_25x",
+      "gaussian_noise_sigma0_02",
+      "gaussian_noise_sigma0_05",
+      "gaussian_noise_sigma0_10",
+      "color_jitter_seeded_20pct",
+      "center_crop_80pct"
+    ],
+    "primary_claim_conditions": [
+      "clean",
+      "jpeg_q50",
+      "gaussian_blur_sigma1",
+      "resize_0_5x",
+      "gaussian_noise_sigma0_05",
+      "color_jitter_seeded_20pct",
+      "center_crop_80pct"
+    ],
+    "additional_stress_test_conditions": [
+      "jpeg_q90",
+      "jpeg_q70",
+      "jpeg_q30",
+      "gaussian_blur_sigma0_5",
+      "gaussian_blur_sigma2",
+      "resize_0_25x",
+      "gaussian_noise_sigma0_02",
+      "gaussian_noise_sigma0_10"
+    ]
+  },
+  "frozen_success_criteria": {
+    "confidence_level": 0.95,
+    "scope": "Every real/AI class-by-condition group in primary_claim_conditions; additional stress conditions are mandatory reporting but do not change the frozen pass decision.",
+    "maximum_wilson_upper_real_called_ai": 0.05,
+    "maximum_wilson_upper_ai_called_real": 0.1,
+    "minimum_clean_decisive_coverage_per_class": 0.6,
+    "minimum_worst_primary_condition_decisive_coverage": 0.25,
+    "minimum_mean_primary_condition_decisive_coverage": 0.5,
+    "minimum_worst_primary_condition_roc_auc": 0.8,
+    "all_criteria_required_for_pass": true,
+    "failure_rule": "Report E5 as not externally validated on this one-time benchmark. Do not retrain, alter thresholds, remove difficult images, or search another external dataset for a favourable result."
+  },
+  "reporting": {
+    "primary_model": "E5 risk-controlled three-way decision",
+    "binary_e5_threshold_role": "Scientific benchmark only; never a deployment-safety claim.",
+    "comparison_models": [
+      "E3 original binary baseline",
+      "E4 documented failed real-only adaptation",
+      "E5 binary benchmark"
+    ],
+    "comparison_models_can_change_e5_pass_decision": false,
+    "required_metrics": [
+      "ROC-AUC",
+      "balanced accuracy for binary benchmarks",
+      "real-to-AI confident error and Wilson interval",
+      "AI-to-real confident error and Wilson interval",
+      "decisive coverage",
+      "decisive accuracy",
+      "uncertain rate",
+      "confusion counts by class and condition"
+    ],
+    "required_figures": [
+      "external robustness matrix",
+      "triage outcome matrix",
+      "clean score distributions",
+      "E3/E4/E5 comparison"
+    ],
+    "single_use": true,
+    "retraining_after_results_allowed": false,
+    "threshold_changes_after_results_allowed": false,
+    "model_reselection_after_results_allowed": false,
+    "qualitative_error_analysis_allowed_only_after_aggregate_results_are_written": true
+  }
+}

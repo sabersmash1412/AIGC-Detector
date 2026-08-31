@@ -1,0 +1,56 @@
+{
+  "experiment": "e5_aigibench_midjourney_external_evaluation_lock",
+  "status": "PASS",
+  "frozen_at_utc": "2026-08-31T01:00:52Z",
+  "protocol": {
+    "path": "configs/e5_fresh_external_aigibench_midjourney.json",
+    "sha256": "479dedced86c27cd8093a27477b0c2037ee2fc15b60ee109837b69079d1426f5",
+    "version": 1
+  },
+  "replacement_context": {
+    "supersedes_results_from_prior_protocol": false,
+    "prior_protocol": "configs/e5_fresh_external_evaluation.json",
+    "prior_protocol_outcome": "Acquisition blocked before any image download or scoring.",
+    "blocking_endpoint": "https://www.grip.unina.it/download/prog/DMimageDetection/real_RAISE_1k.zip",
+    "reason": "The official RAISE archive host repeatedly refused or timed out on TCP connections. No prior external image, feature, prediction, or metric was obtained, so this separately frozen audit is not selected in response to model performance.",
+    "blocked_acquisition_report": "reports/e5_synthbuster_acquisition_blocked.json"
+  },
+  "frozen_e5": {
+    "development_protocol_sha256": "3dd816ba8ec6f308fc34a34cbb6a441b2f6d17de17121b4c3cb6f38d2cab0ecc",
+    "training_report_sha256": "9a70dd250d94501a441344a302a58c8fe5053ba88f8d950360db4773fea513b3",
+    "checkpoint_sha256": "b6c25a38a86692a74280650f516105c01efbaabe91f8da728b1a455cbf1756c4",
+    "anchor_weight": 0.01,
+    "epoch": 40,
+    "real_threshold": 0.23700000000000002,
+    "ai_threshold": 0.8170000000000001
+  },
+  "external_selection": {
+    "benchmark": "AIGIBench Midjourney V6 test subset",
+    "repository_commit": "e44ec40efe5117a5ccdaa6ff0e89ed934d03d310",
+    "remote_bytes": 8999861437,
+    "real_source": "Open Images V7",
+    "generator": "Midjourney V6",
+    "images_per_class": 1000,
+    "selection_seed": 42,
+    "member_list_sha256": "2e6edd984c20835a5c870d8a965822e5168e1858617f10c1be18426f970ba113",
+    "organiser_validation_subset_used": false
+  },
+  "external_artifacts_present_at_freeze": false,
+  "checked_absent_paths": [
+    "data/raw/e5_aigibench_midjourney",
+    "data/processed/e5_aigibench_midjourney.csv",
+    "data/processed/e5_aigibench_midjourney_provenance.json",
+    "data/features/e5_aigibench_midjourney_clip_vit_b32_quickgelu_openai.npz",
+    "data/features/e5_aigibench_midjourney_transformed_seed42",
+    "reports/e5_aigibench_external_evaluation.json",
+    "outputs/e5_aigibench_external_probabilities.npz"
+  ],
+  "prefreeze_access_scope": "HTTP response headers and ZIP central-directory metadata only. No image payload was persisted, decoded, displayed, embedded, or scored.",
+  "guardrails": {
+    "single_use": true,
+    "retraining_after_results_allowed": false,
+    "threshold_changes_after_results_allowed": false,
+    "model_reselection_after_results_allowed": false,
+    "manual_image_inspection_before_scoring_allowed": false
+  }
+}

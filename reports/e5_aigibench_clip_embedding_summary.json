@@ -1,0 +1,76 @@
+{
+  "experiment": "e5_aigibench_midjourney_frozen_clip_embeddings",
+  "purpose": "Fresh external embeddings only; no classifier training, model scoring, threshold selection, or evaluation.",
+  "amendment": {
+    "path": "configs/e5_aigibench_deduplication_amendment.json",
+    "sha256": "1c0957d862a6f2808b40f00837b82765150e64113b0c5a3b55d716f0a2dd2653",
+    "version": 2
+  },
+  "dataset": {
+    "benchmark": "AIGIBench Midjourney V6 test subset",
+    "real_source": "Open Images V7",
+    "held_out_generator": "Midjourney V6",
+    "license": "CC-BY-NC-SA-4.0"
+  },
+  "preparation_validation": {
+    "samples": 2000,
+    "class_counts": {
+      "real_0": 1000,
+      "ai_generated_1": 1000
+    },
+    "unique_paths": 2000,
+    "unique_image_sha256": 2000,
+    "duplicates_excluded": 4,
+    "real_candidates_examined": 1000,
+    "ai_candidates_examined": 1004,
+    "final_selected_member_list_sha256": "dd6ce9cea5ebe8b62506a3345f863e9972069da686c990bce34749f8bb7ae24b",
+    "development_or_prior_audit_overlap": 0,
+    "organiser_validation_subset_used": false,
+    "manifest_path": "data/processed/e5_aigibench_midjourney.csv",
+    "manifest_sha256": "280e7c9fb4da81eab23db39c9a5c0a01984e1f9977e9fa91f4b35c458856abe7",
+    "provenance_path": "data/processed/e5_aigibench_midjourney_provenance.json",
+    "provenance_sha256": "c6c91a11e63eb9167b735a467d1f7ebfb521444224bf11adae25c1ca74decea8",
+    "all_manifest_images_present_and_hash_matched": true
+  },
+  "model": {
+    "library": "open_clip_torch",
+    "library_version": "3.3.0",
+    "model_name": "ViT-B-32-quickgelu",
+    "pretrained": "openai",
+    "total_parameters": 151277313,
+    "trainable_parameters": 0,
+    "feature_dimension": 512,
+    "l2_normalized": true
+  },
+  "feature_cache": {
+    "samples": 2000,
+    "feature_shape": [
+      2000,
+      512
+    ],
+    "feature_dtype": "float32",
+    "all_finite": true,
+    "maximum_l2_norm_error": 1.1920928955078125e-07,
+    "class_counts": {
+      "real_0": 1000,
+      "ai_generated_1": 1000
+    },
+    "status": "extracted",
+    "manifest": "data/processed/e5_aigibench_midjourney.csv",
+    "manifest_sha256": "280e7c9fb4da81eab23db39c9a5c0a01984e1f9977e9fa91f4b35c458856abe7",
+    "cache_path": "data/features/e5_aigibench_midjourney_clip_vit_b32_quickgelu_openai.npz",
+    "cache_bytes": 4594701,
+    "cache_sha256": "c1c41ee4e240830bd39f79843ab32bd4930beae9d3e775f83fc23400d6cc17b8",
+    "extraction_device": "mps",
+    "extraction_seconds": 92.47713566699531,
+    "images_per_second": 21.62696741821548
+  },
+  "frozen_guardrails": {
+    "e5_checkpoint_loaded": false,
+    "classifier_training_performed": false,
+    "threshold_selection_performed": false,
+    "model_selection_performed": false,
+    "predictions_or_metrics_computed": false,
+    "organiser_validation_subset_used": false
+  }
+}

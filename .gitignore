@@ -12,8 +12,9 @@ data/raw/
 data/processed/images/
 data/features/
 
-# Model files
-checkpoints/
+# Model files (the final 49 KB E5 linear head is required by the demo)
+checkpoints/*
+!checkpoints/clip_linear_e5_source_matched.npz
 *.pt
 *.pth
 *.ckpt

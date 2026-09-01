@@ -94,8 +94,7 @@ and `python -m scripts.audit_submission`.
 
 ## Project code license
 
-No project-level `LICENSE` file has been selected yet. Dataset licenses do not
-automatically choose a license for the original project code. The repository
-owner should explicitly select a code license before presenting the repository
-as open source; MIT is compatible with the existing Python dependencies, but
-that choice belongs to the repository owner.
+Original project code is released under the repository's MIT `LICENSE` file.
+Third-party datasets, dependencies and pretrained assets remain governed by
+their respective licenses described above; the project MIT license does not
+replace or override those terms.

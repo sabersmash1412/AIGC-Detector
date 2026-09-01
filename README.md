@@ -1,260 +1,432 @@
 # AIGC Detector
 
-A hackathon prototype for detecting AI-generated images, with an emphasis on
-robustness to compression, blur, resizing, noise, colour adjustment, and
-cropping.
+A transformation-aware research prototype for detecting AI-generated images
+without hiding model uncertainty.
 
-## Documentation
+The final **E5** detector combines a frozen OpenCLIP image encoder with a
+513-parameter linear head trained on source-balanced real and generated
+images. Its demo evaluates an uploaded image in seven deterministic views and
+returns **Likely real**, **Uncertain**, or **Likely AI-generated**.
 
-- [Section 1 technical report](docs/section-1-technical-report.md): detailed
-  environment, dataset, split, model, training, evaluation, testing, and
-  limitation notes for the CIFAKE smoke-test pipeline.
+> **Research status:** E5 is the strongest model produced in this project, but
+> it failed two predeclared external safety-risk gates. It must not be treated
+> as proof of provenance or as a production-ready universal detector.
 
-## Label convention
+![E3, E4 and E5 external comparison](reports/figures/e5_aigibench_external_model_comparison.png)
 
-- `0`: authentic/real image
-- `1`: AI-generated image
+## Why this project exists
 
-This convention is used by every dataset manifest, model, metric, and JSON
-prediction produced by the project.
+A detector can look excellent on images from a familiar generator and fail
+after ordinary social-media processing or a change of image source. This
+project therefore asks three questions:
 
-## Environment setup
+1. Does the detector survive JPEG compression, blur, resize, noise, colour
+   adjustment and cropping?
+2. Does it generalise to a generator family never used for training?
+3. Can it abstain instead of making a confident accusation when evidence is
+   weak or unstable?
+
+The experimental journey deliberately records failures. E4 showed that adding
+only diverse real images fixed false accusations but destroyed AI recall. E5
+corrected that confound by adding source-matched **real and FLUX-generated**
+SID-Set supervision in balanced proportions.
+
+## Final system
+
+```mermaid
+flowchart LR
+    A["Uploaded image"] --> B["Clean view + 6 deterministic transformations"]
+    B --> C["Frozen OpenCLIP ViT-B/32 encoder"]
+    C --> D["Seven normalized 512-D embeddings"]
+    D --> E["Frozen E5 linear head"]
+    E --> F["AI-likelihood scores"]
+    F --> G["Real ≤ 0.237"]
+    F --> H["Uncertain 0.237–0.817"]
+    F --> I["AI ≥ 0.817"]
+    G --> J["Multi-view agreement audit"]
+    H --> J
+    I --> J
+    J --> K["Robust demo conclusion + per-view table"]
+```
+
+### Model specification
+
+| Component | Frozen E5 setting |
+| --- | --- |
+| Encoder | OpenCLIP `ViT-B-32-quickgelu`, pretrained=`openai` |
+| Encoder output | 512-dimensional L2-normalized embedding |
+| Encoder training | Completely frozen; 0 trainable encoder parameters |
+| Classifier | Logistic linear head: 512 weights + 1 bias |
+| Training sources | CIFAKE real/AI + SID-Set real/FLUX |
+| Per-epoch balance | 50% real/50% AI and 50% CIFAKE/50% SID-Set |
+| Robustness training | Clean/transformed supervision + consistency loss |
+| E3 anchor weight | `0.01` |
+| Selected epoch | `40` |
+| Three-way thresholds | real `≤0.237`; uncertain `(0.237, 0.817)`; AI `≥0.817` |
+| Binary research threshold | `0.52`; comparison only, not the safety decision |
+| Checkpoint | `checkpoints/clip_linear_e5_source_matched.npz` |
+| Checkpoint SHA-256 | `b6c25a38a86692a74280650f516105c01efbaabe91f8da728b1a455cbf1756c4` |
+
+The demo's extra multi-view rule is conservative: if the seven views cross
+decision regions, the displayed robust conclusion becomes **Uncertain**. This
+interface rule exposes instability; it was not used to rewrite the frozen
+external benchmark result.
+
+## Results
+
+### Unseen Midjourney V6 external evaluation
+
+The final one-time external test used 1,000 authentic AIGIBench images and
+1,000 Midjourney V6 images. Midjourney was absent from E5 development. Models,
+thresholds, data identities, transformations and pass/fail gates were frozen
+before scores were computed.
+
+| Model | Clean ROC-AUC | Clean balanced accuracy | 15-condition mean ROC-AUC | Worst-condition ROC-AUC |
+| --- | ---: | ---: | ---: | ---: |
+| E3: CIFAKE robust baseline | 0.7568 | 0.5495 | 0.7429 | 0.6989 |
+| E4: real-only adaptation | 0.8088 | 0.5420 | 0.7890 | 0.7312 |
+| **E5: source-matched real + AI** | **0.9091** | **0.8240** | **0.8986** | **0.8695** |
+
+At the binary comparison threshold, clean E5 produced 877 true real calls,
+123 real-as-AI errors, 771 detected Midjourney images and 229 missed
+Midjourney images.
+
+![E5 robustness across all external conditions](reports/figures/e5_aigibench_external_robustness_matrix.png)
+
+### Why the official external decision is still FAIL
+
+E5 passed the frozen coverage and ROC-AUC gates, but failed both confident
+error-risk limits under the three-way rule:
+
+| Frozen external gate | Required | Observed worst-case 95% Wilson upper bound | Result |
+| --- | ---: | ---: | --- |
+| Real image confidently called AI | ≤ 5% | 9.74% | Fail |
+| AI image confidently called real | ≤ 10% | 26.95% | Fail |
+| Clean decisive coverage per class | ≥ 60% | 83.8% minimum | Pass |
+| Worst primary-condition ROC-AUC | ≥ 0.80 | 0.8894 | Pass |
+
+This does not make E5 useless. It makes the supported claim narrower:
+
+It is not externally validated for safety-critical automatic decisions.
+
+> E5 materially improves cross-source and cross-generator ranking and binary
+> accuracy over E3/E4 on this frozen benchmark, but it is not externally
+> validated for safety-critical automatic decisions.
+
+### E1–E3 internal robustness development
+
+All three models below used the same 2,000-image CIFAKE test split and the same
+six representative transformations. Thresholds were selected using validation
+data before the test comparison.
+
+| Model | Training change | Clean balanced accuracy | Mean transformed BA | Worst transformed BA |
+| --- | --- | ---: | ---: | ---: |
+| E1 | Clean frozen-CLIP linear baseline | 0.9110 | 0.8503 | 0.7945 |
+| E2 | Clean + transformed supervision | **0.9415** | 0.8904 | 0.8630 |
+| E3 | E2 + prediction consistency loss | 0.9370 | **0.8925** | **0.8660** |
+
+E3 was retained as the original robust binary baseline. On the later SID-Set
+real/FLUX audit it achieved ROC-AUC `0.9325`, but called 64.6% of authentic SID
+images AI. This exposed dataset/source bias rather than a lack of ranking
+signal.
+
+### What E4 taught us
+
+E4 added only SID real images. Its authentic SID false-positive rate fell from
+64.6% to 0.6%, but FLUX recall collapsed from 99.7% to 20.5%. The model learned
+a new source shortcut: SID-like meant real. E5 therefore trained with both
+real and FLUX SID images, while retaining balanced CIFAKE supervision.
+
+## Run the demo
+
+### Requirements
+
+- macOS, Linux or Windows
+- Python **3.12** recommended
+- Approximately 2 GB free for the Python environment and downloaded CLIP
+  weights
+- Apple Silicon MPS, CUDA or CPU; a GPU is helpful but not required
+
+Xcode is **not required** for the normal pinned installation because the main
+dependencies install from prebuilt Python wheels. On macOS, use a Python 3.12
+installation rather than relying on the older system `python3`.
+
+From the repository root:
 
 ```bash
-python3 -m venv .venv
+python3.12 -m venv .venv
 source .venv/bin/activate
-python -m pip install -r requirements.txt
+.venv/bin/python -m pip install -r requirements.txt
 ```
 
-## CIFAKE smoke-test data
-
-CIFAKE is used only to verify that the end-to-end training and inference
-pipeline works. Its images are only 32 x 32 pixels, so results on CIFAKE are
-not treated as evidence of real-world robustness.
-
-Download the dataset into `data/raw/cifake`, then create deterministic,
-balanced manifests:
+Start the local interface:
 
 ```bash
-python -m scripts.prepare_cifake
+.venv/bin/python -m src.demo_app --device auto --inbrowser
 ```
 
-This creates:
+The first launch downloads the OpenAI CLIP weights into the ignored
+`checkpoints/open_clip/` cache. `--device auto` selects MPS or CUDA when
+available and otherwise uses CPU. The local interface normally opens at
+`http://127.0.0.1:7860`.
 
-- `data/processed/train.csv`: 5,000 real and 5,000 AI-generated images
-- `data/processed/val.csv`: 1,000 real and 1,000 AI-generated images
-- `data/processed/test.csv`: 1,000 real and 1,000 AI-generated images
-- `data/processed/dataset_summary.json`: split and label audit information
+Do not add `--share` for private images. That option creates a public Gradio
+tunnel; the default command remains local.
 
-The validation split is drawn only from CIFAKE's official training split. The
-test manifest remains a subset of CIFAKE's official test split.
+### Demo behaviour
+
+For each upload, the app evaluates:
+
+- clean image;
+- JPEG quality 50;
+- Gaussian blur σ=1;
+- 0.5× downscale followed by upscale;
+- Gaussian noise σ=0.05;
+- deterministic colour jitter ±20%; and
+- centre crop retaining 80%.
+
+It shows the clean score, the seven per-view decisions, score spread,
+decision-flip count and a conservative robust conclusion. Repeating the same
+image reuses a bounded in-memory result cache; uploaded image bytes are not
+written by the application.
 
 ## Directory inference
 
-The primary inference command loads frozen CLIP plus the selected linear
-checkpoint, accepts an image directory, and writes one AIGC probability per
-readable image. The backend is inferred safely from the `.npz` checkpoint:
+The command-line predictor writes one probability per readable image:
 
 ```bash
 .venv/bin/python -m src.predict \
-  --input-dir data/raw/cifake/test \
+  --input-dir path/to/images \
   --recursive \
-  --checkpoint checkpoints/clip_linear_probe.npz \
-  --output outputs/clip_test_directory_predictions.json \
-  --device mps \
+  --checkpoint checkpoints/clip_linear_e5_source_matched.npz \
+  --output outputs/predictions.json \
+  --device auto \
   --batch-size 32
 ```
 
-The output is a JSON array with the required `image_path` and `pred` fields.
-`pred` is in the range `[0, 1]`, where a higher value means more likely
-AI-generated. Supported images are processed in sorted path order. Unreadable
-files are skipped and reported by default, or cause immediate failure with
-`--strict`. The Section 1 CNN remains available by passing its `.pt`
-checkpoint.
+The JSON output is a sorted array of records containing `image_path` and
+`pred`. `pred` lies in `[0, 1]`; higher means more AI-like. This directory
+command exports the frozen score. Use the Gradio demo when the three-way
+thresholds and multi-view disagreement display are required.
 
-Verify the complete JSON schema and compare its manifest-test subset against
-the probabilities produced from the cached Section 2C features:
+## Verify a cloned repository
+
+These commands require no raw third-party dataset images:
 
 ```bash
-.venv/bin/python -m scripts.verify_clip_predictions \
-  --predictions outputs/clip_test_directory_predictions.json \
-  --inference-device mps \
-  --inference-batch-size 32 \
-  --inference-seconds 277 \
-  --inference-skipped 0
+.venv/bin/python -m scripts.audit_submission --check-only
+.venv/bin/python -m pytest -q
+.venv/bin/python -m src.demo_app --help
 ```
 
-This writes the tracked verification audit to
-`reports/clip_inference_contract.json`.
+The submission audit checks:
 
-The recorded full-directory MPS run processed all 20,000 official CIFAKE test
-images in 277 seconds with zero skipped files. Every JSON row passed the exact
-schema check, and the 2,000 cached reference probabilities agreed within a
-maximum absolute difference of `5.0e-7` after six-decimal JSON rounding.
+- organiser-validation exclusion records;
+- absence of tracked raw images, feature caches and prediction exports;
+- frozen manifest counts, labels and hashes;
+- third-party license notices; and
+- the exact E5 checkpoint SHA-256.
 
-## CIFAKE smoke-test training and evaluation
+The complete test count is printed by `pytest`; the suite includes unit,
+integration, protocol-lock, checkpoint-identity, leakage and documentation
+contract tests.
 
-Train the compact CNN with seed `42` and save the best validation ROC-AUC
-checkpoint:
+## Research reproduction
+
+The demo does not require the research datasets. The commands below reproduce
+the main experimental stages and are intentionally separate because dataset
+acquisition and CLIP extraction take hours and several gigabytes.
+
+### 1. Prepare CIFAKE
+
+Download the official CIFAKE archive from Kaggle and place it under
+`data/raw/cifake/` with `train/REAL`, `train/FAKE`, `test/REAL` and `test/FAKE`
+directories. Then create the deterministic seed-42 manifests:
 
 ```bash
-python -m src.train
+.venv/bin/python -m scripts.prepare_cifake --verify-images
 ```
 
-Evaluate that checkpoint on the untouched CIFAKE test manifest:
+The project uses 10,000 train, 2,000 validation and 2,000 internal test images,
+balanced by label. Validation is sampled only from CIFAKE's official training
+split; the internal test manifest comes only from the official test split.
+
+### 2. Extract frozen CLIP features
 
 ```bash
-python -m src.evaluate
-```
-
-The resulting metrics demonstrate that the pipeline works end to end. They do
-not establish robustness or generalisation to modern generators.
-
-### Smoke-test result
-
-The best five-epoch checkpoint was selected using validation ROC-AUC and then
-evaluated once on the 2,000-image test manifest using the default threshold of
-`0.5`.
-
-| Metric | Result |
-| --- | ---: |
-| ROC-AUC | 0.9570 |
-| Average precision | 0.9558 |
-| Balanced accuracy | 0.8940 |
-| Precision | 0.8752 |
-| Recall | 0.9190 |
-| F1 | 0.8966 |
-
-These numbers are only a pipeline check on low-resolution CIFAKE data. The
-research baseline begins with frozen CLIP features in Section 2.
-
-## Frozen CLIP environment check
-
-Section 2 uses OpenCLIP's `ViT-B-32-quickgelu` model with the original
-`openai` pretrained weights. The QuickGELU architecture matches the activation
-used to train those weights. CLIP is frozen and supplies one L2-normalized
-512-dimensional image embedding; a separate linear classifier is trained in a
-later step.
-
-Run the two-image environment and feature sanity check with:
-
-```bash
-python -m scripts.check_clip --device auto
-```
-
-The command downloads the pretrained weights once into the ignored
-`checkpoints/open_clip` cache and writes diagnostics to
-`reports/clip_environment_check.json`. Passing this check proves that the
-pretrained feature extractor loads and produces valid features. It does not
-train or evaluate a fake-image classifier.
-
-## Frozen CLIP embedding cache
-
-Section 2B converts every manifest image into one normalized 512-dimensional
-CLIP vector. The image paths, binary labels, manifest fingerprint, model name,
-and pretrained-weight identity are stored beside the feature matrix. No
-classifier is trained during extraction.
-
-Run each split separately on Apple MPS so a completed split does not need to
-be repeated if a later command is interrupted:
-
-```bash
-.venv/bin/python -m scripts.extract_clip_features \
-  --splits train --device mps --batch-size 32
+.venv/bin/python -m scripts.check_clip --device auto
 
 .venv/bin/python -m scripts.extract_clip_features \
-  --splits val --device mps --batch-size 32
+  --splits train val test \
+  --device auto \
+  --batch-size 32
 
-.venv/bin/python -m scripts.extract_clip_features \
-  --splits test --device mps --batch-size 32
+.venv/bin/python -m scripts.extract_transformed_clip_features \
+  --splits train val \
+  --device auto \
+  --batch-size 32
 ```
 
-The local caches are written under
-`data/features/clip_vit_b32_quickgelu_openai/` and are ignored by Git. The
-small, tracked `reports/clip_embedding_summary.json` records cache hashes,
-shapes, class counts, numerical checks, device, and extraction speed. An
-existing compatible cache is fully validated and skipped by default. Use
-`--overwrite` only when intentionally recreating it.
+The encoder is never fine-tuned. Extraction writes ignored `.npz` caches and
+tracked summary reports containing shapes, hashes and integrity checks.
 
-## Clean frozen CLIP linear baseline
-
-Section 2C trains an L2-regularized logistic-regression head on the cached
-training embeddings. CLIP remains frozen; only 512 coefficients and one bias
-are learned. Seven values of inverse regularization strength `C` are compared
-using validation ROC-AUC, with an exact tie resolved in favour of the smaller
-`C` (stronger regularization).
+### 3. Train and compare E1–E3
 
 ```bash
 .venv/bin/python -m src.train_linear_probe
+.venv/bin/python -m src.train_robust_linear --experiment e2 --device cpu
+.venv/bin/python -m src.train_robust_linear --experiment e3 --device cpu
+.venv/bin/python -m src.select_section3_thresholds
+
+.venv/bin/python -m scripts.extract_transformed_clip_features \
+  --splits test \
+  --allow-test \
+  --device auto \
+  --batch-size 32
+
+.venv/bin/python -m src.evaluate_section3
 ```
 
-Validation selected `C=100`. The selected train-fitted model was then evaluated
-once on the clean 2,000-image CIFAKE test cache using the temporary threshold
-`0.5`.
+Threshold selection loads validation caches only. The separate `--allow-test`
+step makes test access explicit after the models and selection rule are frozen.
 
-| Metric | Validation | Clean test |
-| --- | ---: | ---: |
-| ROC-AUC | 0.9829 | 0.9845 |
-| Average precision | 0.9824 | 0.9839 |
-| Balanced accuracy | 0.9330 | 0.9405 |
-| Precision | 0.9339 | 0.9392 |
-| Recall | 0.9320 | 0.9420 |
-| F1 | 0.9329 | 0.9406 |
-
-The object-free linear checkpoint is written to the ignored
-`checkpoints/clip_linear_probe.npz`. The tracked report and figures record the
-complete regularization search and clean test result. Formal validation-based
-threshold selection occurs in Section 3. These results measure only clean
-CIFAKE performance and do not establish transformation robustness or
-cross-generator generalization.
-
-## Initial clean-versus-transformed robustness
-
-Section 2E evaluates the unchanged clean linear probe on the same 2,000 test
-images after one representative setting from each required transformation
-family. Transformations are deterministic with seed `42` and occur before the
-official CLIP preprocessing.
+### 4. Run the full transformation matrix
 
 ```bash
-.venv/bin/python -m src.evaluate_initial_robustness \
-  --device mps \
+.venv/bin/python -m scripts.extract_transformed_clip_features \
+  --splits test \
+  --allow-test \
+  --conditions \
+    jpeg_q90 jpeg_q70 jpeg_q30 \
+    gaussian_blur_sigma0_5 gaussian_blur_sigma2 \
+    resize_0_25x \
+    gaussian_noise_sigma0_02 gaussian_noise_sigma0_10 \
+  --device auto \
   --batch-size 32
+
+.venv/bin/python -m src.evaluate_full_matrix
+.venv/bin/python -m src.bootstrap_uncertainty
+.venv/bin/python -m src.error_analysis
 ```
 
-| Condition | ROC-AUC | Balanced accuracy | Recall | Flip rate |
-| --- | ---: | ---: | ---: | ---: |
-| Clean | 0.9845 | 0.9405 | 0.9420 | 0.0000 |
-| JPEG quality 50 | 0.9712 | 0.9045 | 0.9250 | 0.0840 |
-| Gaussian blur σ=1 | 0.9160 | 0.6725 | 0.3630 | 0.3230 |
-| Resize 0.5× and upscale | 0.9143 | 0.6635 | 0.3410 | 0.3320 |
-| Gaussian noise σ=0.05 | 0.9403 | 0.8455 | 0.7570 | 0.1530 |
-| Seeded colour jitter ±20% | 0.9804 | 0.9220 | 0.9250 | 0.0415 |
-| Centre crop 80% | 0.9654 | 0.8425 | 0.7060 | 0.1480 |
+### 5. Reproduce E5 development
 
-Blur and downscale/upscale are the principal weaknesses. They shift the mean
-AI-generated probability downward by `0.523` and `0.534`, producing 637 and
-659 false negatives respectively. ROC-AUC remains near `0.915`, so useful
-ranking information survives, but the simultaneous ROC-AUC and thresholded
-performance drops show that threshold adjustment alone is insufficient. These
-results motivate transformation augmentation and consistency training in
-Section 3.
+SID-Set acquisition is deterministic and license-governed. It downloads 4,000
+real and 4,000 FLUX training-source images, with disjoint 3,000/1,000
+train/validation splits. Raw images and features remain ignored by Git.
 
-![Initial robustness results](reports/figures/clip_initial_robustness.png)
+```bash
+.venv/bin/python -m scripts.prepare_e4_sid_real
+.venv/bin/python -m scripts.prepare_e5_sid_flux
 
-![Representative transformations](reports/figures/clip_initial_transform_samples.png)
+.venv/bin/python -m scripts.extract_clip_features \
+  --splits train val \
+  --manifest-dir data/processed/e4_sid_real \
+  --output-dir data/features/e4_sid_real_clip_vit_b32_quickgelu_openai \
+  --summary-output reports/e4_sid_real_clip_embedding_summary.json \
+  --device auto --batch-size 32
 
-This is an initial representative check, not the full severity matrix or
-held-out-generator evaluation planned for Section 4.
+.venv/bin/python -m scripts.extract_transformed_clip_features \
+  --splits train val \
+  --allow-single-class-real \
+  --clean-feature-dir data/features/e4_sid_real_clip_vit_b32_quickgelu_openai \
+  --output-dir data/features/e4_sid_real_clip_transformed_seed42 \
+  --summary-output reports/e4_sid_real_transformed_embedding_summary.json \
+  --device auto --batch-size 32 --seed 42
 
-## Current status
+.venv/bin/python -m scripts.extract_clip_features \
+  --splits train val \
+  --manifest-dir data/processed/e5_sid_flux \
+  --output-dir data/features/e5_sid_flux_clip_vit_b32_quickgelu_openai \
+  --summary-output reports/e5_sid_flux_clip_embedding_summary.json \
+  --device auto --batch-size 32
 
-- Section 1A: repository and Python environment setup complete
-- Section 1B: CIFAKE download and integrity audit complete
-- Section 1C: reproducible manifest preparation complete
-- Section 1D: image-directory JSON inference implemented
-- Section 1E: CIFAKE smoke-test training and evaluation complete
-- Section 2A: frozen CLIP dependency and feature sanity check implemented
-- Section 2B: validated train, validation, and test CLIP caches complete
-- Section 2C: clean frozen CLIP linear baseline trained and evaluated
-- Section 2D: CLIP directory JSON inference and full MPS contract audit complete
-- Section 2E: initial clean-versus-transformed robustness evaluation complete
+.venv/bin/python -m scripts.extract_transformed_clip_features \
+  --splits train val \
+  --allow-single-class-ai \
+  --clean-feature-dir data/features/e5_sid_flux_clip_vit_b32_quickgelu_openai \
+  --output-dir data/features/e5_sid_flux_clip_transformed_seed42 \
+  --summary-output reports/e5_sid_flux_transformed_embedding_summary.json \
+  --device auto --batch-size 32 --seed 42
+
+.venv/bin/python -m src.train_e5 --device cpu
+```
+
+E5 trains all four frozen anchor-weight candidates and rejects the experiment
+if no candidate satisfies the predeclared validation error and coverage rules.
+
+### 6. Frozen external AIGIBench evaluation
+
+The external run was a single-use audit, not a hyperparameter search. The
+checked-in protocol, amendment, run lock, manifests, feature hashes, metrics
+and figures preserve the completed evidence. Do not delete those frozen
+artifacts merely to rerun the one-time test.
+
+For an authorised independent replication in a separate worktree with the
+frozen output paths initially absent, the historical command sequence was:
+
+```bash
+.venv/bin/python -m scripts.prepare_e5_external_aigibench_deduplicated
+.venv/bin/python -m scripts.extract_e5_aigibench_clip_features \
+  --device auto --batch-size 32
+.venv/bin/python -m scripts.extract_e5_aigibench_transformed_clip_features \
+  --device auto --batch-size 32
+.venv/bin/python -m src.evaluate_e5_aigibench_external
+```
+
+AIGIBench is CC-BY-NC-SA-4.0 and was used only for non-commercial research
+evaluation. See [dataset and license notices](docs/DATASETS_AND_LICENSES.md).
+
+## Repository map
+
+| Path | Purpose |
+| --- | --- |
+| `src/demo_app.py` | Gradio interface |
+| `src/demo_inference.py` | Exact E5 checkpoint validation and seven-view inference |
+| `src/train_e5.py` | Source-balanced E5 training and frozen selection |
+| `src/evaluate_e5_aigibench_external.py` | One-time external evaluation |
+| `src/predict.py` | Directory-to-JSON score inference |
+| `scripts/` | Dataset preparation, feature extraction and audits |
+| `configs/` | Frozen experiment protocols and run locks |
+| `reports/` | Aggregate metrics and non-image figures |
+| `checkpoints/clip_linear_e5_source_matched.npz` | Final small linear head |
+| `tests/` | Unit, integration, protocol and leakage tests |
+
+## Limitations and future E6 direction
+
+- **Not universal:** training covers Stable Diffusion-based CIFAKE and FLUX;
+  external testing covers one Midjourney V6 subset.
+- **Semantic encoder:** CLIP's 224 × 224 preprocessing can suppress subtle
+  pixel-frequency forensic evidence.
+- **Source bias remains:** source and generator coverage improved, but the
+  external risk bounds still failed.
+- **Transformation scope is finite:** the matrix cannot represent every social
+  platform, screenshot pipeline, edit or adversarial attack.
+- **Thresholds are domain-sensitive:** the three-way thresholds are frozen from
+  development data and must not be silently recalibrated on the external test.
+- **No provenance proof:** metadata standards, content credentials and human
+  review remain necessary for consequential decisions.
+
+A future E6 should add a third generator family to training while keeping
+Midjourney held out, combine CLIP with a frequency/high-pass forensic branch,
+and evaluate calibration with ECE or reliability diagrams under a newly frozen
+protocol.
+
+## Data, citations and licensing
+
+The organiser validation subset was never used for development or evaluation.
+The automated evidence is in `reports/submission_audit.json` and can be checked
+with `python -m scripts.audit_submission --check-only`.
+
+Third-party datasets retain their own licenses. No third-party image bytes or
+downloaded CLIP weights are committed. Full sources and attribution notes are
+in [docs/DATASETS_AND_LICENSES.md](docs/DATASETS_AND_LICENSES.md).
+
+Original project code is released under the [MIT License](LICENSE).
+
+## Responsible-use statement
+
+An AI-image score can be wrong because of generator shift, editing, compression,
+camera/source differences or content bias. Do not use this prototype by itself
+to accuse a person of deception, moderate high-impact content, determine legal
+authenticity or make another consequential decision.

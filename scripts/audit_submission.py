@@ -24,6 +24,7 @@ PRIVATE_TEXT_MARKERS = (
     "annamalai@",
     "/Documents/AI generated image/",
 )
+PRIVATE_SCAN_EXCLUSIONS = {"scripts/audit_submission.py"}
 AUDITED_JSON_GLOBS = (
     "configs/*.json",
     "reports/*.json",
@@ -138,6 +139,8 @@ def _audit_tracked_files(root: Path, tracked: list[str]) -> dict[str, Any]:
     ]
     private_hits: list[str] = []
     for relative in tracked:
+        if relative in PRIVATE_SCAN_EXCLUSIONS:
+            continue
         path = root / relative
         try:
             payload = path.read_bytes()

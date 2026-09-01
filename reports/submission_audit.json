@@ -1,0 +1,89 @@
+{
+  "audit": "submission_provenance_leakage_and_license_audit_v1",
+  "status": "PASS",
+  "checks": {
+    "organiser_validation_isolation": {
+      "status": "PASS",
+      "evidence_records": 42,
+      "json_files_scanned": 48,
+      "rule": "All recorded organiser-use flags are false and forbidden flags are true."
+    },
+    "tracked_data_safety": {
+      "status": "PASS",
+      "raw_images_tracked": 0,
+      "feature_caches_tracked": 0,
+      "prediction_outputs_tracked": 0,
+      "private_local_markers_found": 0
+    },
+    "frozen_manifest_integrity": {
+      "status": "PASS",
+      "manifests": {
+        "data/processed/e4_sid_real/train.csv": {
+          "rows": 3000,
+          "labels": {
+            "0": 3000
+          },
+          "sha256": "9a456e95f6b037e1fbfaa14520c5d98cc4118a99f813fec6803633baeceba58b"
+        },
+        "data/processed/e4_sid_real/val.csv": {
+          "rows": 1000,
+          "labels": {
+            "0": 1000
+          },
+          "sha256": "3ae03562a32f0d963a3038506482f9218b3705637efea33b33e3874d77012200"
+        },
+        "data/processed/e5_sid_flux/train.csv": {
+          "rows": 3000,
+          "labels": {
+            "1": 3000
+          },
+          "sha256": "f3d2b0d2fde72c8822d2558c04478a100349e0543ded4db88b77830871d839e4"
+        },
+        "data/processed/e5_sid_flux/val.csv": {
+          "rows": 1000,
+          "labels": {
+            "1": 1000
+          },
+          "sha256": "24d9d6faa350a8dfbef8834b050e24a39d1d888d7bec53a78025fe2508fef85e"
+        },
+        "data/processed/sid_set_flux_heldout.csv": {
+          "rows": 2000,
+          "labels": {
+            "0": 1000,
+            "1": 1000
+          },
+          "sha256": "9631bfba3bb24869ce4edb6b52db1e7e19b68716f28e1b61b73c70e5ab40d301"
+        },
+        "data/processed/e5_aigibench_midjourney.csv": {
+          "rows": 2000,
+          "labels": {
+            "0": 1000,
+            "1": 1000
+          },
+          "sha256": "280e7c9fb4da81eab23db39c9a5c0a01984e1f9977e9fa91f4b35c458856abe7"
+        }
+      }
+    },
+    "licenses_and_citations": {
+      "status": "PASS",
+      "declared_assets": {
+        "CIFAKE": "MIT (as declared by the official Kaggle dataset page)",
+        "SID-Set": "CC-BY-4.0",
+        "AIGIBench": "CC-BY-NC-SA-4.0",
+        "OpenCLIP": "MIT",
+        "OpenAI CLIP": "MIT"
+      }
+    },
+    "frozen_e5_checkpoint": {
+      "status": "PASS",
+      "path": "checkpoints/clip_linear_e5_source_matched.npz",
+      "sha256": "b6c25a38a86692a74280650f516105c01efbaabe91f8da728b1a455cbf1756c4"
+    }
+  },
+  "disclosures": [
+    "No third-party image bytes are tracked by Git.",
+    "Tracked selection manifests contain repository-relative paths and dataset-derived identifiers.",
+    "AIGIBench was used only as a non-commercial held-out external evaluation set.",
+    "This automated audit records technical evidence and is not legal advice."
+  ]
+}

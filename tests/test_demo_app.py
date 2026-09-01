@@ -1,13 +1,20 @@
 from __future__ import annotations
 
 import gradio as gr
+from PIL import Image
 
-from src.demo_app import TABLE_HEADERS, create_demo, present_analysis
+from src.demo_app import (
+    TABLE_HEADERS,
+    create_demo,
+    present_analysis,
+    run_analysis_request,
+)
 from src.demo_inference import (
     DECISION_AI,
     DECISION_REAL,
     DECISION_UNCERTAIN,
     DemoAnalysis,
+    DemoInputError,
     ViewPrediction,
 )
 
@@ -46,6 +53,18 @@ class FakePredictor:
         return _analysis()
 
 
+class InputFailurePredictor:
+    def analyze(self, image):
+        del image
+        raise DemoInputError("safe input explanation")
+
+
+class InternalFailurePredictor:
+    def analyze(self, image):
+        del image
+        raise RuntimeError("private/path/that/must/not/leak")
+
+
 def test_present_analysis_exposes_disagreement_and_view_rows() -> None:
     verdict, details, table = present_analysis(_analysis())
     assert "Uncertain" in verdict
@@ -70,3 +89,20 @@ def test_gradio_demo_builds_without_loading_a_model() -> None:
     assert any(component.get("props", {}).get("label") == "Image to analyse" for component in config["components"])
     assert any(dependency.get("api_name") == "analyse_image" for dependency in config["dependencies"])
 
+
+def test_missing_image_returns_actionable_message() -> None:
+    verdict, details, table = run_analysis_request(FakePredictor(), None)
+    assert "INPUT NEEDED" in verdict
+    assert "JPEG" in details
+    assert table == []
+
+
+def test_input_failure_is_shown_but_internal_failure_is_sanitised() -> None:
+    image = Image.new("RGB", (16, 16))
+    input_verdict, _, _ = run_analysis_request(InputFailurePredictor(), image)
+    internal_verdict, internal_details, _ = run_analysis_request(
+        InternalFailurePredictor(), image
+    )
+    assert "safe input explanation" in input_verdict
+    assert "private/path" not in internal_verdict
+    assert "private/path" not in internal_details

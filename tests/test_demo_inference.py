@@ -17,6 +17,7 @@ from src.demo_inference import (
     DEFAULT_E5_CHECKPOINT,
     REAL_THRESHOLD,
     VIEW_CONDITIONS,
+    DemoInputError,
     E5DemoPredictor,
     decision_for_score,
     summarise_view_scores,
@@ -89,7 +90,32 @@ def test_demo_predictor_is_deterministic_for_uploaded_image() -> None:
     first = predictor.analyze(image)
     second = predictor.analyze(image)
     assert first == second
+    assert first is second
+    assert predictor.cached_analysis_count == 1
     assert (first.width, first.height) == (96, 80)
     assert len(first.views) == len(VIEW_CONDITIONS)
     assert all(0.0 <= view.score <= 1.0 for view in first.views)
 
+
+def test_demo_predictor_cache_is_bounded_and_can_be_cleared() -> None:
+    predictor = E5DemoPredictor(
+        checkpoint_path=DEFAULT_E5_CHECKPOINT,
+        device_name="cpu",
+        model_loader=_fake_loader,
+        analysis_cache_size=2,
+    )
+    for colour in ((1, 2, 3), (4, 5, 6), (7, 8, 9)):
+        predictor.analyze(Image.new("RGB", (32, 32), colour))
+    assert predictor.cached_analysis_count == 2
+    predictor.clear_analysis_cache()
+    assert predictor.cached_analysis_count == 0
+
+
+def test_invalid_image_object_has_safe_input_error() -> None:
+    predictor = E5DemoPredictor(
+        checkpoint_path=DEFAULT_E5_CHECKPOINT,
+        device_name="cpu",
+        model_loader=_fake_loader,
+    )
+    with pytest.raises(DemoInputError, match="did not decode"):
+        predictor.analyze(object())  # type: ignore[arg-type]

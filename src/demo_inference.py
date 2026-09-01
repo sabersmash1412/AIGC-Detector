@@ -5,7 +5,8 @@ from __future__ import annotations
 import hashlib
 import json
 import threading
-from dataclasses import dataclass
+from collections import OrderedDict
+from dataclasses import dataclass, replace
 from pathlib import Path
 from typing import Any, Callable
 
@@ -36,6 +37,7 @@ AI_THRESHOLD = 0.8170000000000001
 BINARY_BENCHMARK_THRESHOLD = 0.52
 TRANSFORM_SEED = 42
 MAX_INPUT_PIXELS = 50_000_000
+DEFAULT_ANALYSIS_CACHE_SIZE = 32
 VIEW_CONDITIONS = DEFAULT_ROBUSTNESS_CONDITIONS
 DECISION_REAL = "real"
 DECISION_UNCERTAIN = "uncertain"
@@ -45,6 +47,10 @@ DECISION_DISPLAY = {
     DECISION_UNCERTAIN: "Uncertain",
     DECISION_AI: "Likely AI-generated",
 }
+
+
+class DemoInputError(ValueError):
+    """A safe, user-actionable image validation failure."""
 
 
 def _scalar(archive: np.lib.npyio.NpzFile, key: str) -> object:
@@ -108,15 +114,32 @@ def validate_e5_demo_checkpoint(path: Path) -> LinearProbeCheckpoint:
 
 def _validated_rgb_image(image: Image.Image) -> Image.Image:
     if not isinstance(image, Image.Image):
-        raise TypeError("Upload must decode as a Pillow image")
+        raise DemoInputError("The upload did not decode as an image")
+    try:
+        image.load()
+    except (
+        OSError,
+        SyntaxError,
+        ValueError,
+        Image.DecompressionBombError,
+    ) as exc:
+        raise DemoInputError("The image data is incomplete or could not be decoded") from exc
     width, height = image.size
     if width <= 0 or height <= 0:
-        raise ValueError("Image dimensions must be positive")
+        raise DemoInputError("Image dimensions must be positive")
     if width * height > MAX_INPUT_PIXELS:
-        raise ValueError(
+        raise DemoInputError(
             f"Image is too large ({width}×{height}); maximum is {MAX_INPUT_PIXELS:,} pixels"
         )
-    return ImageOps.exif_transpose(image).convert("RGB").copy()
+    try:
+        return ImageOps.exif_transpose(image).convert("RGB").copy()
+    except (
+        OSError,
+        SyntaxError,
+        ValueError,
+        Image.DecompressionBombError,
+    ) as exc:
+        raise DemoInputError("The image could not be converted to RGB safely") from exc
 
 
 def _stable_image_identity(image: Image.Image) -> str:
@@ -220,39 +243,65 @@ class E5DemoPredictor:
         model_loader: Callable[
             [torch.device, Path], tuple[nn.Module, Callable[[Image.Image], torch.Tensor]]
         ] = load_frozen_clip,
+        analysis_cache_size: int = DEFAULT_ANALYSIS_CACHE_SIZE,
     ) -> None:
+        if not 0 <= analysis_cache_size <= 256:
+            raise ValueError("Demo analysis cache size must lie in [0, 256]")
         self.checkpoint_path = checkpoint_path
         self.device = choose_device(device_name)
         self.checkpoint = validate_e5_demo_checkpoint(checkpoint_path)
         self.model, self.preprocess = model_loader(self.device, model_cache_dir)
-        self._inference_lock = threading.Lock()
+        self.analysis_cache_size = analysis_cache_size
+        self._analysis_cache: OrderedDict[str, DemoAnalysis] = OrderedDict()
+        self._analysis_lock = threading.Lock()
+
+    @property
+    def cached_analysis_count(self) -> int:
+        """Number of immutable result records held in the bounded memory cache."""
+
+        with self._analysis_lock:
+            return len(self._analysis_cache)
+
+    def clear_analysis_cache(self) -> None:
+        """Discard cached result records without touching model state."""
+
+        with self._analysis_lock:
+            self._analysis_cache.clear()
 
     def analyze(self, image: Image.Image) -> DemoAnalysis:
         rgb = _validated_rgb_image(image)
-        image_identity = f"upload:{_stable_image_identity(rgb)}"
-        transformed = [
-            apply_evaluation_transform(
-                rgb,
-                condition,
-                image_path=image_identity,
-                seed=TRANSFORM_SEED,
-            )
-            for condition in VIEW_CONDITIONS
-        ]
-        tensors = torch.stack([self.preprocess(view) for view in transformed]).to(
-            self.device
-        )
-        with self._inference_lock, torch.inference_mode():
-            features = encode_normalized_images(self.model, tensors).cpu().numpy()
+        image_digest = _stable_image_identity(rgb)
+        image_identity = f"upload:{image_digest}"
+        with self._analysis_lock:
+            cached = self._analysis_cache.get(image_digest)
+            if cached is not None:
+                self._analysis_cache.move_to_end(image_digest)
+                return cached
+
+            transformed = [
+                apply_evaluation_transform(
+                    rgb,
+                    condition,
+                    image_path=image_identity,
+                    seed=TRANSFORM_SEED,
+                )
+                for condition in VIEW_CONDITIONS
+            ]
+            tensors = torch.stack(
+                [self.preprocess(view) for view in transformed]
+            ).to(self.device)
+            del transformed
+            with torch.inference_mode():
+                features = encode_normalized_images(self.model, tensors).cpu().numpy()
             probabilities = self.checkpoint.probabilities(features)
-        summary = summarise_view_scores(VIEW_CONDITIONS, probabilities)
-        return DemoAnalysis(
-            **{
-                **summary.__dict__,
-                "width": rgb.width,
-                "height": rgb.height,
-            }
-        )
+            summary = summarise_view_scores(VIEW_CONDITIONS, probabilities)
+            analysis = replace(summary, width=rgb.width, height=rgb.height)
+            if self.analysis_cache_size:
+                self._analysis_cache[image_digest] = analysis
+                self._analysis_cache.move_to_end(image_digest)
+                while len(self._analysis_cache) > self.analysis_cache_size:
+                    self._analysis_cache.popitem(last=False)
+            return analysis
 
 
 def analysis_as_json(analysis: DemoAnalysis) -> str:

@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import html
+import logging
 import sys
 from pathlib import Path
 from typing import Any, Protocol
@@ -21,6 +22,7 @@ from src.demo_inference import (
     DEFAULT_MODEL_CACHE,
     REAL_THRESHOLD,
     DemoAnalysis,
+    DemoInputError,
     E5DemoPredictor,
 )
 
@@ -37,6 +39,7 @@ INITIAL_DETAILS = (
     "disagreement instead of presenting one score as proof."
 )
 TABLE_HEADERS = ["View", "AI-likelihood score", "Decision", "Δ from clean"]
+LOGGER = logging.getLogger(__name__)
 
 
 class Predictor(Protocol):
@@ -121,42 +124,68 @@ def present_analysis(analysis: DemoAnalysis) -> tuple[str, str, list[list[Any]]]
     return _verdict_html(analysis), _details_markdown(analysis), _view_table(analysis)
 
 
-def create_demo(predictor: Predictor) -> gr.Blocks:
-    """Build the interface without loading or mutating any model state."""
+def run_analysis_request(
+    predictor: Predictor,
+    image: Image.Image | None,
+    progress: Any | None = None,
+) -> tuple[str, str, list[list[Any]]]:
+    """Run one request while keeping browser-visible errors safe and actionable."""
 
-    def run(image: Image.Image | None, progress: gr.Progress = gr.Progress()):
-        if image is None:
-            return (
-                """
+    if image is None:
+        return (
+            """
 <div class="verdict-card verdict-error">
   <div class="verdict-kicker">INPUT NEEDED</div>
   <div class="verdict-title">Please upload an image</div>
 </div>
 """,
-                "Choose a JPEG, PNG, WebP, BMP or TIFF image, then select **Analyse image**.",
-                [],
-            )
-        try:
+            "Choose a JPEG, PNG, WebP, BMP or TIFF image, then select **Analyse image**.",
+            [],
+        )
+    try:
+        if progress is not None:
             progress(0.05, desc="Preparing seven deterministic views")
-            analysis = predictor.analyze(image)
+        analysis = predictor.analyze(image)
+        if progress is not None:
             progress(0.9, desc="Summarising robustness")
-            result = present_analysis(analysis)
+        result = present_analysis(analysis)
+        if progress is not None:
             progress(1.0, desc="Complete")
-            return result
-        except Exception as exc:
-            message = html.escape(str(exc))
-            return (
-                f"""
+        return result
+    except DemoInputError as exc:
+        message = html.escape(str(exc))
+        return (
+            f"""
 <div class="verdict-card verdict-error">
-  <div class="verdict-kicker">INFERENCE ERROR</div>
+  <div class="verdict-kicker">INVALID IMAGE</div>
   <div class="verdict-title">The image could not be analysed</div>
   <div class="verdict-note">{message}</div>
 </div>
 """,
-                "Try another image. If the problem continues, restart the local demo and "
-                "check that the frozen E5 checkpoint and OpenCLIP weights are available.",
-                [],
-            )
+            "Try exporting the image as a standard RGB JPEG or PNG and upload it again.",
+            [],
+        )
+    except Exception:
+        LOGGER.exception("Unexpected E5 demo inference failure")
+        return (
+            """
+<div class="verdict-card verdict-error">
+  <div class="verdict-kicker">INFERENCE ERROR</div>
+  <div class="verdict-title">The local detector encountered an unexpected error</div>
+  <div class="verdict-note">No prediction was produced.</div>
+</div>
+""",
+            "Restart the local demo. If the problem continues, verify the frozen E5 "
+            "checkpoint and OpenCLIP installation from the terminal output.",
+            [],
+        )
+
+
+def create_demo(predictor: Predictor) -> gr.Blocks:
+    """Build the interface without loading or mutating any model state."""
+
+    def run(image: Image.Image | None, progress: gr.Progress = gr.Progress()):
+        return run_analysis_request(predictor, image, progress)
 
     with gr.Blocks(title="AIGC Detector — E5 Research Demo") as demo:
         gr.Markdown(

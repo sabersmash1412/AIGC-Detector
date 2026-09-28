@@ -1,0 +1,260 @@
+{
+  "schema_version": 1,
+  "protocol_id": "e6_tiny_genimage_biggan_development_v1",
+  "status": "frozen_before_e6_third_source_image_payload_or_feature_access",
+  "frozen_at_utc": "2026-09-28T08:20:00Z",
+  "purpose": "Add one genuinely new full-image generator architecture to E6 development while keeping model selection, probability calibration, threshold selection, consumed tests and a future lockbox separate.",
+  "class_mapping": {
+    "real": 0,
+    "ai_generated": 1
+  },
+  "task_scope": {
+    "target": "fully_synthetic_image_detection",
+    "sid_set_released_full_synthetic_generator": "FLUX",
+    "sid_set_label_2_meaning": "locally_tampered_image",
+    "sid_set_label_2_allowed_as_third_full_synthetic_generator": false,
+    "organiser_validation_subset_allowed": false
+  },
+  "development_source": {
+    "dataset_name": "Tiny-GenImage",
+    "dataset_repository": "TheKernel01/Tiny-GenImage",
+    "dataset_url": "https://huggingface.co/datasets/TheKernel01/Tiny-GenImage",
+    "repository_revision": "89c4fe9efd0ebc7ce5c7641ef57d578ccd639c69",
+    "repository_status": "third_party_compact_mirror_of_genimage",
+    "source_split": "train",
+    "selected_generator": "BigGAN",
+    "generator_architecture_family": "GAN",
+    "upstream_real_source": "ImageNet nature images from GenImage",
+    "upstream_project": "GenImage-Dataset/GenImage",
+    "upstream_project_url": "https://github.com/GenImage-Dataset/GenImage",
+    "declared_license": "CC-BY-NC-SA-4.0 with GenImage dataset terms",
+    "permitted_use": "non-commercial research only",
+    "raw_images_may_be_redistributed": false,
+    "exact_one_to_one_semantic_pairing_claimed": false,
+    "matching_claim": "Real and BigGAN rows come from the same Tiny-GenImage generator folder, split and ImageNet-class domain; the mirror does not preserve enough metadata to claim exact prompt or semantic pairs.",
+    "generator_absent_from_existing_development": true,
+    "uploader_evidence": {
+      "repository": "tbtiberiu/DeForge-DataHelper",
+      "file": "upload_Tiny-GenImage.py",
+      "revision": "ad5cacfb9321b0f3abb54941e224f2e8af357d9d",
+      "purpose": "Pins the code that preserves source-generator buckets and interleaves each generator's real and fake rows before dropping the temporary source-generator field."
+    }
+  },
+  "metadata_access_preflight": {
+    "verified_at_utc": "2026-09-28T08:18:45Z",
+    "scope": "Repository metadata, aggregate statistics, uploader source, HTTP headers, one non-image Parquet header byte and four row-metadata records only.",
+    "image_payload_downloaded": false,
+    "image_payload_decoded_or_displayed": false,
+    "repository_public": true,
+    "repository_gated": false,
+    "observed_repository_revision": "89c4fe9efd0ebc7ce5c7641ef57d578ccd639c69",
+    "train_rows": 28000,
+    "validation_rows": 7000,
+    "range_probe_status": 206,
+    "range_requests_supported": true,
+    "dataset_row_api_accessible": true,
+    "row_api_reported_partial": false,
+    "first_biggan_pair_metadata_verified": true
+  },
+  "row_topology": {
+    "source_train_rows": 28000,
+    "actual_generators_in_order": [
+      "ADM",
+      "BigGAN",
+      "GLIDE",
+      "Midjourney",
+      "SD15",
+      "VQDM",
+      "Wukong"
+    ],
+    "declared_but_empty_generator": "SD14",
+    "rows_per_cycle": 14,
+    "available_cycles": 2000,
+    "biggan_real_offset": 2,
+    "biggan_ai_offset": 3,
+    "real_row_contract": {
+      "label": 0,
+      "generator_id": 0,
+      "generator_name": "Real"
+    },
+    "ai_row_contract": {
+      "label": 1,
+      "generator_id": 2,
+      "generator_name": "BigGAN"
+    },
+    "pair_key": "tiny_genimage_train_biggan_cycle_<zero_based_cycle>",
+    "pair_integrity_rule": "The real and BigGAN row from one cycle must always receive the same E6 development role."
+  },
+  "selection": {
+    "seed": 606,
+    "candidate_pairs": 2000,
+    "selected_pairs": 1400,
+    "unused_reserve_pairs": 600,
+    "ranking_key": "SHA256('e6d:606:<repository_revision>:biggan:<zero_based_cycle>') followed by cycle index",
+    "manual_selection_allowed": false,
+    "visual_cherry_picking_allowed": false,
+    "replacement_rule": "Only the next unused pair in frozen hash-rank order may replace a corrupt, duplicate or overlapping pair; every rejection must be recorded.",
+    "roles_in_assignment_order": [
+      "development_train",
+      "development_model_selection",
+      "development_calibration",
+      "development_threshold_selection"
+    ],
+    "pairs_per_role": {
+      "development_train": 800,
+      "development_model_selection": 200,
+      "development_calibration": 200,
+      "development_threshold_selection": 200
+    },
+    "images_per_class_per_role": {
+      "development_train": 800,
+      "development_model_selection": 200,
+      "development_calibration": 200,
+      "development_threshold_selection": 200
+    }
+  },
+  "role_permissions": {
+    "development_train": {
+      "fit_model_parameters": true,
+      "select_model_or_epoch": false,
+      "fit_probability_calibration": false,
+      "select_decision_thresholds": false
+    },
+    "development_model_selection": {
+      "fit_model_parameters": false,
+      "select_model_or_epoch": true,
+      "fit_probability_calibration": false,
+      "select_decision_thresholds": false
+    },
+    "development_calibration": {
+      "fit_model_parameters": false,
+      "select_model_or_epoch": false,
+      "fit_probability_calibration": true,
+      "select_decision_thresholds": false
+    },
+    "development_threshold_selection": {
+      "fit_model_parameters": false,
+      "select_model_or_epoch": false,
+      "fit_probability_calibration": false,
+      "select_decision_thresholds": true
+    }
+  },
+  "existing_validation_repartition": {
+    "seed": 606,
+    "ranking_key": "SHA256('e6d-existing:606:<source-id>:<stable-row-identity>')",
+    "group_related_or_near_duplicate_items_before_assignment": true,
+    "sources": [
+      {
+        "id": "cifake_validation_real",
+        "manifest": "data/processed/val.csv",
+        "label": 0,
+        "available": 1000,
+        "model_selection": 400,
+        "calibration": 300,
+        "threshold_selection": 300
+      },
+      {
+        "id": "cifake_validation_ai",
+        "manifest": "data/processed/val.csv",
+        "label": 1,
+        "available": 1000,
+        "model_selection": 400,
+        "calibration": 300,
+        "threshold_selection": 300
+      },
+      {
+        "id": "sid_validation_real",
+        "manifest": "data/processed/e4_sid_real/val.csv",
+        "label": 0,
+        "available": 1000,
+        "model_selection": 400,
+        "calibration": 300,
+        "threshold_selection": 300
+      },
+      {
+        "id": "sid_validation_flux",
+        "manifest": "data/processed/e5_sid_flux/val.csv",
+        "label": 1,
+        "available": 1000,
+        "model_selection": 400,
+        "calibration": 300,
+        "threshold_selection": 300
+      }
+    ]
+  },
+  "isolation": {
+    "consumed_test_ids_excluded": [
+      "cifake_internal_test",
+      "sid_set_validation_flux_audit",
+      "aigibench_midjourney_v6"
+    ],
+    "organiser_validation_id_excluded": "organiser_validation_coco_dalle",
+    "future_lockbox_payload_accessed": false,
+    "future_lockbox_used_for_overlap_checking": false,
+    "aigibench_midjourney_allowed_as_e6_development": false,
+    "known_existing_generator_families_forbidden_as_new_generator": [
+      "Stable Diffusion 1.4",
+      "FLUX",
+      "Midjourney V6"
+    ]
+  },
+  "integrity": {
+    "manual_image_inspection_before_assignment_allowed": false,
+    "raw_images_committed_to_git": false,
+    "manifest_requires_byte_sha256": true,
+    "manifest_requires_decoded_pixel_sha256": true,
+    "cross_role_byte_duplicate_allowed": false,
+    "cross_role_decoded_pixel_duplicate_allowed": false,
+    "cross_role_near_duplicate_allowed": false,
+    "conflicting_labels_allowed": false,
+    "pair_or_parent_identity_may_cross_roles": false,
+    "existing_data_overlap_is_fatal": true,
+    "existing_manifests_to_exclude": [
+      "data/processed/train.csv",
+      "data/processed/val.csv",
+      "data/processed/test.csv",
+      "data/processed/e4_sid_real/train.csv",
+      "data/processed/e4_sid_real/val.csv",
+      "data/processed/e5_sid_flux/train.csv",
+      "data/processed/e5_sid_flux/val.csv",
+      "data/processed/sid_set_flux_heldout.csv",
+      "data/processed/e5_aigibench_midjourney.csv"
+    ],
+    "future_lockbox_manifests_must_not_be_opened": true
+  },
+  "shortcut_gate": {
+    "status": "required_before_any_e6_model_training",
+    "known_risk": "BigGAN images are natively fixed at 128x128 while ImageNet real images have varied dimensions; codec and resizing history may also reveal the label.",
+    "metadata_only_inputs": [
+      "original_width",
+      "original_height",
+      "aspect_ratio",
+      "decoded_pixel_count",
+      "file_format",
+      "file_bytes"
+    ],
+    "split_unit": "pair_key",
+    "metric": "validation_roc_auc",
+    "maximum_acceptable_auc": 0.65,
+    "forensic_training_allowed_before_pass": false,
+    "semantic_training_allowed_before_pass": false,
+    "raw_source_accuracy_is_research_evidence": false,
+    "failure_action": "Freeze a class-symmetric geometry, codec and augmentation normalization policy, regenerate development views and repeat the shortcut audit before any E6 fitting.",
+    "normalization_may_be_selected_using_consumed_tests": false
+  },
+  "outputs": {
+    "raw_root": "data/raw/e6_tiny_genimage_biggan",
+    "manifest_root": "data/processed/e6_tiny_genimage_biggan",
+    "provenance": "data/processed/e6_tiny_genimage_biggan_provenance.json",
+    "existing_validation_role_root": "data/processed/e6_existing_validation_roles",
+    "shortcut_audit": "reports/e6_tiny_genimage_shortcut_audit.json",
+    "clip_feature_root": "data/features/e6_tiny_genimage_clip_vit_b32_quickgelu_openai",
+    "forensic_feature_root": "data/features/e6_tiny_genimage_forensic_v1"
+  },
+  "claim_limits": [
+    "Tiny-GenImage is a third-party compact mirror, not the official GenImage release.",
+    "The BigGAN and real rows are source-folder/domain matched, not proven one-to-one semantic pairs.",
+    "Development performance on this source is not external generalisation evidence.",
+    "No visual detector can establish provenance or universal authenticity by itself."
+  ]
+}

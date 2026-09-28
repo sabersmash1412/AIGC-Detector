@@ -6,7 +6,8 @@ limitations identified during the submission audit. It is not legal advice.
 
 ## Redistribution boundary
 
-The repository does **not** contain CIFAKE, SID-Set, or AIGIBench image bytes.
+The repository does **not** contain CIFAKE, SID-Set, AIGIBench, or
+Tiny-GenImage image bytes.
 Raw images, CLIP feature caches, prediction exports, and downloaded OpenCLIP
 weights remain ignored by Git. The repository does contain deterministic
 selection manifests with repository-relative paths and dataset-derived
@@ -20,6 +21,7 @@ and the small trained E5 linear head.
 | CIFAKE | Smoke test, E1–E5 training/validation, internal test | MIT (as declared by the official Kaggle dataset page) | No images; manifests and aggregate results only |
 | SID-Set | E4/E5 development and held-out FLUX audit | CC-BY-4.0 | No images; selection manifests, provenance and aggregate results only |
 | AIGIBench Midjourney V6 | Frozen E5 external test only | CC-BY-NC-SA-4.0 | No images; selection manifest, provenance and aggregate results only |
+| Tiny-GenImage BigGAN | Frozen future E6 development source; no image payload acquired at protocol lock | CC-BY-NC-SA-4.0 plus upstream GenImage terms | No images; protocol and future aggregate results only |
 | OpenCLIP | Feature-extraction implementation | MIT | Dependency only |
 | OpenAI CLIP | `ViT-B-32-quickgelu`, `openai` pretrained weights | MIT software release | Downloaded weights are not committed |
 
@@ -69,6 +71,28 @@ was used. It was never used for training, model selection, or threshold
 selection. Because its license is non-commercial and share-alike, commercial
 reuse requires a separate review. The repository publishes no AIGIBench image
 bytes.
+
+## Tiny-GenImage and GenImage
+
+- Development mirror:
+  [TheKernel01/Tiny-GenImage](https://huggingface.co/datasets/TheKernel01/Tiny-GenImage),
+  pinned to commit `89c4fe9efd0ebc7ce5c7641ef57d578ccd639c69`.
+- Upstream project:
+  [GenImage-Dataset/GenImage](https://github.com/GenImage-Dataset/GenImage).
+- Paper: Zhu, M. et al. (2023), *GenImage: A Million-Scale Benchmark for
+  Detecting AI-Generated Image*, NeurIPS 2023 Datasets and Benchmarks Track.
+- License record: CC-BY-NC-SA-4.0 plus the upstream GenImage dataset terms;
+  non-commercial research use only.
+
+E6 freezes 1,400 real/BigGAN train-split pairs for development, but the mirror
+is a third-party compact repackaging rather than the official GenImage release.
+Its uploader preserves each generator folder while interleaving real and fake
+rows, but drops the original source-folder field from the public schema.
+Accordingly, the project records source-folder/ImageNet-domain matching and
+does not claim exact one-to-one semantic pairing. BigGAN's fixed native
+128 × 128 geometry creates a serious shortcut risk, so no E6 training is
+permitted until the frozen metadata-only audit or a separately frozen
+normalization policy passes. Raw image redistribution remains forbidden.
 
 ## CLIP and OpenCLIP
 

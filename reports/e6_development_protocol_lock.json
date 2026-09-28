@@ -1,0 +1,71 @@
+{
+  "experiment": "e6_development_protocol_lock",
+  "status": "PASS",
+  "frozen_at_utc": "2026-09-28T08:20:00Z",
+  "protocol": {
+    "path": "configs/e6_development_protocol.json",
+    "sha256": "1613be7082b6b8f9794e5e22ca247f1469f86adebd2e7d28f0aa44847596d551",
+    "schema_version": 1
+  },
+  "registry": {
+    "path": "configs/evaluation_registry.json",
+    "sha256": "a44443208dd968884838465abc2f68afd992ae30579f0bdeac6e6d7105ac24f6",
+    "role_counts": {
+      "consumed_test": 3,
+      "development_train": 3,
+      "development_validation": 3,
+      "prohibited": 1
+    }
+  },
+  "development_source": {
+    "dataset_repository": "TheKernel01/Tiny-GenImage",
+    "repository_revision": "89c4fe9efd0ebc7ce5c7641ef57d578ccd639c69",
+    "selected_generator": "BigGAN",
+    "generator_architecture_family": "GAN",
+    "selected_pairs": 1400,
+    "assignment_sha256": "c20aac52c0db04dfa2bf3ccda9a04ddd7858f82544442bc34cecd5b3161f4d68"
+  },
+  "role_pair_counts": {
+    "development_train": 800,
+    "development_model_selection": 200,
+    "development_calibration": 200,
+    "development_threshold_selection": 200
+  },
+  "shortcut_gate": {
+    "required_before_training": true,
+    "maximum_metadata_only_validation_roc_auc": 0.65,
+    "training_allowed_before_pass": false
+  },
+  "prefreeze_access": {
+    "verified_at_utc": "2026-09-28T08:18:45Z",
+    "scope": "Repository metadata, aggregate statistics, uploader source, HTTP headers, one non-image Parquet header byte and four row-metadata records only.",
+    "image_payload_downloaded": false,
+    "image_payload_decoded_or_displayed": false,
+    "repository_public": true,
+    "repository_gated": false,
+    "observed_repository_revision": "89c4fe9efd0ebc7ce5c7641ef57d578ccd639c69",
+    "train_rows": 28000,
+    "validation_rows": 7000,
+    "range_probe_status": 206,
+    "range_requests_supported": true,
+    "dataset_row_api_accessible": true,
+    "row_api_reported_partial": false,
+    "first_biggan_pair_metadata_verified": true
+  },
+  "image_payload_present_at_freeze": false,
+  "checked_absent_paths": [
+    "data/raw/e6_tiny_genimage_biggan",
+    "data/processed/e6_tiny_genimage_biggan",
+    "data/processed/e6_tiny_genimage_biggan_provenance.json",
+    "data/processed/e6_existing_validation_roles",
+    "reports/e6_tiny_genimage_shortcut_audit.json",
+    "data/features/e6_tiny_genimage_clip_vit_b32_quickgelu_openai",
+    "data/features/e6_tiny_genimage_forensic_v1"
+  ],
+  "guardrails": {
+    "organiser_validation_subset_used": false,
+    "consumed_tests_used_for_e6_fitting": false,
+    "future_lockbox_payload_accessed": false,
+    "manual_image_selection_allowed": false
+  }
+}

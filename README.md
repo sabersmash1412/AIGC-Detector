@@ -440,6 +440,27 @@ evidence remains vulnerable to resizing, compression and source bias, so it
 will eventually be evaluated only as a complement to CLIP under a separately
 locked E6 protocol.
 
+E6's next development source is now frozen before image download. It uses
+1,400 real/BigGAN pairs from the **train split** of the pinned Tiny-GenImage
+mirror: 800 pairs for fitting, then 200 separate pairs each for model
+selection, probability calibration and decision-threshold selection. BigGAN
+adds a GAN architecture that is distinct from the existing Stable Diffusion
+1.4 and FLUX development families. SID-Set's locally tampered label is not
+misrepresented as a third fully synthetic generator, and the viewed
+AIGIBench Midjourney data remains consumed regression evidence only.
+
+```bash
+.venv/bin/python -m scripts.check_e6_development_protocol
+```
+
+This lock does **not** make Tiny-GenImage a clean result by itself. Its BigGAN
+images are natively 128 × 128 while its ImageNet real images have varied
+geometry, so E6 training is blocked until a metadata-only shortcut audit
+passes (validation ROC-AUC at most 0.65) or a separately frozen,
+class-symmetric normalization policy passes the same audit. The exact source,
+role, pairing, overlap and licence constraints live in
+`configs/e6_development_protocol.json`.
+
 ## Data, citations and licensing
 
 The organiser validation subset was never used for development or evaluation.

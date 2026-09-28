@@ -412,6 +412,34 @@ Midjourney held out, combine CLIP with a frequency/high-pass forensic branch,
 and evaluate calibration with ECE or reliability diagrams under a newly frozen
 protocol.
 
+### E6 research groundwork
+
+E6 development is deliberately separated from the frozen E5 result. The
+dataset-role registry prevents previously viewed tests from being presented as
+fresh evidence, and the provenance checker reports C2PA evidence separately
+from visual-model scores:
+
+```bash
+.venv/bin/python -m scripts.check_evaluation_registry
+.venv/bin/python -m scripts.inspect_provenance --input <image-path>
+```
+
+The first E6 visual component is a frozen, deterministic 32-dimensional
+high-pass and radial-frequency descriptor. Inspecting a file at this stage
+returns **features only**: it does not train a model, apply a threshold, or
+classify the image.
+
+```bash
+.venv/bin/python -m scripts.inspect_forensic_features --input <image-path>
+```
+
+Its exact preprocessing and feature order are versioned in
+`configs/e6_forensic_features.json`. C2PA presence or absence, filenames,
+formats and image dimensions are not included in the feature vector. Frequency
+evidence remains vulnerable to resizing, compression and source bias, so it
+will eventually be evaluated only as a complement to CLIP under a separately
+locked E6 protocol.
+
 ## Data, citations and licensing
 
 The organiser validation subset was never used for development or evaluation.

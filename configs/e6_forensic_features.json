@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "extractor_id": "e6_forensic_v1_32d",
+  "status": "features_only_untrained",
+  "purpose": "Freeze a deterministic high-pass and radial-frequency descriptor before E6 model training or evaluation.",
+  "input": {
+    "exif_orientation": "transpose",
+    "rgb_conversion": "PIL_RGB",
+    "luminance_standard": "BT.601",
+    "luminance_weights": [0.299, 0.587, 0.114],
+    "value_range": [0.0, 1.0],
+    "minimum_side_pixels": 32,
+    "maximum_analysis_side_pixels": 1024,
+    "oversize_resample": "lanczos",
+    "upscale_small_images": false
+  },
+  "residual": {
+    "method": "input_minus_gaussian_blur",
+    "gaussian_sigma": 1.0,
+    "boundary_mode": "reflect"
+  },
+  "spectrum": {
+    "window": "separable_hann",
+    "window_rms_normalized": true,
+    "fft_normalization": "ortho",
+    "exclude_dc": true,
+    "radial_min_cycles_per_pixel": 0.0,
+    "radial_max_cycles_per_pixel": 0.5,
+    "radial_bands": 24,
+    "band_value": "mean_power_divided_by_global_valid_frequency_mean_then_log10",
+    "log10_epsilon": 1e-12,
+    "zero_residual_profile": "all_zero"
+  },
+  "spatial": {
+    "statistics": [
+      "residual_rms",
+      "absolute_residual_q50",
+      "absolute_residual_q75",
+      "absolute_residual_q90",
+      "absolute_residual_q95",
+      "absolute_residual_q99",
+      "horizontal_neighbor_correlation",
+      "vertical_neighbor_correlation"
+    ],
+    "constant_signal_correlation": 0.0
+  },
+  "output": {
+    "dimension": 32,
+    "dtype": "float32",
+    "prediction": null
+  },
+  "guardrails": {
+    "labels_used_by_extractor": false,
+    "file_metadata_in_feature_vector": false,
+    "dimensions_in_feature_vector": false,
+    "c2pa_in_feature_vector": false,
+    "trained_classifier_present": false,
+    "permitted_data_stage": "approved_development_data_only",
+    "consumed_tests_permitted_during_e6c": false,
+    "lockbox_access_permitted_during_e6c": false
+  },
+  "limitations": [
+    "This descriptor is not a real-versus-AI prediction and has no threshold.",
+    "Compression, resizing, blur, noise and adversarial processing can change forensic features.",
+    "Decoded pixels can still contain source, codec and resolution shortcuts even though file metadata is excluded.",
+    "The descriptor must be validated source-by-source and used only as complementary evidence alongside semantic features."
+  ]
+}

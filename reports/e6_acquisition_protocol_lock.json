@@ -1,0 +1,78 @@
+{
+  "experiment": "e6_acquisition_protocol_lock",
+  "status": "PASS",
+  "frozen_at_utc": "2026-09-28T08:48:00Z",
+  "acquisition_protocol": {
+    "path": "configs/e6_acquisition_protocol.json",
+    "sha256": "ce89874897e68361876991913a741efb31d8298421632ffd2b44a55924a2707c",
+    "schema_version": 1
+  },
+  "upstream_locks": {
+    "development_protocol_path": "configs/e6_development_protocol.json",
+    "development_protocol_sha256": "1613be7082b6b8f9794e5e22ca247f1469f86adebd2e7d28f0aa44847596d551",
+    "development_lock_path": "reports/e6_development_protocol_lock.json",
+    "development_lock_sha256": "bec3ed54708ae8e9195ab01d5b5b0ae938f034e3024509d72f26705435a0cae6",
+    "development_lock_status": "PASS",
+    "assignment_sha256": "c20aac52c0db04dfa2bf3ccda9a04ddd7858f82544442bc34cecd5b3161f4d68"
+  },
+  "source_contract": {
+    "rows_endpoint": "https://datasets-server.huggingface.co/rows",
+    "dataset": "TheKernel01/Tiny-GenImage",
+    "config": "default",
+    "split": "train",
+    "repository_revision": "89c4fe9efd0ebc7ce5c7641ef57d578ccd639c69",
+    "selected_pairs": 1400,
+    "reserve_pairs": 600
+  },
+  "security_contract": {
+    "asset_scheme": "https",
+    "asset_host": "datasets-server.huggingface.co",
+    "asset_path_prefix": "/cached-assets/TheKernel01/Tiny-GenImage/--/89c4fe9efd0ebc7ce5c7641ef57d578ccd639c69/--/default/train/",
+    "redirects_allowed": false,
+    "signed_urls_persisted": false,
+    "maximum_asset_bytes": 67108864,
+    "allowed_decoded_formats": [
+      "JPEG",
+      "PNG",
+      "WEBP"
+    ],
+    "generic_binary_media_types_allowed_after_magic_validation": [
+      "application/octet-stream",
+      "binary/octet-stream"
+    ],
+    "symlinks_allowed": false
+  },
+  "identity_contract": {
+    "decoded_rgba_algorithm_id": "e6_rgba_sha256_v1",
+    "perceptual_hash_algorithm_id": "e6_phash64_v1",
+    "near_duplicate_max_distance_inclusive": 4
+  },
+  "overlap_contract": {
+    "existing_manifest_count": 9,
+    "existing_overlap_action": "hard_abort_without_replacement",
+    "conflicting_label_action": "hard_abort_without_replacement",
+    "eligible_replacement_reasons": [
+      "corrupt_remote_asset",
+      "within_e6_same_label_duplicate"
+    ],
+    "replacement_source": "next unused pair in the frozen SHA-256 rank order"
+  },
+  "payload_present_at_freeze": false,
+  "checked_absent_paths": [
+    "data/raw/e6_tiny_genimage_biggan",
+    "data/processed/e6_tiny_genimage_biggan",
+    "data/processed/e6_tiny_genimage_biggan_provenance.json",
+    "data/processed/e6_existing_validation_roles",
+    "reports/e6_tiny_genimage_shortcut_audit.json",
+    "data/features/e6_tiny_genimage_clip_vit_b32_quickgelu_openai",
+    "data/features/e6_tiny_genimage_forensic_v1",
+    "data/raw/.e6_tiny_genimage_biggan_staging"
+  ],
+  "guardrails": {
+    "network_or_image_access_during_lock_check": false,
+    "training_or_feature_extraction_performed": false,
+    "evaluation_performed": false,
+    "organiser_validation_accessed": false,
+    "consumed_tests_used_for_selection_or_replacement": false
+  }
+}

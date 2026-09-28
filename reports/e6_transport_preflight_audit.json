@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "audit_id": "e6_post_lock_precommit_transport_probe_v1",
+  "status": "DISCLOSED_NON_SELECTION_ACCESS",
+  "disclosure_recorded_at_utc": "2026-09-28T09:27:04Z",
+  "event_time_utc_approximate": "2026-09-28T09:13Z",
+  "event_time_precision": "minute_from_execution_log",
+  "frozen_artifacts_already_present": {
+    "acquisition_protocol_path": "configs/e6_acquisition_protocol.json",
+    "acquisition_protocol_sha256": "ce89874897e68361876991913a741efb31d8298421632ffd2b44a55924a2707c",
+    "acquisition_lock_path": "reports/e6_acquisition_protocol_lock.json",
+    "acquisition_lock_sha256": "ebd224722da916c4b187ec1ecb4743650f10adbe5b027d177589ffde87c058dd",
+    "acquisition_lock_frozen_at_utc": "2026-09-28T08:48:00Z",
+    "development_assignment_sha256": "c20aac52c0db04dfa2bf3ccda9a04ddd7858f82544442bc34cecd5b3161f4d68",
+    "files_changed_by_probe": false
+  },
+  "probe": {
+    "purpose": "Verify that the pinned signed asset transport was reachable and returned the frozen generic binary media type.",
+    "http_method": "GET",
+    "streaming": true,
+    "range_request": false,
+    "source_row_index": 2,
+    "frozen_pair_index": 0,
+    "frozen_role": "development_train",
+    "response_status": 200,
+    "response_media_type": "binary/octet-stream",
+    "response_body_bytes_read": 64,
+    "image_decoded": false,
+    "image_viewed": false,
+    "image_body_saved": false,
+    "signed_url_or_query_persisted": false,
+    "temporary_rows_metadata_deleted": true
+  },
+  "chronology": {
+    "development_assignment_committed_before_probe": true,
+    "acquisition_protocol_and_pass_receipt_existed_before_probe": true,
+    "acquisition_protocol_and_pass_receipt_changed_after_probe": false,
+    "acquisition_protocol_and_pass_receipt_git_committed_before_probe": false
+  },
+  "impact": {
+    "selection_or_replacement_influenced": false,
+    "model_training_or_feature_extraction_performed": false,
+    "evaluation_performed": false,
+    "future_lockbox_accessed": false,
+    "claim": "The acquisition rules and selected pair assignment were fixed before this limited transport probe, but the acquisition lock had not yet been committed to Git."
+  }
+}

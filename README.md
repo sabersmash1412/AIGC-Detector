@@ -451,6 +451,7 @@ AIGIBench Midjourney data remains consumed regression evidence only.
 
 ```bash
 .venv/bin/python -m scripts.check_e6_development_protocol
+.venv/bin/python -m scripts.check_e6_acquisition_protocol
 ```
 
 This lock does **not** make Tiny-GenImage a clean result by itself. Its BigGAN
@@ -460,6 +461,30 @@ passes (validation ROC-AUC at most 0.65) or a separately frozen,
 class-symmetric normalization policy passes the same audit. The exact source,
 role, pairing, overlap and licence constraints live in
 `configs/e6_development_protocol.json`.
+
+The second command is also offline. It freezes the downloader's trusted host
+and pinned revision, response schema, size limits, JPEG/PNG/WebP allowlist,
+atomic-write rules, RGBA identity hash, perceptual near-duplicate rule and
+fail-closed overlap policy. The protocol and PASS receipt were written and
+hash-frozen before asset access. A later transport-only probe, performed before
+the acquisition-lock commit, read 64 bytes from already-selected row 2 without
+decoding, viewing or retaining the image; it did not alter the protocol,
+assignment or replacement policy. This chronology is disclosed in
+`reports/e6_transport_preflight_audit.json`. After committing these exact
+artifacts, acquire only the frozen 1,400 real/BigGAN pairs with:
+
+```bash
+.venv/bin/python -m scripts.prepare_e6_biggan
+```
+
+Preparation first performs a metadata-only reachability check, then
+fingerprints every explicitly registered historical manifest, never opens a
+future lockbox, and downloads the selected rows. The historical scan covers
+26,000 registered images and can appear quiet for several minutes on a laptop.
+It writes four role-separated manifests and one provenance receipt; raw images
+remain ignored by Git. This is still data preparation only: CLIP/forensic
+feature extraction and all E6 training remain blocked until the metadata-only
+shortcut audit passes.
 
 ## Data, citations and licensing
 

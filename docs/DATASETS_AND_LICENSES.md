@@ -94,6 +94,22 @@ does not claim exact one-to-one semantic pairing. BigGAN's fixed native
 permitted until the frozen metadata-only audit or a separately frozen
 normalization policy passes. Raw image redistribution remains forbidden.
 
+Acquisition chronology is recorded explicitly. The acquisition protocol and
+PASS receipt existed with their final hashes before any asset bytes were read.
+A post-lock but pre-Git-commit transport probe then read exactly 64 bytes from
+already-selected row 2 to confirm service/media-type compatibility; it did not
+decode, display or retain the image and did not affect selection. See
+`reports/e6_transport_preflight_audit.json`. The full 2,800-image acquisition
+is performed only after these artifacts are committed.
+
+The separate acquisition lock was created and passed before the disclosed
+64-byte probe, and before any image was decoded, retained, or fully acquired.
+It pins the mirror revision and dataset-server schema, permits only the frozen
+row assignment (plus deterministic reserve pairs), and requires byte,
+decoded-RGBA and perceptual identities against every registered historical
+manifest. Existing-data overlap or a conflicting-label match aborts the
+acquisition; it cannot be silently replaced to improve the sample.
+
 ## CLIP and OpenCLIP
 
 - Radford, A. et al. (2021), *Learning Transferable Visual Models From Natural

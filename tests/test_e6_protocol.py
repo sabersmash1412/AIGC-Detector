@@ -24,10 +24,9 @@ def _protocol() -> dict:
     return load_e6_protocol(PROTOCOL_PATH)
 
 
-def test_checked_in_e6_protocol_passes_before_payload_access() -> None:
+def test_checked_in_e6_protocol_preserves_the_pre_payload_contract() -> None:
     protocol = _protocol()
     validate_e6_development_protocol(protocol)
-    validate_artifacts_absent(protocol, ROOT)
 
     assert protocol["metadata_access_preflight"]["image_payload_downloaded"] is False
     assert protocol["shortcut_gate"]["forensic_training_allowed_before_pass"] is False

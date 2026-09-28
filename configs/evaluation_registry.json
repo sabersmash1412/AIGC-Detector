@@ -1,0 +1,305 @@
+{
+  "schema_version": 1,
+  "registry_name": "e6_evaluation_registry",
+  "created_at_utc": "2026-09-28T06:37:30Z",
+  "status": "retrospective_e1_e5_baseline_and_forward_e6_policy",
+  "purpose": "Record how every dataset unit has already been used so a viewed test cannot later be described as a fresh E6 evaluation.",
+  "plain_language_rule": "Training data is study material, validation data is practice material, a consumed test is an exam whose answers have been seen, and a locked test is a sealed future exam.",
+  "policies": {
+    "consumed_test_rule": "A test becomes consumed once any result from it is viewed or it influences model, data, threshold, or evaluation design. It may be reported as regression evidence but never as a fresh external claim.",
+    "locked_test_rule": "A locked test must be registered and preregistered before image inspection, feature extraction, scoring, or result access. It cannot be used for training, validation, threshold selection, or model selection.",
+    "role_separation_rule": "No image, prompt, source identity, near-duplicate, or provenance unit may cross development and locked-test roles.",
+    "failed_test_rule": "A failed external test stays consumed. A different dataset must not be searched merely to obtain a favourable result.",
+    "organiser_validation_rule": "The organiser COCO val2017 and DALL-E Advanced validation subset remains prohibited for all development and project evaluation.",
+    "organiser_validation_subset_used": false
+  },
+  "retrospective_clarifications": [
+    {
+      "id": "aigibench_real_source_overlap",
+      "finding": "The frozen E5 protocol described AIGIBench Open Images V7 photographs as a new authentic source, while the E4/E5 records also describe SID-Set real images as originating from Open Images V7.",
+      "meaning": "The selected files were byte-disjoint, but the upstream real-source family was not independent. AIGIBench remains useful unseen-Midjourney diagnostic evidence, not evidence of generalisation to a new real-source family.",
+      "historical_files_modified": false
+    }
+  ],
+  "dataset_units": [
+    {
+      "id": "cifake_train",
+      "dataset": "CIFAKE",
+      "source_url": "https://www.kaggle.com/datasets/birdy654/cifake-real-and-ai-generated-synthetic-images",
+      "declared_license": "MIT as declared by the official Kaggle dataset page",
+      "unit": "Project train split sampled from the official CIFAKE training data",
+      "upstream_real_sources": ["CIFAR-10"],
+      "generator_families": ["Stable Diffusion 1.4"],
+      "role": "development_train",
+      "samples": 10000,
+      "classes": {"real": 5000, "ai_generated": 5000},
+      "artifact": {
+        "path": "data/processed/train.csv",
+        "sha256": "b5228ee291b9b9da2072b12fca1800349821f1ab2f555ec2c0d2be8461c42cd9"
+      },
+      "results_viewed": true,
+      "influences_future_design": true,
+      "allowed_for_training": true,
+      "allowed_for_validation": false,
+      "allowed_for_threshold_selection": false,
+      "eligible_for_fresh_external_claim": false,
+      "eligible_for_regression": true
+    },
+    {
+      "id": "cifake_validation",
+      "dataset": "CIFAKE",
+      "source_url": "https://www.kaggle.com/datasets/birdy654/cifake-real-and-ai-generated-synthetic-images",
+      "declared_license": "MIT as declared by the official Kaggle dataset page",
+      "unit": "Project validation split sampled from the official CIFAKE training data",
+      "upstream_real_sources": ["CIFAR-10"],
+      "generator_families": ["Stable Diffusion 1.4"],
+      "role": "development_validation",
+      "samples": 2000,
+      "classes": {"real": 1000, "ai_generated": 1000},
+      "artifact": {
+        "path": "data/processed/val.csv",
+        "sha256": "c0d24e3be91b3824a6110bb38716d40a567f145681a7573ea9fe8b6d4098004a"
+      },
+      "results_viewed": true,
+      "influences_future_design": true,
+      "allowed_for_training": false,
+      "allowed_for_validation": true,
+      "allowed_for_threshold_selection": true,
+      "eligible_for_fresh_external_claim": false,
+      "eligible_for_regression": true
+    },
+    {
+      "id": "cifake_internal_test",
+      "dataset": "CIFAKE",
+      "source_url": "https://www.kaggle.com/datasets/birdy654/cifake-real-and-ai-generated-synthetic-images",
+      "declared_license": "MIT as declared by the official Kaggle dataset page",
+      "unit": "Frozen 2,000-image project test split",
+      "upstream_real_sources": ["CIFAR-10"],
+      "generator_families": ["Stable Diffusion 1.4"],
+      "role": "consumed_test",
+      "samples": 2000,
+      "classes": {"real": 1000, "ai_generated": 1000},
+      "artifact": {
+        "path": "data/processed/test.csv",
+        "sha256": "edb3d297266510785471b23fb7b3ae72a7fdc5e8fe62436fac835d3f0f36e296"
+      },
+      "evidence": {
+        "path": "reports/section4_full_transformation_matrix.json",
+        "sha256": "e416bfd3a3e56e4803c7b572fde499fd7a17765acf5fb3bd1ebeaa6a8ef16e92"
+      },
+      "results_viewed": true,
+      "influences_future_design": true,
+      "real_source_novelty_vs_development": false,
+      "generator_novelty_vs_development": false,
+      "consumed_reason": "E1-E5 clean and transformed results have been viewed and used to understand robustness failures.",
+      "allowed_for_training": false,
+      "allowed_for_validation": false,
+      "allowed_for_threshold_selection": false,
+      "eligible_for_fresh_external_claim": false,
+      "eligible_for_regression": true
+    },
+    {
+      "id": "sid_set_train_real",
+      "dataset": "SID-Set",
+      "source_url": "https://huggingface.co/datasets/saberzl/SID_Set",
+      "declared_license": "CC-BY-4.0 with upstream attribution caveats",
+      "unit": "SID-Set train-split real images used by E4 and E5",
+      "upstream_real_sources": ["Open Images V7"],
+      "generator_families": [],
+      "role": "development_train",
+      "samples": 3000,
+      "classes": {"real": 3000, "ai_generated": 0},
+      "artifact": {
+        "path": "data/processed/e4_sid_real/train.csv",
+        "sha256": "9a456e95f6b037e1fbfaa14520c5d98cc4118a99f813fec6803633baeceba58b"
+      },
+      "results_viewed": true,
+      "influences_future_design": true,
+      "allowed_for_training": true,
+      "allowed_for_validation": false,
+      "allowed_for_threshold_selection": false,
+      "eligible_for_fresh_external_claim": false,
+      "eligible_for_regression": true
+    },
+    {
+      "id": "sid_set_validation_real_for_e4_e5",
+      "dataset": "SID-Set",
+      "source_url": "https://huggingface.co/datasets/saberzl/SID_Set",
+      "declared_license": "CC-BY-4.0 with upstream attribution caveats",
+      "unit": "SID-Set train-split real validation images used by E4 and E5",
+      "upstream_real_sources": ["Open Images V7"],
+      "generator_families": [],
+      "role": "development_validation",
+      "samples": 1000,
+      "classes": {"real": 1000, "ai_generated": 0},
+      "artifact": {
+        "path": "data/processed/e4_sid_real/val.csv",
+        "sha256": "3ae03562a32f0d963a3038506482f9218b3705637efea33b33e3874d77012200"
+      },
+      "results_viewed": true,
+      "influences_future_design": true,
+      "allowed_for_training": false,
+      "allowed_for_validation": true,
+      "allowed_for_threshold_selection": true,
+      "eligible_for_fresh_external_claim": false,
+      "eligible_for_regression": true
+    },
+    {
+      "id": "sid_set_train_flux",
+      "dataset": "SID-Set",
+      "source_url": "https://huggingface.co/datasets/saberzl/SID_Set",
+      "declared_license": "CC-BY-4.0",
+      "unit": "SID-Set train-split FLUX images used by E5",
+      "upstream_real_sources": [],
+      "generator_families": ["FLUX"],
+      "role": "development_train",
+      "samples": 3000,
+      "classes": {"real": 0, "ai_generated": 3000},
+      "artifact": {
+        "path": "data/processed/e5_sid_flux/train.csv",
+        "sha256": "f3d2b0d2fde72c8822d2558c04478a100349e0543ded4db88b77830871d839e4"
+      },
+      "results_viewed": true,
+      "influences_future_design": true,
+      "allowed_for_training": true,
+      "allowed_for_validation": false,
+      "allowed_for_threshold_selection": false,
+      "eligible_for_fresh_external_claim": false,
+      "eligible_for_regression": true
+    },
+    {
+      "id": "sid_set_validation_flux_for_e5",
+      "dataset": "SID-Set",
+      "source_url": "https://huggingface.co/datasets/saberzl/SID_Set",
+      "declared_license": "CC-BY-4.0",
+      "unit": "SID-Set train-split FLUX validation images used by E5",
+      "upstream_real_sources": [],
+      "generator_families": ["FLUX"],
+      "role": "development_validation",
+      "samples": 1000,
+      "classes": {"real": 0, "ai_generated": 1000},
+      "artifact": {
+        "path": "data/processed/e5_sid_flux/val.csv",
+        "sha256": "24d9d6faa350a8dfbef8834b050e24a39d1d888d7bec53a78025fe2508fef85e"
+      },
+      "results_viewed": true,
+      "influences_future_design": true,
+      "allowed_for_training": false,
+      "allowed_for_validation": true,
+      "allowed_for_threshold_selection": true,
+      "eligible_for_fresh_external_claim": false,
+      "eligible_for_regression": true
+    },
+    {
+      "id": "sid_set_validation_flux_audit",
+      "dataset": "SID-Set",
+      "source_url": "https://huggingface.co/datasets/saberzl/SID_Set",
+      "declared_license": "CC-BY-4.0 with upstream attribution caveats",
+      "unit": "Section 4B validation-split audit with 1,000 real and 1,000 FLUX images",
+      "upstream_real_sources": ["Open Images V7"],
+      "generator_families": ["FLUX"],
+      "role": "consumed_test",
+      "samples": 2000,
+      "classes": {"real": 1000, "ai_generated": 1000},
+      "artifact": {
+        "path": "data/processed/sid_set_flux_heldout.csv",
+        "sha256": "9631bfba3bb24869ce4edb6b52db1e7e19b68716f28e1b61b73c70e5ab40d301"
+      },
+      "evidence": {
+        "path": "reports/section4b_held_out_generator_evaluation.json",
+        "sha256": "b3322e19d3435340545dec65248d4f71713a6fa81d4d26a4fbd4d3b6683fd381"
+      },
+      "results_viewed": true,
+      "influences_future_design": true,
+      "real_source_novelty_vs_development": false,
+      "generator_novelty_vs_development": false,
+      "consumed_reason": "Its E3 false-positive result directly motivated E4, so it stopped being a design-independent held-out test.",
+      "allowed_for_training": false,
+      "allowed_for_validation": false,
+      "allowed_for_threshold_selection": false,
+      "eligible_for_fresh_external_claim": false,
+      "eligible_for_regression": true
+    },
+    {
+      "id": "aigibench_midjourney_v6",
+      "dataset": "AIGIBench",
+      "source_url": "https://huggingface.co/datasets/HorizonTEL/AIGIBench",
+      "declared_license": "CC-BY-NC-SA-4.0",
+      "unit": "Deduplicated 1,000 Open Images V7 real and 1,000 Midjourney V6 external images",
+      "upstream_real_sources": ["Open Images V7"],
+      "generator_families": ["Midjourney V6"],
+      "role": "consumed_test",
+      "samples": 2000,
+      "classes": {"real": 1000, "ai_generated": 1000},
+      "artifact": {
+        "path": "data/processed/e5_aigibench_midjourney.csv",
+        "sha256": "280e7c9fb4da81eab23db39c9a5c0a01984e1f9977e9fa91f4b35c458856abe7"
+      },
+      "evidence": {
+        "path": "reports/e5_aigibench_external_evaluation.json",
+        "sha256": "004dfd4b0a2d2ca5562b18d0d560c6ec3df32902ab3a7cef7165515e8ad7cd3f"
+      },
+      "results_viewed": true,
+      "influences_future_design": true,
+      "real_source_novelty_vs_development": false,
+      "generator_novelty_vs_development": true,
+      "consumed_reason": "The frozen E5 external result has been viewed and is part of the diagnosis used to design E6.",
+      "allowed_for_training": false,
+      "allowed_for_validation": false,
+      "allowed_for_threshold_selection": false,
+      "eligible_for_fresh_external_claim": false,
+      "eligible_for_regression": true
+    },
+    {
+      "id": "organiser_validation_coco_dalle",
+      "dataset": "Organiser validation subset",
+      "source_url": "organiser-provided",
+      "declared_license": "Organiser-controlled; not used",
+      "unit": "COCO val2017 real and DALL-E Advanced validation assets",
+      "upstream_real_sources": ["COCO val2017"],
+      "generator_families": ["DALL-E Advanced"],
+      "role": "prohibited",
+      "samples": 0,
+      "classes": {"real": 0, "ai_generated": 0},
+      "results_viewed": false,
+      "influences_future_design": false,
+      "used": false,
+      "allowed_for_training": false,
+      "allowed_for_validation": false,
+      "allowed_for_threshold_selection": false,
+      "eligible_for_fresh_external_claim": false,
+      "eligible_for_regression": false
+    }
+  ],
+  "current_locked_test_ids": [],
+  "future_lockbox_candidates": [
+    {
+      "id": "ai_detector_arena_v0_1",
+      "url": "https://github.com/AI-Detect-Arena/benchmark-dataset",
+      "status": "candidate_only_not_locked",
+      "access_state": "not_acquired_or_scored_for_e6",
+      "license_review_required": true
+    },
+    {
+      "id": "rrdataset",
+      "url": "https://github.com/ChunXiaostudy/RRDataset",
+      "status": "candidate_only_not_locked",
+      "access_state": "not_acquired_or_scored_for_e6",
+      "license_review_required": true
+    },
+    {
+      "id": "truefake",
+      "url": "https://github.com/MMLab-unitn/TrueFake-IJCNN25",
+      "status": "candidate_only_not_locked",
+      "access_state": "not_acquired_or_scored_for_e6",
+      "license_review_required": true
+    },
+    {
+      "id": "semi_truths_eval",
+      "url": "https://huggingface.co/datasets/semi-truths/Semi-Truths-Evalset",
+      "status": "candidate_only_not_locked",
+      "access_state": "not_acquired_or_scored_for_e6",
+      "license_review_required": true
+    }
+  ]
+}

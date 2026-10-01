@@ -1,0 +1,144 @@
+{
+  "schema_version": 1,
+  "protocol_id": "e6_tiny_genimage_biggan_acquisition_resume_v2",
+  "status": "frozen_after_partial_acquisition_before_resumption",
+  "frozen_at_utc": "2026-10-01T06:16:56Z",
+  "purpose": "Resume the interrupted E6 acquisition without visual or performance-driven selection, while narrowly correcting v1 treatment of a same-label pHash-only historical near-match and adding durable rejection evidence.",
+  "upstream_evidence": {
+    "development_protocol": {
+      "path": "configs/e6_development_protocol.json",
+      "sha256": "1613be7082b6b8f9794e5e22ca247f1469f86adebd2e7d28f0aa44847596d551"
+    },
+    "development_lock": {
+      "path": "reports/e6_development_protocol_lock.json",
+      "sha256": "bec3ed54708ae8e9195ab01d5b5b0ae938f034e3024509d72f26705435a0cae6"
+    },
+    "acquisition_v1_protocol": {
+      "path": "configs/e6_acquisition_protocol.json",
+      "sha256": "ce89874897e68361876991913a741efb31d8298421632ffd2b44a55924a2707c"
+    },
+    "acquisition_v1_lock": {
+      "path": "reports/e6_acquisition_protocol_lock.json",
+      "sha256": "ebd224722da916c4b187ec1ecb4743650f10adbe5b027d177589ffde87c058dd"
+    },
+    "transport_preflight_audit": {
+      "path": "reports/e6_transport_preflight_audit.json",
+      "sha256": "aa2e0636cb401ea2599b1a6176880c030d20c34e876cab4f9aba2694f1f14598"
+    },
+    "overlap_incident": {
+      "path": "reports/e6_acquisition_overlap_incident.json",
+      "sha256": "3cee0767b1616b7a776de33aed70e7eb3b9d7d4198ee4298bc83024354444bae"
+    },
+    "v1_committed_revision": "9368b026a9ef98cff4059e97b1e2190aab6274b0",
+    "assignment_sha256": "c20aac52c0db04dfa2bf3ccda9a04ddd7858f82544442bc34cecd5b3161f4d68"
+  },
+  "chronology": {
+    "frozen_before_initial_e6_payload_access": false,
+    "frozen_after_v1_abort": true,
+    "frozen_before_any_resumption_access": true,
+    "initial_accepted_images": 680,
+    "initial_accepted_pairs": 340,
+    "initial_accepted_assignment_slots": "0 through 339 inclusive",
+    "post_failure_nonvisual_diagnostic_rows": [
+      1850,
+      1851
+    ],
+    "performance_metrics_observed_or_used": false,
+    "manual_visual_inspection_used": false,
+    "future_lockbox_or_organiser_validation_used": false,
+    "consumed_test_identity_metadata_used_for_integrity_filter": true,
+    "consumed_test_metrics_or_visual_content_used_for_replacement": false
+  },
+  "frozen_partial_cache": {
+    "raw_root": "data/raw/e6_tiny_genimage_biggan",
+    "images_root": "data/raw/e6_tiny_genimage_biggan/images",
+    "prefix_assignment_slots": 340,
+    "expected_asset_files": 680,
+    "expected_receipt_files": 680,
+    "expected_partial_files": 0,
+    "expected_accepted_reserve_pairs": 0,
+    "required_absent_row_indices": [
+      1850,
+      1851
+    ],
+    "inventory_algorithm": "For assignment slots 0..339 in order and real then AI row order, verify the deterministic asset and receipt, SHA-256 the asset bytes, validate the receipt identity and receipt-declared byte SHA-256, then SHA-256 canonical compact JSON of the ordered inventory entries.",
+    "runtime_policy": "Every frozen prefix asset and receipt must continue to match this lock; later deterministic cache entries may be added only by the resumed acquisition."
+  },
+  "policy_delta": {
+    "scope": "Only historical-overlap classification and rejection persistence change; all v1 source, transport, decoding, identity, role, split and threshold contracts remain unchanged.",
+    "precedence_highest_first": [
+      "remote_row_or_transport_contract_drift_hard_abort",
+      "any_conflicting_label_match_hard_abort",
+      "historical_byte_duplicate_hard_abort",
+      "historical_decoded_pixel_duplicate_hard_abort",
+      "historical_same_label_phash_only_near_match_reject_whole_pair_and_replace",
+      "corrupt_remote_asset_reject_whole_pair_and_replace",
+      "within_e6_same_label_duplicate_reject_later_whole_pair_and_replace"
+    ],
+    "historical_byte_duplicate_action": "hard_abort_without_replacement",
+    "historical_decoded_pixel_duplicate_action": "hard_abort_without_replacement",
+    "historical_conflicting_label_action": "hard_abort_without_replacement",
+    "historical_same_label_phash_only_action": "reject_whole_pair_and_replace",
+    "within_e6_policy_changed": false,
+    "perceptual_hash_algorithm_or_threshold_changed": false,
+    "replacement_source": "next unused pair in the original frozen SHA-256 rank order",
+    "first_available_reserve_cycle": 247,
+    "first_available_reserve_rows": [
+      3460,
+      3461
+    ],
+    "replacement_keeps_rejected_pair_role": true,
+    "replacement_is_whole_pair": true,
+    "manual_replacement_allowed": false,
+    "visual_review_before_replacement_allowed": false,
+    "reserve_exhaustion_action": "hard_abort"
+  },
+  "rejection_journal": {
+    "path": "data/raw/e6_tiny_genimage_biggan/rejection_journal.json",
+    "schema_version": 1,
+    "write_timing": "atomically_before_candidate_discard_or_reserve_consumption",
+    "file_fsync_before_publish": true,
+    "directory_fsync_after_publish": true,
+    "signed_url_or_query_allowed": false,
+    "required_event_fields": [
+      "slot",
+      "role",
+      "assigned_cycle",
+      "attempted_cycle",
+      "attempted_cycles",
+      "real_row_index",
+      "ai_row_index",
+      "action",
+      "reasons"
+    ],
+    "required_reason_fields": [
+      "kind",
+      "scope",
+      "row_idx",
+      "candidate_label",
+      "candidate_byte_sha256",
+      "candidate_decoded_pixel_sha256",
+      "candidate_perceptual_hash",
+      "owner",
+      "owner_role",
+      "owner_label"
+    ],
+    "near_reason_additional_fields": [
+      "owner_perceptual_hash",
+      "hamming_distance"
+    ],
+    "non_overlap_reason_schema": "Corrupt-image reasons use a sanitized detail field and row indices; owner and fingerprint fields are required only for overlap reasons.",
+    "initial_event_source": "reports/e6_acquisition_overlap_incident.json",
+    "rerun_rule": "Validate and replay previously journaled events in exact assignment/reserve order without redownloading discarded candidates; append new events atomically with a SHA-256 hash chain."
+  },
+  "unchanged_guardrails": {
+    "organiser_validation_access_allowed": false,
+    "future_lockbox_access_allowed": false,
+    "consumed_test_identity_only_integrity_filter_allowed": true,
+    "consumed_test_metrics_or_visual_review_for_selection_allowed": false,
+    "training_feature_extraction_or_evaluation_during_acquisition_allowed": false,
+    "manual_image_selection_or_cherry_picking_allowed": false,
+    "raw_image_git_commit_allowed": false,
+    "signed_url_persistence_or_logging_allowed": false
+  }
+}

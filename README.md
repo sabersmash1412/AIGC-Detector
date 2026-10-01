@@ -452,6 +452,7 @@ AIGIBench Midjourney data remains consumed regression evidence only.
 ```bash
 .venv/bin/python -m scripts.check_e6_development_protocol
 .venv/bin/python -m scripts.check_e6_acquisition_protocol
+.venv/bin/python -m scripts.check_e6_acquisition_resume_protocol
 ```
 
 This lock does **not** make Tiny-GenImage a clean result by itself. Its BigGAN
@@ -462,7 +463,7 @@ class-symmetric normalization policy passes the same audit. The exact source,
 role, pairing, overlap and licence constraints live in
 `configs/e6_development_protocol.json`.
 
-The second command is also offline. It freezes the downloader's trusted host
+The acquisition-protocol command is offline. It freezes the downloader's trusted host
 and pinned revision, response schema, size limits, JPEG/PNG/WebP allowlist,
 atomic-write rules, RGBA identity hash, perceptual near-duplicate rule and
 fail-closed overlap policy. The protocol and PASS receipt were written and
@@ -470,8 +471,28 @@ hash-frozen before asset access. A later transport-only probe, performed before
 the acquisition-lock commit, read 64 bytes from already-selected row 2 without
 decoding, viewing or retaining the image; it did not alter the protocol,
 assignment or replacement policy. This chronology is disclosed in
-`reports/e6_transport_preflight_audit.json`. After committing these exact
-artifacts, acquire only the frozen 1,400 real/BigGAN pairs with:
+`reports/e6_transport_preflight_audit.json`.
+
+The first acquisition invocation accepted the exact first 340 assignment
+pairs, then v1 stopped at slot 340 because BigGAN row 1851 was a same-label
+pHash near-match (distance 4) to a registered FLUX audit image. The byte and
+decoded-pixel hashes were different, so this was not exact data reuse. No
+image was manually viewed and no model metric was used in the diagnosis. The
+incident is recorded in `reports/e6_acquisition_overlap_incident.json`.
+
+The separate resume amendment keeps v1 immutable. Exact byte/pixel overlap or
+any label conflict remains a hard abort. Only a same-label, pHash-only
+historical match rejects the whole pair and consumes the next pair in the
+original frozen reserve order. The offline resume checker binds all 680 cached
+assets and receipts, the known incident and the initial rejection-journal
+event before resumption. The runtime journal is written and fsynced before a
+rejected pair is deleted or a reserve is consumed.
+
+This integrity check necessarily used the identity and label metadata of the
+already-consumed SID/FLUX test unit. It used neither its performance metrics
+nor visual inspection for replacement, and that unit remains regression-only
+rather than fresh evidence. After committing the resume code, protocol,
+incident, lock and tests, resume only the frozen acquisition with:
 
 ```bash
 .venv/bin/python -m scripts.prepare_e6_biggan
@@ -481,6 +502,8 @@ Preparation first performs a metadata-only reachability check, then
 fingerprints every explicitly registered historical manifest, never opens a
 future lockbox, and downloads the selected rows. The historical scan covers
 26,000 registered images and can appear quiet for several minutes on a laptop.
+On this partial-cache resume, the journal skips discarded rows 1850/1851 and
+deterministically starts that slot from reserve cycle 247.
 It writes four role-separated manifests and one provenance receipt; raw images
 remain ignored by Git. This is still data preparation only: CLIP/forensic
 feature extraction and all E6 training remain blocked until the metadata-only

@@ -42,6 +42,15 @@ from src.e6_acquisition_protocol import (
     validate_e6_acquisition_protocol,
     validate_upstream_locks,
 )
+from src.e6_acquisition_resume_protocol import (
+    DEFAULT_RESUME_LOCK,
+    DEFAULT_RESUME_PROTOCOL,
+    append_rejection_event,
+    find_replay_event,
+    load_resume_protocol,
+    validate_rejection_journal,
+    validate_resume_lock_receipt,
+)
 from src.e6_protocol import (
     assignment_sha256,
     build_pair_assignment,
@@ -1004,6 +1013,38 @@ def _discard_cached_rows(
         _fsync_directory(directory)
 
 
+def _discard_cached_row_indices(
+    raw_root: Path, row_indices: Iterable[int], *, project_root: Path
+) -> None:
+    """Crash recovery for a journaled pair when signed row URLs are unavailable."""
+
+    images_root = raw_root / "images"
+    _reject_symlink_path(images_root, project_root)
+    if not images_root.exists():
+        return
+    touched = False
+    for row_idx in row_indices:
+        prefix = f"row-{int(row_idx):05d}"
+        asset_names = {
+            f"{prefix}{extension}"
+            for extensions in EXTENSIONS_BY_FORMAT.values()
+            for extension in extensions
+        }
+        allowed = asset_names | {
+            f"{name}.receipt.json" for name in asset_names
+        } | {f"{name}.receipt.pending.json" for name in asset_names}
+        for candidate in images_root.iterdir():
+            if candidate.name not in allowed:
+                continue
+            _reject_symlink_path(candidate, project_root)
+            if candidate.is_symlink() or not candidate.is_file():
+                raise ValueError("Refusing unsafe journaled-pair cache entry")
+            candidate.unlink()
+            touched = True
+    if touched:
+        _fsync_directory(images_root)
+
+
 def _canonical_asset_path(image_url: str) -> str:
     """Return the non-secret asset path, excluding every signed query value."""
 
@@ -1336,24 +1377,43 @@ class HammingBKTree:
             node = child
 
     def query(self, value: int, radius: int) -> list[FingerprintOwner]:
+        return [owner for _, owner, _ in self.query_matches(value, radius)]
+
+    def query_matches(
+        self, value: int, radius: int
+    ) -> list[tuple[int, FingerprintOwner, int]]:
+        """Return every matching hash, owner and exact distance deterministically."""
+
         if radius < 0:
             raise ValueError("Hamming search radius must be non-negative")
         if self._root is None:
             return []
-        matches: list[FingerprintOwner] = []
+        matches: list[tuple[int, FingerprintOwner, int]] = []
         stack = [self._root]
         while stack:
             node = stack.pop()
-            distance = self.distance(value, int(node["value"]))
+            node_value = int(node["value"])
+            distance = self.distance(value, node_value)
             if distance <= radius:
-                matches.extend(node["owners"])
+                matches.extend(
+                    (node_value, owner, distance) for owner in node["owners"]
+                )
             lower, upper = distance - radius, distance + radius
             stack.extend(
                 child
                 for edge, child in node["children"].items()
                 if lower <= int(edge) <= upper
             )
-        return matches
+        return sorted(
+            matches,
+            key=lambda item: (
+                item[2],
+                item[0],
+                item[1].identity,
+                item[1].role,
+                item[1].label,
+            ),
+        )
 
 
 class FingerprintIndex:
@@ -1396,6 +1456,10 @@ class FingerprintIndex:
                     "owner": byte_owner.identity,
                     "owner_role": byte_owner.role,
                     "owner_label": byte_owner.label,
+                    "candidate_label": label,
+                    "candidate_byte_sha256": verification.byte_sha256,
+                    "candidate_decoded_pixel_sha256": verification.decoded_pixel_sha256,
+                    "candidate_perceptual_hash": verification.perceptual_hash,
                 }
             )
         pixel_owner = self.pixel_sha256.get(verification.decoded_pixel_sha256)
@@ -1406,12 +1470,16 @@ class FingerprintIndex:
                     "owner": pixel_owner.identity,
                     "owner_role": pixel_owner.role,
                     "owner_label": pixel_owner.label,
+                    "candidate_label": label,
+                    "candidate_byte_sha256": verification.byte_sha256,
+                    "candidate_decoded_pixel_sha256": verification.decoded_pixel_sha256,
+                    "candidate_perceptual_hash": verification.perceptual_hash,
                 }
             )
-        near = self.perceptual.query(
+        near = self.perceptual.query_matches(
             int(verification.perceptual_hash, 16), NEAR_DUPLICATE_MAX_HAMMING
         )
-        for owner in near:
+        for owner_hash, owner, distance in near:
             if all_near_duplicates or owner.role != role or owner.label != label:
                 conflicts.append(
                     {
@@ -1419,10 +1487,58 @@ class FingerprintIndex:
                         "owner": owner.identity,
                         "owner_role": owner.role,
                         "owner_label": owner.label,
+                        "candidate_label": label,
+                        "candidate_byte_sha256": verification.byte_sha256,
+                        "candidate_decoded_pixel_sha256": verification.decoded_pixel_sha256,
+                        "candidate_perceptual_hash": verification.perceptual_hash,
+                        "owner_perceptual_hash": f"{owner_hash:016x}",
+                        "hamming_distance": distance,
                     }
                 )
-                break
         return conflicts
+
+
+def classify_resume_conflicts(
+    reasons: list[dict[str, Any]], candidate_labels_by_row: dict[int, int]
+) -> str:
+    """Apply the narrow v2 amendment with fatal conditions taking precedence."""
+
+    if not reasons:
+        return "accept"
+    replaceable = False
+    for reason in reasons:
+        kind = reason.get("kind")
+        if kind == "image_integrity_failure":
+            replaceable = True
+            continue
+        if kind == "pair_label_conflict":
+            return "hard_abort_without_replacement"
+        row_idx = reason.get("row_idx")
+        if row_idx not in candidate_labels_by_row:
+            raise ValueError("E6 conflict references an unknown candidate row")
+        candidate_label = candidate_labels_by_row[int(row_idx)]
+        if reason.get("candidate_label") != candidate_label:
+            raise ValueError("E6 conflict candidate label is inconsistent")
+        if reason.get("owner_label") != candidate_label:
+            return "hard_abort_without_replacement"
+        scope = reason.get("scope")
+        if scope == "existing_data":
+            if kind in {"byte_duplicate", "decoded_pixel_duplicate"}:
+                return "hard_abort_without_replacement"
+            if kind != "near_duplicate":
+                raise ValueError("E6 historical conflict has an unknown kind")
+            replaceable = True
+        elif scope == "accepted_e6":
+            if kind not in {
+                "byte_duplicate",
+                "decoded_pixel_duplicate",
+                "near_duplicate",
+            }:
+                raise ValueError("E6 within-run conflict has an unknown kind")
+            replaceable = True
+        else:
+            raise ValueError("E6 conflict has an unknown scope")
+    return "reject_whole_pair_and_replace" if replaceable else "accept"
 
 
 def _load_manifest_image_paths(
@@ -1569,12 +1685,6 @@ def pair_conflicts(
             "Candidate real/BigGAN pair has near-identical conflicting labels "
             f"(pHash distance {distance})"
         )
-    for reason in reasons:
-        matching_row = real if reason.get("row_idx") == real.row.row_idx else ai
-        if reason.get("owner_label") != matching_row.row.label:
-            raise ValueError(
-                "Candidate content has a conflicting historical or E6 label"
-            )
     return reasons
 
 
@@ -1643,6 +1753,9 @@ def _validate_publication_bundle(
     acquisition_lock_path: Path,
     project_root: Path,
     validate_raw_assets: bool = True,
+    resume_protocol_path: Path | None = None,
+    resume_lock_path: Path | None = None,
+    rejection_journal_path: Path | None = None,
 ) -> dict[str, Any]:
     """Validate a fully staged or already-published metadata bundle."""
 
@@ -1666,6 +1779,59 @@ def _validate_publication_bundle(
         raise ValueError("E6 publication acquisition protocol hash changed")
     if acquisition_record.get("lock_sha256") != sha256_file(acquisition_lock_path):
         raise ValueError("E6 publication acquisition-lock hash changed")
+    resume_paths = (
+        resume_protocol_path,
+        resume_lock_path,
+        rejection_journal_path,
+    )
+    if any(path is not None for path in resume_paths):
+        if not all(path is not None for path in resume_paths):
+            raise ValueError("E6 publication resume validation paths are incomplete")
+        assert resume_protocol_path is not None
+        assert resume_lock_path is not None
+        assert rejection_journal_path is not None
+        _reject_symlink_path(rejection_journal_path, project_root)
+        if (
+            rejection_journal_path.is_symlink()
+            or not rejection_journal_path.is_file()
+        ):
+            raise ValueError("E6 publication rejection journal changed")
+        resume_protocol = load_resume_protocol(resume_protocol_path)
+        resume_receipt, resume_inventory = validate_resume_lock_receipt(
+            resume_protocol, resume_lock_path, project_root
+        )
+        journal_payload = json.loads(
+            rejection_journal_path.read_text(encoding="utf-8")
+        )
+        validate_rejection_journal(
+            journal_payload,
+            resume_protocol,
+            project_root,
+            protocol_path=resume_protocol_path,
+        )
+        expected_resume_record = {
+            "protocol_path": _project_relative(resume_protocol_path, project_root),
+            "protocol_sha256": sha256_file(resume_protocol_path),
+            "lock_path": _project_relative(resume_lock_path, project_root),
+            "lock_sha256": sha256_file(resume_lock_path),
+            "incident": resume_protocol["upstream_evidence"]["overlap_incident"],
+            "frozen_prefix_inventory": resume_inventory,
+            "journal": {
+                "path": _project_relative(rejection_journal_path, project_root),
+                "sha256": sha256_file(rejection_journal_path),
+                "event_count": len(journal_payload["events"]),
+                "seed_event_sha256": resume_receipt[
+                    "initial_rejection_journal"
+                ]["head_event_sha256"],
+                "head_event_sha256": journal_payload["events"][-1][
+                    "event_sha256"
+                ],
+            },
+            "consumed_test_identity_metadata_used_for_integrity_filter": True,
+            "consumed_test_metrics_or_visual_content_used_for_replacement": False,
+        }
+        if payload.get("acquisition_resume") != expected_resume_record:
+            raise ValueError("E6 publication resume provenance changed")
     transport_record = payload.get("transport_preflight_audit", {})
     if transport_record.get("path") != DEFAULT_TRANSPORT_PREFLIGHT_AUDIT.as_posix():
         raise ValueError("E6 publication transport-preflight path changed")
@@ -1828,6 +1994,9 @@ def _recover_or_reuse_publication(
     acquisition_protocol_path: Path,
     acquisition_lock_path: Path,
     project_root: Path,
+    resume_protocol_path: Path | None = None,
+    resume_lock_path: Path | None = None,
+    rejection_journal_path: Path | None = None,
 ) -> dict[str, Any] | None:
     """Finish a validated interrupted publication, or validate a completed rerun."""
 
@@ -1844,6 +2013,9 @@ def _recover_or_reuse_publication(
             acquisition_protocol_path=acquisition_protocol_path,
             acquisition_lock_path=acquisition_lock_path,
             project_root=project_root,
+            resume_protocol_path=resume_protocol_path,
+            resume_lock_path=resume_lock_path,
+            rejection_journal_path=rejection_journal_path,
         )
         _clear_publication_staging(staging_root, project_root)
         return payload
@@ -1865,6 +2037,9 @@ def _recover_or_reuse_publication(
             acquisition_protocol_path=acquisition_protocol_path,
             acquisition_lock_path=acquisition_lock_path,
             project_root=project_root,
+            resume_protocol_path=resume_protocol_path,
+            resume_lock_path=resume_lock_path,
+            rejection_journal_path=rejection_journal_path,
         )
         provenance_path.parent.mkdir(parents=True, exist_ok=True)
         _reject_symlink_path(provenance_path.parent, project_root)
@@ -1994,12 +2169,14 @@ def _manifest_row(
     }
 
 
-def prepare_e6_biggan(
+def _prepare_e6_biggan_locked(
     protocol_path: Path,
     lock_report_path: Path,
     acquisition_protocol_path: Path,
     acquisition_lock_path: Path,
     project_root: Path,
+    resume_protocol_path: Path | None = None,
+    resume_lock_path: Path | None = None,
 ) -> dict[str, Any]:
     """Acquire, deduplicate and publish all frozen E6 BigGAN role manifests."""
 
@@ -2031,7 +2208,31 @@ def prepare_e6_biggan(
     staging_root = project_root / outputs["staging_root"]
     for path in (raw_root, manifest_root, provenance_path, staging_root):
         _reject_symlink_path(path, project_root)
-    preparation_lock = _acquire_preparation_lock(raw_root, project_root)
+    resume_protocol_path = resume_protocol_path or project_root / DEFAULT_RESUME_PROTOCOL
+    resume_lock_path = resume_lock_path or project_root / DEFAULT_RESUME_LOCK
+    resume_protocol = load_resume_protocol(resume_protocol_path)
+    resume_receipt, frozen_prefix_inventory = validate_resume_lock_receipt(
+        resume_protocol, resume_lock_path, project_root
+    )
+    journal_path = project_root / resume_protocol["rejection_journal"]["path"]
+    _reject_symlink_path(journal_path, project_root)
+    if journal_path.is_symlink() or not journal_path.is_file():
+        raise ValueError(
+            "E6 seeded rejection journal is missing; rerun the offline resume checker"
+        )
+    rejection_journal = json.loads(journal_path.read_text(encoding="utf-8"))
+    validate_rejection_journal(
+        rejection_journal,
+        resume_protocol,
+        project_root,
+        protocol_path=resume_protocol_path,
+    )
+    initial_journal = resume_receipt["initial_rejection_journal"]
+    if (
+        rejection_journal["events"][0]["event_sha256"]
+        != initial_journal["head_event_sha256"]
+    ):
+        raise ValueError("E6 rejection journal no longer begins with its frozen seed")
     stale_partials_removed = _clear_stale_partial_downloads(raw_root, project_root)
     if stale_partials_removed:
         print(
@@ -2048,10 +2249,11 @@ def prepare_e6_biggan(
         acquisition_protocol_path=acquisition_protocol_path,
         acquisition_lock_path=acquisition_lock_path,
         project_root=project_root,
+        resume_protocol_path=resume_protocol_path,
+        resume_lock_path=resume_lock_path,
+        rejection_journal_path=journal_path,
     )
     if recovered is not None:
-        fcntl.flock(preparation_lock.fileno(), fcntl.LOCK_UN)
-        preparation_lock.close()
         return recovered
     _clear_publication_staging(staging_root, project_root)
 
@@ -2071,7 +2273,9 @@ def prepare_e6_biggan(
 
     existing_index, exclusion_summary = load_existing_exclusions(protocol, project_root)
     accepted_index = FingerprintIndex()
-    reserve = iter(ranked[len(assignments) :])
+    reserve_cycles = list(ranked[len(assignments) :])
+    reserve_position = 0
+    journal_cursor = 0
     manifests: dict[str, list[dict[str, Any]]] = {
         role: [] for role in protocol["selection"]["roles_in_assignment_order"]
     }
@@ -2090,6 +2294,62 @@ def prepare_e6_biggan(
             attempted: list[int] = []
             while True:
                 attempted.append(attempt_cycle)
+                next_journal_event = (
+                    rejection_journal["events"][journal_cursor]
+                    if journal_cursor < len(rejection_journal["events"])
+                    else None
+                )
+                if next_journal_event is not None and (
+                    next_journal_event["slot"],
+                    next_journal_event["attempted_cycle"],
+                ) == (slot, attempt_cycle):
+                    if next_journal_event["attempted_cycles"] != attempted:
+                        raise ValueError(
+                            "E6 journal replay attempt history disagrees with runtime"
+                        )
+                    _discard_cached_row_indices(
+                        raw_root,
+                        (
+                            int(next_journal_event["real_row_index"]),
+                            int(next_journal_event["ai_row_index"]),
+                        ),
+                        project_root=project_root,
+                    )
+                    rejections.append(
+                        {
+                            "slot": slot,
+                            "role": assignment["role"],
+                            "assigned_cycle": assigned_cycle,
+                            "rejected_cycle": attempt_cycle,
+                            "action": next_journal_event["action"],
+                            "reasons": next_journal_event["reasons"],
+                            "journal_event_sha256": next_journal_event[
+                                "event_sha256"
+                            ],
+                            "replayed": True,
+                        }
+                    )
+                    journal_cursor += 1
+                    if next_journal_event["action"] == (
+                        "hard_abort_without_replacement"
+                    ):
+                        raise ValueError(
+                            "E6 replayed a journaled fatal acquisition conflict"
+                        )
+                    if reserve_position >= len(reserve_cycles):
+                        raise ValueError("E6 exhausted the frozen reserve")
+                    expected_reserve = reserve_cycles[reserve_position]
+                    if next_journal_event.get("next_reserve_cycle") != expected_reserve:
+                        raise ValueError("E6 journal replay changed reserve order")
+                    reserve_position += 1
+                    attempt_cycle = expected_reserve
+                    continue
+                if next_journal_event is not None and int(
+                    next_journal_event["slot"]
+                ) <= slot:
+                    raise ValueError(
+                        "E6 rejection journal is out of order with runtime acquisition"
+                    )
                 real_row, ai_row = rows_client.pair(attempt_cycle)
                 prepared_items: list[PreparedImage] = []
                 integrity_failure: str | None = None
@@ -2125,27 +2385,64 @@ def prepare_e6_biggan(
                             existing=existing_index,
                             accepted=accepted_index,
                         )
-                    except ValueError:
-                        _discard_cached_rows(
-                            raw_root,
-                            (real_row, ai_row),
-                            project_root=project_root,
-                        )
-                        raise
-                    if any(
-                        reason.get("scope") == "existing_data"
-                        for reason in conflicts
-                    ):
-                        _discard_cached_rows(
-                            raw_root,
-                            (real_row, ai_row),
-                            project_root=project_root,
-                        )
-                        raise ValueError(
-                            "Tiny-GenImage candidate overlaps frozen existing data; "
-                            "acquisition aborted instead of adapting the sample"
-                        )
+                    except ValueError as exc:
+                        conflicts = [
+                            {
+                                "kind": "pair_label_conflict",
+                                "detail": str(exc),
+                            }
+                        ]
                 if conflicts:
+                    labels_by_row = {
+                        real_row.row_idx: real_row.label,
+                        ai_row.row_idx: ai_row.label,
+                    }
+                    action = classify_resume_conflicts(conflicts, labels_by_row)
+                    if journal_cursor != len(rejection_journal["events"]):
+                        raise ValueError(
+                            "E6 runtime conflict appeared before a frozen future journal event"
+                        )
+                    next_reserve_cycle: int | None = None
+                    if action == "reject_whole_pair_and_replace":
+                        if reserve_position >= len(reserve_cycles):
+                            action = "hard_abort_without_replacement"
+                            conflicts = [
+                                *conflicts,
+                                {
+                                    "kind": "pair_label_conflict",
+                                    "detail": "The frozen reserve was exhausted",
+                                },
+                            ]
+                        else:
+                            next_reserve_cycle = reserve_cycles[reserve_position]
+                    event_fields: dict[str, Any] = {
+                        "slot": slot,
+                        "role": assignment["role"],
+                        "assigned_cycle": assigned_cycle,
+                        "attempted_cycle": attempt_cycle,
+                        "attempted_cycles": list(attempted),
+                        "real_row_index": real_row.row_idx,
+                        "ai_row_index": ai_row.row_idx,
+                        "action": action,
+                        "reasons": conflicts,
+                    }
+                    if next_reserve_cycle is not None:
+                        event_fields["next_reserve_cycle"] = next_reserve_cycle
+                    rejection_journal = append_rejection_event(
+                        journal_path,
+                        rejection_journal,
+                        event_fields,
+                        validate_before_write=lambda candidate: (
+                            validate_rejection_journal(
+                                candidate,
+                                resume_protocol,
+                                project_root,
+                                protocol_path=resume_protocol_path,
+                            )
+                        ),
+                    )
+                    journal_event = rejection_journal["events"][-1]
+                    journal_cursor += 1
                     _discard_cached_rows(
                         raw_root,
                         (real_row, ai_row),
@@ -2157,15 +2454,21 @@ def prepare_e6_biggan(
                             "role": assignment["role"],
                             "assigned_cycle": assigned_cycle,
                             "rejected_cycle": attempt_cycle,
+                            "action": action,
                             "reasons": conflicts,
+                            "journal_event_sha256": journal_event[
+                                "event_sha256"
+                            ],
+                            "replayed": False,
                         }
                     )
-                    try:
-                        attempt_cycle = next(reserve)
-                    except StopIteration as exc:
+                    if action == "hard_abort_without_replacement":
                         raise ValueError(
-                            "E6 exhausted all 600 reserve pairs during integrity filtering"
-                        ) from exc
+                            "E6 candidate hit a fatal overlap or label conflict; "
+                            "the rejection was journaled before abort"
+                        )
+                    reserve_position += 1
+                    attempt_cycle = int(next_reserve_cycle)
                     continue
 
                 real, ai = prepared
@@ -2213,6 +2516,8 @@ def prepare_e6_biggan(
                     }
                 )
                 break
+        if journal_cursor != len(rejection_journal["events"]):
+            raise ValueError("E6 acquisition did not consume every journaled event")
     finally:
         progress.close()
         session.close()
@@ -2284,6 +2589,27 @@ def prepare_e6_biggan(
             "lock_sha256": sha256_file(acquisition_lock_path),
             "frozen_at_utc": acquisition_receipt["frozen_at_utc"],
             "payload_present_at_freeze": False,
+        },
+        "acquisition_resume": {
+            "protocol_path": _project_relative(resume_protocol_path, project_root),
+            "protocol_sha256": sha256_file(resume_protocol_path),
+            "lock_path": _project_relative(resume_lock_path, project_root),
+            "lock_sha256": sha256_file(resume_lock_path),
+            "incident": resume_protocol["upstream_evidence"]["overlap_incident"],
+            "frozen_prefix_inventory": frozen_prefix_inventory,
+            "journal": {
+                "path": _project_relative(journal_path, project_root),
+                "sha256": sha256_file(journal_path),
+                "event_count": len(rejection_journal["events"]),
+                "seed_event_sha256": rejection_journal["events"][0][
+                    "event_sha256"
+                ],
+                "head_event_sha256": rejection_journal["events"][-1][
+                    "event_sha256"
+                ],
+            },
+            "consumed_test_identity_metadata_used_for_integrity_filter": True,
+            "consumed_test_metrics_or_visual_content_used_for_replacement": False,
         },
         "transport_preflight_audit": {
             "path": _project_relative(
@@ -2357,7 +2683,12 @@ def prepare_e6_biggan(
                 row["project_label"] == 1 for row in image_records
             ),
             "role_pairs": dict(Counter(row["role"] for row in pair_records)),
-            "network_asset_bytes": download_budget.downloaded_bytes,
+            "network_asset_bytes_this_resume_invocation": (
+                download_budget.downloaded_bytes
+            ),
+            "frozen_prefix_asset_bytes_from_prior_invocation": (
+                frozen_prefix_inventory["total_asset_bytes"]
+            ),
         },
         "manifests": manifest_summary,
         "provenance": {"path": _project_relative(provenance_path, project_root)},
@@ -2384,6 +2715,9 @@ def prepare_e6_biggan(
         acquisition_lock_path=acquisition_lock_path,
         project_root=project_root,
         validate_raw_assets=False,
+        resume_protocol_path=resume_protocol_path,
+        resume_lock_path=resume_lock_path,
+        rejection_journal_path=journal_path,
     )
     staging_manifest_root.replace(manifest_root)
     _fsync_directory(manifest_root.parent)
@@ -2400,10 +2734,47 @@ def prepare_e6_biggan(
         acquisition_lock_path=acquisition_lock_path,
         project_root=project_root,
         validate_raw_assets=False,
+        resume_protocol_path=resume_protocol_path,
+        resume_lock_path=resume_lock_path,
+        rejection_journal_path=journal_path,
     )
-    fcntl.flock(preparation_lock.fileno(), fcntl.LOCK_UN)
-    preparation_lock.close()
     return provenance
+
+
+def prepare_e6_biggan(
+    protocol_path: Path,
+    lock_report_path: Path,
+    acquisition_protocol_path: Path,
+    acquisition_lock_path: Path,
+    project_root: Path,
+    resume_protocol_path: Path | None = None,
+    resume_lock_path: Path | None = None,
+) -> dict[str, Any]:
+    """Run preparation while guaranteeing release of the process lock."""
+
+    acquisition = load_e6_acquisition_protocol(acquisition_protocol_path)
+    validate_e6_acquisition_protocol(acquisition)
+    raw_relative = acquisition.get("outputs", {}).get("raw_root")
+    if not isinstance(raw_relative, str) or not raw_relative:
+        raise ValueError("E6 acquisition protocol has no raw root")
+    raw_root = project_root / raw_relative
+    _reject_symlink_path(raw_root, project_root)
+    preparation_lock = _acquire_preparation_lock(raw_root, project_root)
+    try:
+        return _prepare_e6_biggan_locked(
+            protocol_path,
+            lock_report_path,
+            acquisition_protocol_path,
+            acquisition_lock_path,
+            project_root,
+            resume_protocol_path,
+            resume_lock_path,
+        )
+    finally:
+        try:
+            fcntl.flock(preparation_lock.fileno(), fcntl.LOCK_UN)
+        finally:
+            preparation_lock.close()
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -2419,6 +2790,12 @@ def build_parser() -> argparse.ArgumentParser:
         "--acquisition-lock-report",
         type=Path,
         default=DEFAULT_ACQUISITION_LOCK_REPORT,
+    )
+    parser.add_argument(
+        "--resume-protocol", type=Path, default=DEFAULT_RESUME_PROTOCOL
+    )
+    parser.add_argument(
+        "--resume-lock-report", type=Path, default=DEFAULT_RESUME_LOCK
     )
     return parser
 
@@ -2438,6 +2815,8 @@ def main() -> int:
             project_root / args.acquisition_protocol,
             project_root / args.acquisition_lock_report,
             project_root,
+            project_root / args.resume_protocol,
+            project_root / args.resume_lock_report,
         )
         counts = result["counts"]
         print(

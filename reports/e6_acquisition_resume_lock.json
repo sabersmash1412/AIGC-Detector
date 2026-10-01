@@ -1,0 +1,65 @@
+{
+  "experiment": "e6_acquisition_resume_lock",
+  "status": "PASS",
+  "frozen_at_utc": "2026-10-01T06:16:56Z",
+  "resume_protocol": {
+    "path": "configs/e6_acquisition_resume_protocol.json",
+    "sha256": "0e53d7d57faee1618039e560b5820a5e1142d47082fb6a2e39ee4b92e81ee0af",
+    "schema_version": 1
+  },
+  "chronology": {
+    "frozen_before_initial_e6_payload_access": false,
+    "frozen_after_v1_abort": true,
+    "frozen_before_any_resumption_access": true,
+    "initial_accepted_images": 680,
+    "initial_accepted_pairs": 340,
+    "initial_accepted_assignment_slots": "0 through 339 inclusive",
+    "post_failure_nonvisual_diagnostic_rows": [
+      1850,
+      1851
+    ],
+    "performance_metrics_observed_or_used": false,
+    "manual_visual_inspection_used": false,
+    "future_lockbox_or_organiser_validation_used": false,
+    "consumed_test_identity_metadata_used_for_integrity_filter": true,
+    "consumed_test_metrics_or_visual_content_used_for_replacement": false
+  },
+  "assignment_sha256": "c20aac52c0db04dfa2bf3ccda9a04ddd7858f82544442bc34cecd5b3161f4d68",
+  "frozen_partial_cache": {
+    "prefix_slots": 340,
+    "asset_files": 680,
+    "receipt_files": 680,
+    "total_asset_bytes": 14539972,
+    "inventory_sha256": "2760e2b1f056e7746da89621078b565baabdb118e23cda336c363339ecf4d5d3",
+    "prefix_assignment_sha256": "7e14c90d437af9992fa6342809ec0a55cd4f078bb6fb98fdc1cba267a490c80d",
+    "first_row_index": 19896,
+    "last_inventory_row_index": 20569
+  },
+  "incident": {
+    "path": "reports/e6_acquisition_overlap_incident.json",
+    "sha256": "3cee0767b1616b7a776de33aed70e7eb3b9d7d4198ee4298bc83024354444bae"
+  },
+  "initial_rejection_journal": {
+    "path": "data/raw/e6_tiny_genimage_biggan/rejection_journal.json",
+    "sha256": "8e3041304d9627e1a1278ae10b57f75aaea264652502681fccb869b00629a7bd",
+    "event_count": 1,
+    "head_event_sha256": "08af0e8d12ae79fdec0cf74ca40467739110eb0c27141473db036f898c2630b0"
+  },
+  "policy": {
+    "same_label_phash_only_action": "reject_whole_pair_and_replace",
+    "exact_byte_or_pixel_action": "hard_abort_without_replacement",
+    "conflicting_label_action": "hard_abort_without_replacement",
+    "first_available_reserve_cycle": 247,
+    "journal_required_before_replacement": true
+  },
+  "guardrails": {
+    "organiser_validation_access_allowed": false,
+    "future_lockbox_access_allowed": false,
+    "consumed_test_identity_only_integrity_filter_allowed": true,
+    "consumed_test_metrics_or_visual_review_for_selection_allowed": false,
+    "training_feature_extraction_or_evaluation_during_acquisition_allowed": false,
+    "manual_image_selection_or_cherry_picking_allowed": false,
+    "raw_image_git_commit_allowed": false,
+    "signed_url_persistence_or_logging_allowed": false
+  }
+}

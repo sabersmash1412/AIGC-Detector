@@ -107,8 +107,25 @@ The separate acquisition lock was created and passed before the disclosed
 It pins the mirror revision and dataset-server schema, permits only the frozen
 row assignment (plus deterministic reserve pairs), and requires byte,
 decoded-RGBA and perceptual identities against every registered historical
-manifest. Existing-data overlap or a conflicting-label match aborts the
-acquisition; it cannot be silently replaced to improve the sample.
+manifest.
+
+The initial acquisition accepted 340 frozen pairs, then stopped at assignment
+slot 340 on a same-label pHash-only match between BigGAN row 1851 and a
+registered FLUX audit image. Their file-byte and decoded-pixel hashes differed.
+The post-abort diagnosis used no visual inspection or model metric. A separate,
+committed resume amendment preserves the v1 evidence and permits only this
+class of same-label pHash-only match to reject the whole pair and consume the
+next pair in the original frozen reserve order. Exact byte/pixel overlap and
+every conflicting-label match still abort. A durable hash-chained journal is
+written before deletion or reserve advancement.
+
+The integrity filter uses identity and label metadata from registered
+historical units, including the already-consumed SID/FLUX test unit. It does
+not use those units' metrics or visual content to select a replacement; they
+remain regression-only and cannot be presented as fresh evaluation evidence.
+The incident and frozen cache boundary are recorded in
+`reports/e6_acquisition_overlap_incident.json` and
+`reports/e6_acquisition_resume_lock.json`.
 
 ## CLIP and OpenCLIP
 

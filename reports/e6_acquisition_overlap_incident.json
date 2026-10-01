@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "incident_id": "e6_v1_existing_overlap_abort_slot_340",
+  "status": "CONFIRMED_SAME_LABEL_PHASH_ONLY_OVERLAP",
+  "recorded_at_utc": "2026-10-01T06:15:25Z",
+  "failure_time_utc_captured": false,
+  "failed_run": {
+    "command": ".venv/bin/python -m scripts.prepare_e6_biggan",
+    "committed_code_revision": "9368b026a9ef98cff4059e97b1e2190aab6274b0",
+    "progress_images_accepted": 680,
+    "progress_images_target": 2800,
+    "accepted_pairs": 340,
+    "failure_message": "Tiny-GenImage candidate overlaps frozen existing data; acquisition aborted instead of adapting the sample",
+    "final_manifests_published": false,
+    "final_provenance_published": false
+  },
+  "frozen_assignment": {
+    "assignment_sha256": "c20aac52c0db04dfa2bf3ccda9a04ddd7858f82544442bc34cecd5b3161f4d68",
+    "zero_based_slot": 340,
+    "role": "development_train",
+    "assigned_cycle": 132,
+    "pair_key": "tiny_genimage_train_biggan_cycle_132",
+    "real_row_index": 1850,
+    "biggan_row_index": 1851
+  },
+  "confirmed_overlap": {
+    "candidate_row_index": 1851,
+    "candidate_label": 1,
+    "candidate_generator": "BigGAN",
+    "signal": "perceptual_hash_hamming_distance_at_most_4",
+    "perceptual_hash_hamming_distance": 4,
+    "byte_sha256_equal": false,
+    "decoded_rgba_sha256_equal": false,
+    "same_label": true,
+    "candidate_byte_sha256": "daa443d7bb6e265026ccb00ca536c9ec641758f90b6d31ec495289d87d2f670e",
+    "candidate_decoded_pixel_sha256": "6b1e2b12bae51417e48b970cac66b4a744c34e267338ff85b23e9c59325807f4",
+    "candidate_perceptual_hash": "669399646693992d",
+    "owner_path": "data/raw/sid_set_flux_heldout/images/ai_generated/row-18724_full_synthetic_008384.jpg",
+    "owner_manifest": "data/processed/sid_set_flux_heldout.csv",
+    "owner_label": 1,
+    "owner_generator_family": "FLUX",
+    "owner_byte_sha256": "a2bfe6634d89cbb95e10a76b2edd17f869f77a6aaaa68f53852cee52029999a8",
+    "owner_decoded_pixel_sha256": "03a0be0ab8ddf6a57c6b413194ea5c2c710ab64d044098f5062b501c484d237d",
+    "owner_perceptual_hash": "6693996c6693994c"
+  },
+  "diagnostic_access": {
+    "performed_after_v1_abort": true,
+    "rows_downloaded_temporarily": [
+      1850,
+      1851
+    ],
+    "manual_visual_inspection_performed": false,
+    "candidate_images_retained": false,
+    "signed_url_or_query_persisted": false,
+    "model_training_feature_extraction_or_evaluation_performed": false,
+    "organiser_validation_or_future_lockbox_accessed": false
+  },
+  "partial_cache": {
+    "accepted_assignment_slots": "0 through 339 inclusive",
+    "asset_files": 680,
+    "receipt_files": 680,
+    "partial_files": 0,
+    "accepted_reserve_pairs": 0,
+    "failed_pair_files_retained": false
+  },
+  "v1_observability_gap": {
+    "fatal_rejection_was_persisted_before_abort": false,
+    "reason": "The v1 implementation discarded the pair and raised before appending or atomically publishing the rejection record.",
+    "required_resume_fix": "Persist each sanitized rejection atomically before discarding candidate files or consuming a reserve pair."
+  },
+  "interpretation": {
+    "exact_historical_data_reuse_detected": false,
+    "conflicting_label_detected": false,
+    "performance_evidence_used_to_change_policy": false,
+    "summary": "The v1 hard-abort guard treated a same-label cross-generator pHash-only near-match as fatal. A narrowly frozen resumption policy may reject the whole pair and consume only the next pre-ranked reserve without using visual or performance information."
+  }
+}

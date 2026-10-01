@@ -514,6 +514,244 @@ def test_complete_pair_is_reconstructed_from_cache_without_network(
     assert protocol["rejection_journal"]["signed_url_or_query_allowed"] is False
 
 
+def test_finalized_cache_pair_does_not_decode_images_again(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    """A receipt-bound asset needs only its cheap file hash on later runs."""
+
+    development = json.loads(
+        (ROOT / "configs/e6_development_protocol.json").read_text(encoding="utf-8")
+    )
+    raw_root, _, expected_verifications, _ = _cache_pair_fixture(
+        tmp_path, development, 0
+    )
+
+    def forbidden_decode(*args, **kwargs):
+        raise AssertionError("finalized cache unexpectedly decoded an image")
+
+    monkeypatch.setattr(
+        "scripts.prepare_e6_biggan.inspect_image", forbidden_decode
+    )
+
+    cached = load_cached_pair(raw_root, development, 0, project_root=tmp_path)
+
+    assert cached is not None
+    assert tuple(item.verification for item in cached) == expected_verifications
+
+
+def test_finalized_cache_pair_rejects_changed_asset_bytes_without_decoding(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    development = json.loads(
+        (ROOT / "configs/e6_development_protocol.json").read_text(encoding="utf-8")
+    )
+    raw_root, _, _, paths = _cache_pair_fixture(tmp_path, development, 0)
+    paths[0].write_bytes(paths[0].read_bytes() + b"tampered")
+
+    def forbidden_decode(*args, **kwargs):
+        raise AssertionError("tampered finalized cache should fail before decoding")
+
+    monkeypatch.setattr(
+        "scripts.prepare_e6_biggan.inspect_image", forbidden_decode
+    )
+
+    with pytest.raises(ValueError):
+        load_cached_pair(raw_root, development, 0, project_root=tmp_path)
+
+
+@pytest.mark.parametrize(
+    ("field", "tampered_value"),
+    [
+        pytest.param("file_bytes", 0, id="unsafe-file-size"),
+        pytest.param("byte_sha256", "0" * 64, id="file-hash"),
+        pytest.param("decoded_pixel_sha256", "not-a-sha256", id="decoded-hash"),
+        pytest.param("perceptual_hash", "not-a-phash", id="perceptual-hash"),
+        pytest.param("original_width", 0, id="original-width"),
+        pytest.param("original_height", 0, id="original-height"),
+        pytest.param("display_width", 0, id="display-width"),
+        pytest.param("display_height", 0, id="display-height"),
+        pytest.param("aspect_ratio", 999.0, id="aspect-ratio"),
+        pytest.param("decoded_pixel_count", 0, id="decoded-pixel-count"),
+        pytest.param("file_format", "BMP", id="decoded-format"),
+    ],
+)
+def test_finalized_cache_pair_rejects_tampered_verification_record_without_decoding(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    field: str,
+    tampered_value: object,
+) -> None:
+    development = json.loads(
+        (ROOT / "configs/e6_development_protocol.json").read_text(encoding="utf-8")
+    )
+    raw_root, _, _, paths = _cache_pair_fixture(tmp_path, development, 0)
+    receipt_path = _cache_receipt_path(paths[0])
+    receipt = json.loads(receipt_path.read_text(encoding="utf-8"))
+    receipt["verification"][field] = tampered_value
+    receipt_path.write_text(json.dumps(receipt), encoding="utf-8")
+
+    def forbidden_decode(*args, **kwargs):
+        raise AssertionError("invalid finalized receipt should fail without decoding")
+
+    monkeypatch.setattr(
+        "scripts.prepare_e6_biggan.inspect_image", forbidden_decode
+    )
+
+    with pytest.raises(ValueError):
+        load_cached_pair(raw_root, development, 0, project_root=tmp_path)
+
+
+@pytest.mark.parametrize(
+    ("section", "field", "boolean_value"),
+    [
+        pytest.param("receipt", "schema_version", True, id="schema"),
+        pytest.param("receipt", "row_idx", False, id="row"),
+        pytest.param("receipt", "label", False, id="label"),
+        pytest.param("receipt", "generator_id", False, id="generator"),
+        pytest.param("receipt", "source_width", True, id="source-width"),
+        pytest.param("receipt", "source_height", True, id="source-height"),
+        pytest.param("verification", "file_bytes", True, id="file-size"),
+        pytest.param("verification", "original_width", True, id="original-width"),
+        pytest.param("verification", "original_height", True, id="original-height"),
+        pytest.param(
+            "verification", "decoded_pixel_count", True, id="decoded-pixel-count"
+        ),
+        pytest.param("verification", "display_width", True, id="display-width"),
+        pytest.param("verification", "display_height", True, id="display-height"),
+    ],
+)
+def test_finalized_cache_pair_rejects_booleans_for_json_integer_fields(
+    tmp_path: Path,
+    section: str,
+    field: str,
+    boolean_value: bool,
+) -> None:
+    development = json.loads(
+        (ROOT / "configs/e6_development_protocol.json").read_text(encoding="utf-8")
+    )
+    raw_root, _, _, paths = _cache_pair_fixture(tmp_path, development, 0)
+    receipt_path = _cache_receipt_path(paths[0])
+    receipt = json.loads(receipt_path.read_text(encoding="utf-8"))
+    target = receipt if section == "receipt" else receipt["verification"]
+    target[field] = boolean_value
+    receipt_path.write_text(json.dumps(receipt), encoding="utf-8")
+
+    with pytest.raises(ValueError, match="JSON integer"):
+        load_cached_pair(raw_root, development, 0, project_root=tmp_path)
+
+
+@pytest.mark.parametrize(
+    "aspect_ratio",
+    [
+        pytest.param(float("nan"), id="nan"),
+        pytest.param(float("inf"), id="positive-infinity"),
+        pytest.param(float("-inf"), id="negative-infinity"),
+    ],
+)
+def test_finalized_cache_pair_rejects_non_finite_aspect_ratio(
+    tmp_path: Path, aspect_ratio: float
+) -> None:
+    development = json.loads(
+        (ROOT / "configs/e6_development_protocol.json").read_text(encoding="utf-8")
+    )
+    raw_root, _, _, paths = _cache_pair_fixture(tmp_path, development, 0)
+    receipt_path = _cache_receipt_path(paths[0])
+    receipt = json.loads(receipt_path.read_text(encoding="utf-8"))
+    receipt["verification"]["aspect_ratio"] = aspect_ratio
+    receipt_path.write_text(json.dumps(receipt), encoding="utf-8")
+
+    with pytest.raises(ValueError, match="dimensions|size"):
+        load_cached_pair(raw_root, development, 0, project_root=tmp_path)
+
+
+def test_finalized_cache_pair_rejects_same_product_but_impossible_display_size(
+    tmp_path: Path,
+) -> None:
+    development = json.loads(
+        (ROOT / "configs/e6_development_protocol.json").read_text(encoding="utf-8")
+    )
+    raw_root, _, _, paths = _cache_pair_fixture(tmp_path, development, 0)
+    receipt_path = _cache_receipt_path(paths[0])
+    receipt = json.loads(receipt_path.read_text(encoding="utf-8"))
+    # 24 * 8 == 16 * 12, but it is neither the original nor EXIF-swapped size.
+    receipt["verification"]["display_width"] = 24
+    receipt["verification"]["display_height"] = 8
+    receipt_path.write_text(json.dumps(receipt), encoding="utf-8")
+
+    with pytest.raises(ValueError, match="dimensions|size"):
+        load_cached_pair(raw_root, development, 0, project_root=tmp_path)
+
+
+@pytest.mark.parametrize(
+    ("field", "tampered_value"),
+    [
+        pytest.param("byte_sha256", "A" * 64, id="uppercase-byte-sha"),
+        pytest.param("byte_sha256", "0" * 63, id="short-byte-sha"),
+        pytest.param("decoded_pixel_sha256", "A" * 64, id="uppercase-pixel-sha"),
+        pytest.param("decoded_pixel_sha256", "0" * 65, id="long-pixel-sha"),
+        pytest.param("perceptual_hash", "A" * 16, id="uppercase-phash"),
+        pytest.param("perceptual_hash", "0" * 15, id="short-phash"),
+    ],
+)
+def test_finalized_cache_pair_rejects_noncanonical_hashes(
+    tmp_path: Path, field: str, tampered_value: str
+) -> None:
+    development = json.loads(
+        (ROOT / "configs/e6_development_protocol.json").read_text(encoding="utf-8")
+    )
+    raw_root, _, _, paths = _cache_pair_fixture(tmp_path, development, 0)
+    receipt_path = _cache_receipt_path(paths[0])
+    receipt = json.loads(receipt_path.read_text(encoding="utf-8"))
+    receipt["verification"][field] = tampered_value
+    receipt_path.write_text(json.dumps(receipt), encoding="utf-8")
+
+    with pytest.raises(ValueError, match="identity"):
+        load_cached_pair(raw_root, development, 0, project_root=tmp_path)
+
+
+@pytest.mark.parametrize("drift", ["query", "revision", "row"])
+def test_finalized_cache_pair_rejects_canonical_asset_path_drift(
+    tmp_path: Path, drift: str
+) -> None:
+    development = json.loads(
+        (ROOT / "configs/e6_development_protocol.json").read_text(encoding="utf-8")
+    )
+    raw_root, rows, _, paths = _cache_pair_fixture(tmp_path, development, 0)
+    receipt_path = _cache_receipt_path(paths[0])
+    receipt = json.loads(receipt_path.read_text(encoding="utf-8"))
+    canonical_path = receipt["canonical_asset_path"]
+    if drift == "query":
+        canonical_path += "?Signature=must-not-be-accepted"
+    elif drift == "revision":
+        canonical_path = canonical_path.replace(
+            development["development_source"]["repository_revision"], "0" * 40
+        )
+    else:
+        canonical_path = canonical_path.replace(
+            f"/train/{rows[0].row_idx}/", f"/train/{rows[0].row_idx + 2}/"
+        )
+    receipt["canonical_asset_path"] = canonical_path
+    receipt_path.write_text(json.dumps(receipt), encoding="utf-8")
+
+    with pytest.raises(ValueError, match="path|row|asset"):
+        load_cached_pair(raw_root, development, 0, project_root=tmp_path)
+
+
+def test_finalized_cache_pair_rejects_format_suffix_mismatch(tmp_path: Path) -> None:
+    development = json.loads(
+        (ROOT / "configs/e6_development_protocol.json").read_text(encoding="utf-8")
+    )
+    raw_root, _, _, paths = _cache_pair_fixture(tmp_path, development, 0)
+    receipt_path = _cache_receipt_path(paths[0])
+    receipt = json.loads(receipt_path.read_text(encoding="utf-8"))
+    assert paths[0].suffix == ".png"
+    receipt["verification"]["file_format"] = "JPEG"
+    receipt_path.write_text(json.dumps(receipt), encoding="utf-8")
+
+    with pytest.raises(ValueError, match="extension|magic"):
+        load_cached_pair(raw_root, development, 0, project_root=tmp_path)
+
+
 def test_cache_pair_miss_does_not_reuse_only_one_complete_row(tmp_path: Path) -> None:
     development = json.loads(
         (ROOT / "configs/e6_development_protocol.json").read_text(encoding="utf-8")

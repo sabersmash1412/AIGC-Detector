@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "incident_id": "e6_resume_metadata_http_429_before_new_payload",
-  "status": "TRANSIENT_SERVICE_FAILURE_WITH_CACHE_INTACT",
+  "status": "REPEATED_TRANSIENT_SERVICE_FAILURES_WITH_CACHE_INTACT",
   "recorded_at_utc": "2026-10-01T09:32:45Z",
   "failed_run": {
     "command": ".venv/bin/python -m scripts.prepare_e6_biggan",
@@ -35,20 +35,41 @@
     "final_manifests_published": false,
     "final_provenance_published": false
   },
+  "subsequent_resume_failure": {
+    "failure_time_utc_captured": false,
+    "recorded_at_utc": "2026-10-01T11:46:15Z",
+    "committed_code_revision": "3342c9ba18d2b5c335cd6dcf1b6389b681e13f6e",
+    "historical_fingerprints_completed": 26000,
+    "progress_images_reported": 1758,
+    "progress_images_target": 2800,
+    "failure": "The metadata service remained unavailable after the frozen retries.",
+    "post_failure_cache": {
+      "asset_files": 1758,
+      "receipt_files": 1758,
+      "new_assets_beyond_frozen_prefix": 1078,
+      "pending_receipts": 0,
+      "partial_downloads": 0,
+      "rejection_journal_events": 1,
+      "final_manifests_published": false,
+      "final_provenance_published": false
+    }
+  },
   "impact": {
     "selected_rows_changed": false,
     "reserve_order_changed": false,
     "model_training_feature_extraction_or_evaluation_performed": false,
     "manual_visual_inspection_performed": false,
     "future_lockbox_or_organiser_validation_accessed": false,
-    "summary": "The run exhausted the remote metadata service's rate limit while reconstructing already-cached pairs. It downloaded no new image payload and did not change the frozen sample or rejection journal."
+    "summary": "The first interrupted run downloaded no new payload. The cache-first retry then made deterministic forward progress to 1,758 validated images before another transient metadata failure. Both interruptions preserved complete asset/receipt pairs, left no partial files, and did not change the frozen sample, reserve order or rejection journal."
   },
   "remediation": {
     "cache_first_resume": "A fully cached pair is reconstructed and revalidated from its local asset plus receipt before any metadata request.",
-    "fail_closed_checks": "The frozen row formula, label, generator, pinned canonical path, receipt schema, file bytes, decoded pixels, dimensions, format and perceptual hash are revalidated offline.",
+    "fail_closed_checks": "The frozen row formula, label, generator, pinned canonical path and receipt schema are revalidated; the exact file byte count and SHA-256 must match the receipt finalized after the original successful decode, after which the recorded decoded-pixel and perceptual identities are restored without repeating image decoding.",
     "frozen_retry_attempts_changed": false,
     "frozen_retry_backoff_changed": false,
     "endpoint_or_dataset_changed": false,
-    "selection_or_replacement_policy_changed": false
+    "selection_or_replacement_policy_changed": false,
+    "receipt_trust_boundary": "The committed resume lock anchors the first 680 receipts; later finalized receipts are trusted local runtime state.",
+    "post_acquisition_requirement": "Run one full-decode integrity audit over every accepted image before E6 training."
   }
 }

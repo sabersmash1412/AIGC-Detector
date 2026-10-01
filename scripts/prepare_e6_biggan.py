@@ -73,7 +73,7 @@ DEFAULT_METADATA_RATE_LIMIT_INCIDENT = Path(
     "reports/e6_metadata_rate_limit_incident.json"
 )
 EXPECTED_METADATA_RATE_LIMIT_INCIDENT_SHA256 = (
-    "16d09c8c3e009a04ea724519579672c52c5890b93df6eb0cfea46749d0d2a7df"
+    "2426d6f0ec4b8a21c014e7410e8458ec25a2adf7ff71f53a96566fd484d50b5c"
 )
 ROWS_API = "https://datasets-server.huggingface.co/rows"
 ROWS_HOST = "datasets-server.huggingface.co"
@@ -1149,6 +1149,107 @@ def _validate_cache_receipt(
         raise ValueError(f"E6 cache receipt leaked a signed query for row {row.row_idx}")
 
 
+def _verification_from_final_cache(
+    asset_path: Path,
+    receipt: dict[str, Any],
+    row: SourceRow,
+) -> ImageVerification:
+    """Verify unchanged finalized bytes and restore their prior decoded identity."""
+
+    record = receipt.get("verification")
+    if not isinstance(record, dict) or set(record) != set(
+        ImageVerification.__dataclass_fields__
+    ):
+        raise ValueError(f"E6 cache verification schema changed for row {row.row_idx}")
+    file_bytes = _strict_json_int(
+        record.get("file_bytes"), f"cached row {row.row_idx} file bytes"
+    )
+    original_width = _strict_json_int(
+        record.get("original_width"), f"cached row {row.row_idx} original width"
+    )
+    original_height = _strict_json_int(
+        record.get("original_height"), f"cached row {row.row_idx} original height"
+    )
+    decoded_pixel_count = _strict_json_int(
+        record.get("decoded_pixel_count"),
+        f"cached row {row.row_idx} decoded pixel count",
+    )
+    display_width = _strict_json_int(
+        record.get("display_width"), f"cached row {row.row_idx} display width"
+    )
+    display_height = _strict_json_int(
+        record.get("display_height"), f"cached row {row.row_idx} display height"
+    )
+    aspect_ratio = record.get("aspect_ratio")
+    stat_before = asset_path.stat()
+    if (
+        not 0 < file_bytes <= MAX_IMAGE_BYTES
+        or stat_before.st_size != file_bytes
+        or not 0 < original_width <= MAX_IMAGE_WIDTH
+        or not 0 < original_height <= MAX_IMAGE_HEIGHT
+        or original_width * original_height != decoded_pixel_count
+        or decoded_pixel_count > MAX_DECODED_PIXELS
+        or not 0 < display_width <= MAX_IMAGE_WIDTH
+        or not 0 < display_height <= MAX_IMAGE_HEIGHT
+        or (display_width, display_height)
+        not in {
+            (original_width, original_height),
+            (original_height, original_width),
+        }
+        or original_width != row.source_width
+        or original_height != row.source_height
+        or isinstance(aspect_ratio, bool)
+        or not isinstance(aspect_ratio, (int, float))
+        or not math.isfinite(float(aspect_ratio))
+        or not math.isclose(
+            float(aspect_ratio),
+            original_width / original_height,
+            rel_tol=0.0,
+            abs_tol=1e-12,
+        )
+    ):
+        raise ValueError(f"E6 cached dimensions or size changed for row {row.row_idx}")
+    byte_hash = record.get("byte_sha256")
+    pixel_hash = record.get("decoded_pixel_sha256")
+    perceptual_hash = record.get("perceptual_hash")
+    file_format = record.get("file_format")
+    if (
+        re.fullmatch(r"[0-9a-f]{64}", str(byte_hash or "")) is None
+        or re.fullmatch(r"[0-9a-f]{64}", str(pixel_hash or "")) is None
+        or re.fullmatch(r"[0-9a-f]{16}", str(perceptual_hash or "")) is None
+        or not isinstance(file_format, str)
+        or file_format not in ALLOWED_DECODED_FORMATS
+    ):
+        raise ValueError(f"E6 cached identity changed for row {row.row_idx}")
+    observed_byte_hash = sha256_file(asset_path)
+    stat_after = asset_path.stat()
+    if (
+        observed_byte_hash != byte_hash
+        or stat_after.st_size != stat_before.st_size
+        or stat_after.st_mtime_ns != stat_before.st_mtime_ns
+        or stat_after.st_ino != stat_before.st_ino
+    ):
+        raise ValueError(f"E6 cached bytes changed for row {row.row_idx}")
+    verification = ImageVerification(
+        file_bytes=file_bytes,
+        byte_sha256=str(byte_hash),
+        decoded_pixel_sha256=str(pixel_hash),
+        perceptual_hash=str(perceptual_hash),
+        original_width=original_width,
+        original_height=original_height,
+        aspect_ratio=float(aspect_ratio),
+        decoded_pixel_count=decoded_pixel_count,
+        display_width=display_width,
+        display_height=display_height,
+        file_format=str(file_format),
+    )
+    _validate_extension_magic(row.image_url, verification.file_format, row.row_idx)
+    _validate_cache_receipt(
+        _cache_receipt_path(asset_path), row, verification
+    )
+    return verification
+
+
 def _cached_row_files(
     raw_root: Path, row_idx: int, *, project_root: Path
 ) -> tuple[Path, Path] | None:
@@ -1252,10 +1353,22 @@ def load_cached_pair(
         ]
         canonical_path = receipt.get("canonical_asset_path")
         if (
-            receipt.get("schema_version") != 1
-            or receipt.get("row_idx") != row_idx
-            or receipt.get("label") != label
-            or receipt.get("generator_id") != contract["generator_id"]
+            _strict_json_int(
+                receipt.get("schema_version"), f"cached row {row_idx} schema"
+            )
+            != 1
+            or _strict_json_int(
+                receipt.get("row_idx"), f"cached row {row_idx} identity"
+            )
+            != row_idx
+            or _strict_json_int(
+                receipt.get("label"), f"cached row {row_idx} label"
+            )
+            != label
+            or _strict_json_int(
+                receipt.get("generator_id"), f"cached row {row_idx} generator"
+            )
+            != contract["generator_id"]
             or receipt.get("generator_name") != contract["generator_name"]
             or not isinstance(canonical_path, str)
             or receipt.get("signed_query_persisted") is not False
@@ -1268,6 +1381,9 @@ def load_cached_pair(
             receipt.get("source_height"), f"cached row {row_idx} source height"
         )
         image_url = f"https://{ROWS_HOST}{canonical_path}"
+        parsed_cache_url = urlsplit(image_url)
+        if parsed_cache_url.query or parsed_cache_url.fragment:
+            raise ValueError(f"E6 cached path contains a query for row {row_idx}")
         _validate_asset_url(
             image_url,
             repository=source["dataset_repository"],
@@ -1286,14 +1402,7 @@ def load_cached_pair(
         )
         if _cached_asset_path(raw_root, row) != asset_path:
             raise ValueError(f"E6 cached asset path changed for row {row_idx}")
-        verification = inspect_image(asset_path)
-        if (
-            verification.original_width != source_width
-            or verification.original_height != source_height
-        ):
-            raise ValueError(f"E6 cached dimensions changed for row {row_idx}")
-        _validate_extension_magic(image_url, verification.file_format, row_idx)
-        _validate_cache_receipt(receipt_path, row, verification)
+        verification = _verification_from_final_cache(asset_path, receipt, row)
         prepared.append(
             PreparedImage(
                 row=row,
@@ -2478,6 +2587,8 @@ def _prepare_e6_biggan_locked(
     pair_records: list[dict[str, Any]] = []
     rejections: list[dict[str, Any]] = []
     download_budget = DownloadBudget()
+    cache_receipt_replayed_images = 0
+    full_decode_validations_this_invocation = 0
 
     session = _session()
     rows_client = RowsClient(session, protocol)
@@ -2554,6 +2665,7 @@ def _prepare_e6_biggan_locked(
                 integrity_failure: str | None = None
                 if cached_pair is not None:
                     prepared_items = list(cached_pair)
+                    cache_receipt_replayed_images += len(prepared_items)
                     real_row, ai_row = (
                         prepared_items[0].row,
                         prepared_items[1].row,
@@ -2572,6 +2684,7 @@ def _prepare_e6_biggan_locked(
                                 refresh_row=rows_client.refresh_row,
                                 budget=download_budget,
                             )
+                            full_decode_validations_this_invocation += 1
                             prepared_items.append(
                                 _prepared_record(
                                     source_row, verification, path, project_root
@@ -2862,6 +2975,14 @@ def _prepare_e6_biggan_locked(
             "near_duplicate_max_hamming": NEAR_DUPLICATE_MAX_HAMMING,
             "cross_role_near_duplicates_allowed": False,
             "future_lockbox_opened": False,
+            "cache_replay": {
+                "exact_asset_byte_sha256_recomputed": True,
+                "decoded_identities_restored_from_final_receipt": True,
+                "receipt_created_only_after_original_full_decode": True,
+                "frozen_prefix_receipts_commit_anchored": 680,
+                "later_receipts_are_trusted_local_runtime_state": True,
+                "one_time_full_decode_audit_required_before_training": True,
+            },
         },
         "exclusions": exclusion_summary,
         "selection": {
@@ -2903,6 +3024,10 @@ def _prepare_e6_biggan_locked(
             "frozen_prefix_asset_bytes_from_prior_invocation": (
                 frozen_prefix_inventory["total_asset_bytes"]
             ),
+            "cache_receipt_replayed_images": cache_receipt_replayed_images,
+            "full_decode_validations_this_invocation": (
+                full_decode_validations_this_invocation
+            ),
         },
         "manifests": manifest_summary,
         "provenance": {"path": _project_relative(provenance_path, project_root)},
@@ -2914,6 +3039,8 @@ def _prepare_e6_biggan_locked(
         "training_gate": {
             "shortcut_audit_required": True,
             "shortcut_audit_passed": False,
+            "one_time_full_decode_integrity_audit_required": True,
+            "one_time_full_decode_integrity_audit_passed": False,
             "e6_training_allowed": False,
         },
     }

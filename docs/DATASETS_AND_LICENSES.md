@@ -127,11 +127,18 @@ The incident and frozen cache boundary are recorded in
 `reports/e6_acquisition_overlap_incident.json` and
 `reports/e6_acquisition_resume_lock.json`.
 
-A later resume invocation encountered a transient HTTP 429 while requesting
-row metadata, before downloading any image beyond the frozen 680-file prefix.
-The audited cache and rejection journal were unchanged. Cache-first recovery
-now revalidates complete local asset/receipt pairs without another metadata
-request; it does not alter the endpoint, retry policy, sample or reserve order.
+A resume invocation encountered a transient HTTP 429 while requesting row
+metadata, before downloading any image beyond the frozen 680-file prefix. A
+cache-first retry then advanced deterministically to 1,758 complete images
+before a second transient metadata failure. Both audited cache boundaries had
+no partial files and the rejection journal was unchanged. Cache-first recovery
+now requires every complete asset's byte count and SHA-256 to match its
+atomically finalized receipt, then restores the decoded identities recorded
+after the original successful decode without repeating that decode or another
+metadata request. It does not alter the endpoint, retry policy, sample or
+reserve order. The committed resume lock independently anchors the first 680
+receipts; later receipts are trusted local runtime state, so a one-time
+full-decode integrity audit remains mandatory before E6 training.
 See `reports/e6_metadata_rate_limit_incident.json`.
 
 ## CLIP and OpenCLIP

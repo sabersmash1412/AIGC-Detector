@@ -127,6 +127,13 @@ The incident and frozen cache boundary are recorded in
 `reports/e6_acquisition_overlap_incident.json` and
 `reports/e6_acquisition_resume_lock.json`.
 
+A later resume invocation encountered a transient HTTP 429 while requesting
+row metadata, before downloading any image beyond the frozen 680-file prefix.
+The audited cache and rejection journal were unchanged. Cache-first recovery
+now revalidates complete local asset/receipt pairs without another metadata
+request; it does not alter the endpoint, retry policy, sample or reserve order.
+See `reports/e6_metadata_rate_limit_incident.json`.
+
 ## CLIP and OpenCLIP
 
 - Radford, A. et al. (2021), *Learning Transferable Visual Models From Natural

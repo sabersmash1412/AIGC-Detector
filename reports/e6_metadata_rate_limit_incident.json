@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "incident_id": "e6_resume_metadata_http_429_before_new_payload",
+  "status": "TRANSIENT_SERVICE_FAILURE_WITH_CACHE_INTACT",
+  "recorded_at_utc": "2026-10-01T09:32:45Z",
+  "failed_run": {
+    "command": ".venv/bin/python -m scripts.prepare_e6_biggan",
+    "committed_code_revision": "0295a47c9e4c2dfcd67d2f42f9c8de25be38c695",
+    "metadata_preflight_passed": true,
+    "metadata_preflight_rows": [
+      19896,
+      19897
+    ],
+    "historical_fingerprints_completed": 26000,
+    "progress_images_reported": 426,
+    "progress_images_target": 2800,
+    "failed_metadata_page": {
+      "host": "datasets-server.huggingface.co",
+      "path": "/rows",
+      "offset": 8200,
+      "length": 100,
+      "failure": "too many HTTP 429 responses after the frozen retry policy"
+    }
+  },
+  "post_failure_audit": {
+    "asset_files": 680,
+    "receipt_files": 680,
+    "pending_receipts": 0,
+    "partial_downloads": 0,
+    "new_asset_files_beyond_frozen_prefix": 0,
+    "rejection_journal_events": 1,
+    "journal_seed_slot": 340,
+    "journal_seed_attempted_cycle": 132,
+    "journal_seed_next_reserve_cycle": 247,
+    "final_manifests_published": false,
+    "final_provenance_published": false
+  },
+  "impact": {
+    "selected_rows_changed": false,
+    "reserve_order_changed": false,
+    "model_training_feature_extraction_or_evaluation_performed": false,
+    "manual_visual_inspection_performed": false,
+    "future_lockbox_or_organiser_validation_accessed": false,
+    "summary": "The run exhausted the remote metadata service's rate limit while reconstructing already-cached pairs. It downloaded no new image payload and did not change the frozen sample or rejection journal."
+  },
+  "remediation": {
+    "cache_first_resume": "A fully cached pair is reconstructed and revalidated from its local asset plus receipt before any metadata request.",
+    "fail_closed_checks": "The frozen row formula, label, generator, pinned canonical path, receipt schema, file bytes, decoded pixels, dimensions, format and perceptual hash are revalidated offline.",
+    "frozen_retry_attempts_changed": false,
+    "frozen_retry_backoff_changed": false,
+    "endpoint_or_dataset_changed": false,
+    "selection_or_replacement_policy_changed": false
+  }
+}

@@ -69,12 +69,19 @@ DEFAULT_ACQUISITION_LOCK_REPORT = Path(
 DEFAULT_TRANSPORT_PREFLIGHT_AUDIT = Path(
     "reports/e6_transport_preflight_audit.json"
 )
+DEFAULT_METADATA_RATE_LIMIT_INCIDENT = Path(
+    "reports/e6_metadata_rate_limit_incident.json"
+)
+EXPECTED_METADATA_RATE_LIMIT_INCIDENT_SHA256 = (
+    "16d09c8c3e009a04ea724519579672c52c5890b93df6eb0cfea46749d0d2a7df"
+)
 ROWS_API = "https://datasets-server.huggingface.co/rows"
 ROWS_HOST = "datasets-server.huggingface.co"
 DATASET_CONFIG = "default"
 ROW_PAGE_SIZE = 100
 MAX_IMAGE_BYTES = 64 * 1024 * 1024
 MAX_METADATA_RESPONSE_BYTES = 16 * 1024 * 1024
+MAX_CACHE_RECEIPT_BYTES = 64 * 1024
 MAX_TOTAL_DOWNLOAD_BYTES = 16 * 1024 * 1024 * 1024
 MAX_IMAGE_WIDTH = 32_768
 MAX_IMAGE_HEIGHT = 32_768
@@ -795,20 +802,26 @@ class RowsClient:
             return self._pages[page_index]
         source = self.protocol["development_source"]
         offset = page_index * self.page_size
-        response = self.session.get(
-            ROWS_API,
-            headers={"Accept": "application/json", "Accept-Encoding": "identity"},
-            params={
-                "dataset": source["dataset_repository"],
-                "config": DATASET_CONFIG,
-                "split": source["source_split"],
-                "offset": offset,
-                "length": self.page_size,
-            },
-            timeout=(CONNECT_TIMEOUT_SECONDS, READ_TIMEOUT_SECONDS),
-            allow_redirects=False,
-            stream=True,
-        )
+        try:
+            response = self.session.get(
+                ROWS_API,
+                headers={"Accept": "application/json", "Accept-Encoding": "identity"},
+                params={
+                    "dataset": source["dataset_repository"],
+                    "config": DATASET_CONFIG,
+                    "split": source["source_split"],
+                    "offset": offset,
+                    "length": self.page_size,
+                },
+                timeout=(CONNECT_TIMEOUT_SECONDS, READ_TIMEOUT_SECONDS),
+                allow_redirects=False,
+                stream=True,
+            )
+        except requests.RequestException as exc:
+            raise TransientAcquisitionError(
+                "Tiny-GenImage metadata service remained unavailable after the "
+                "frozen retries; cached work is preserved for a safe rerun"
+            ) from exc
         if response.status_code != 200:
             response.close()
             raise requests.HTTPError(
@@ -1134,6 +1147,161 @@ def _validate_cache_receipt(
         raise ValueError(f"E6 cached bytes changed for row {row.row_idx}")
     if payload.get("signed_query_persisted") is not False:
         raise ValueError(f"E6 cache receipt leaked a signed query for row {row.row_idx}")
+
+
+def _cached_row_files(
+    raw_root: Path, row_idx: int, *, project_root: Path
+) -> tuple[Path, Path] | None:
+    """Locate one complete cache entry without consulting remote metadata."""
+
+    images_root = raw_root / "images"
+    _reject_symlink_path(images_root, project_root)
+    if not images_root.exists():
+        return None
+    if images_root.is_symlink() or not images_root.is_dir():
+        raise ValueError("E6 image cache directory is unsafe")
+    base_names = [
+        f"row-{row_idx:05d}{extension}"
+        for extension in sorted(
+            {value for values in EXTENSIONS_BY_FORMAT.values() for value in values}
+        )
+    ]
+    assets: list[Path] = []
+    receipts: list[Path] = []
+    pending: list[Path] = []
+    for name in base_names:
+        asset = images_root / name
+        receipt = _cache_receipt_path(asset)
+        pending_receipt = _cache_pending_receipt_path(asset)
+        for candidate in (asset, receipt, pending_receipt):
+            _reject_symlink_path(candidate, project_root)
+        if asset.exists():
+            assets.append(asset)
+        if receipt.exists():
+            receipts.append(receipt)
+        if pending_receipt.exists():
+            pending.append(pending_receipt)
+    if not assets and not receipts and not pending:
+        return None
+    if len(assets) > 1 or len(receipts) > 1 or len(pending) > 1:
+        raise ValueError(f"E6 cache has ambiguous files for row {row_idx}")
+    for candidate in (*assets, *receipts, *pending):
+        if candidate.is_symlink() or not candidate.is_file():
+            raise ValueError(f"E6 cache has an unsafe entry for row {row_idx}")
+    if len(assets) == 1 and len(receipts) == 1 and not pending:
+        if receipts[0] != _cache_receipt_path(assets[0]):
+            raise ValueError(f"E6 cache asset/receipt suffix mismatch for row {row_idx}")
+        return assets[0], receipts[0]
+    if len(assets) == 1 and not receipts and len(pending) == 1:
+        if pending[0] != _cache_pending_receipt_path(assets[0]):
+            raise ValueError(f"E6 cache pending receipt mismatch for row {row_idx}")
+        return None
+    if not assets and not receipts and len(pending) == 1:
+        return None
+    raise ValueError(f"E6 cache is incomplete for row {row_idx}")
+
+
+def load_cached_pair(
+    raw_root: Path,
+    protocol: dict[str, Any],
+    cycle: int,
+    *,
+    project_root: Path,
+) -> tuple[PreparedImage, PreparedImage] | None:
+    """Reconstruct a complete pair from bound receipts with zero network calls."""
+
+    real_idx, ai_idx = pair_rows(protocol, cycle)
+    located = [
+        _cached_row_files(raw_root, row_idx, project_root=project_root)
+        for row_idx in (real_idx, ai_idx)
+    ]
+    if any(item is None for item in located):
+        return None
+    source = protocol["development_source"]
+    topology = protocol["row_topology"]
+    prepared: list[PreparedImage] = []
+    for label, row_idx, files in zip((0, 1), (real_idx, ai_idx), located):
+        assert files is not None
+        asset_path, receipt_path = files
+        if not 0 < receipt_path.stat().st_size <= MAX_CACHE_RECEIPT_BYTES:
+            raise ValueError(f"E6 cache receipt has unsafe size for row {row_idx}")
+        receipt = json.loads(receipt_path.read_text(encoding="utf-8"))
+        required_receipt_fields = {
+            "schema_version",
+            "row_idx",
+            "label",
+            "generator_id",
+            "generator_name",
+            "source_width",
+            "source_height",
+            "canonical_asset_path",
+            "verification",
+            "signed_query_persisted",
+        }
+        if not isinstance(receipt, dict) or set(receipt) != required_receipt_fields:
+            raise ValueError(f"E6 cache receipt schema changed for row {row_idx}")
+        verification_record = receipt.get("verification")
+        if not isinstance(verification_record, dict) or set(
+            verification_record
+        ) != set(ImageVerification.__dataclass_fields__):
+            raise ValueError(
+                f"E6 cache verification schema changed for row {row_idx}"
+            )
+        contract = topology[
+            "real_row_contract" if label == 0 else "ai_row_contract"
+        ]
+        canonical_path = receipt.get("canonical_asset_path")
+        if (
+            receipt.get("schema_version") != 1
+            or receipt.get("row_idx") != row_idx
+            or receipt.get("label") != label
+            or receipt.get("generator_id") != contract["generator_id"]
+            or receipt.get("generator_name") != contract["generator_name"]
+            or not isinstance(canonical_path, str)
+            or receipt.get("signed_query_persisted") is not False
+        ):
+            raise ValueError(f"E6 cached row identity changed for row {row_idx}")
+        source_width = _strict_json_int(
+            receipt.get("source_width"), f"cached row {row_idx} source width"
+        )
+        source_height = _strict_json_int(
+            receipt.get("source_height"), f"cached row {row_idx} source height"
+        )
+        image_url = f"https://{ROWS_HOST}{canonical_path}"
+        _validate_asset_url(
+            image_url,
+            repository=source["dataset_repository"],
+            revision=source["repository_revision"],
+            split=source["source_split"],
+            row_idx=row_idx,
+        )
+        row = SourceRow(
+            row_idx=row_idx,
+            label=label,
+            generator_id=int(contract["generator_id"]),
+            generator_name=str(contract["generator_name"]),
+            image_url=image_url,
+            source_width=source_width,
+            source_height=source_height,
+        )
+        if _cached_asset_path(raw_root, row) != asset_path:
+            raise ValueError(f"E6 cached asset path changed for row {row_idx}")
+        verification = inspect_image(asset_path)
+        if (
+            verification.original_width != source_width
+            or verification.original_height != source_height
+        ):
+            raise ValueError(f"E6 cached dimensions changed for row {row_idx}")
+        _validate_extension_magic(image_url, verification.file_format, row_idx)
+        _validate_cache_receipt(receipt_path, row, verification)
+        prepared.append(
+            PreparedImage(
+                row=row,
+                image_path=_project_relative(asset_path, project_root),
+                verification=verification,
+            )
+        )
+    return prepared[0], prepared[1]
 
 
 def _validate_mime_magic(content_type: str, file_format: str, row_idx: int) -> None:
@@ -1832,6 +2000,22 @@ def _validate_publication_bundle(
         }
         if payload.get("acquisition_resume") != expected_resume_record:
             raise ValueError("E6 publication resume provenance changed")
+        rate_limit_path = project_root / DEFAULT_METADATA_RATE_LIMIT_INCIDENT
+        _reject_symlink_path(rate_limit_path, project_root)
+        if (
+            rate_limit_path.is_symlink()
+            or not rate_limit_path.is_file()
+            or sha256_file(rate_limit_path)
+            != EXPECTED_METADATA_RATE_LIMIT_INCIDENT_SHA256
+            or payload.get("metadata_rate_limit_incident")
+            != {
+                "path": DEFAULT_METADATA_RATE_LIMIT_INCIDENT.as_posix(),
+                "sha256": EXPECTED_METADATA_RATE_LIMIT_INCIDENT_SHA256,
+                "new_payload_images_before_failure": 0,
+                "selection_or_retry_policy_changed": False,
+            }
+        ):
+            raise ValueError("E6 publication metadata-rate-limit disclosure changed")
     transport_record = payload.get("transport_preflight_audit", {})
     if transport_record.get("path") != DEFAULT_TRANSPORT_PREFLIGHT_AUDIT.as_posix():
         raise ValueError("E6 publication transport-preflight path changed")
@@ -2200,6 +2384,17 @@ def _prepare_e6_biggan_locked(
         acquisition_protocol_path,
         acquisition_lock_path,
     )
+    metadata_rate_limit_incident_path = (
+        project_root / DEFAULT_METADATA_RATE_LIMIT_INCIDENT
+    )
+    _reject_symlink_path(metadata_rate_limit_incident_path, project_root)
+    if (
+        metadata_rate_limit_incident_path.is_symlink()
+        or not metadata_rate_limit_incident_path.is_file()
+        or sha256_file(metadata_rate_limit_incident_path)
+        != EXPECTED_METADATA_RATE_LIMIT_INCIDENT_SHA256
+    ):
+        raise ValueError("E6 metadata-rate-limit disclosure changed")
     validate_exclusion_manifest_hashes(protocol, lock_receipt, project_root)
     outputs = acquisition["outputs"]
     raw_root = project_root / outputs["raw_root"]
@@ -2350,27 +2545,40 @@ def _prepare_e6_biggan_locked(
                     raise ValueError(
                         "E6 rejection journal is out of order with runtime acquisition"
                     )
-                real_row, ai_row = rows_client.pair(attempt_cycle)
-                prepared_items: list[PreparedImage] = []
+                cached_pair = load_cached_pair(
+                    raw_root,
+                    protocol,
+                    attempt_cycle,
+                    project_root=project_root,
+                )
                 integrity_failure: str | None = None
-                try:
-                    for source_row in (real_row, ai_row):
-                        path = _cached_asset_path(raw_root, source_row)
-                        verification = download_source_image(
-                            session,
-                            source_row,
-                            path,
-                            project_root=project_root,
-                            refresh_row=rows_client.refresh_row,
-                            budget=download_budget,
-                        )
-                        prepared_items.append(
-                            _prepared_record(
-                                source_row, verification, path, project_root
+                if cached_pair is not None:
+                    prepared_items = list(cached_pair)
+                    real_row, ai_row = (
+                        prepared_items[0].row,
+                        prepared_items[1].row,
+                    )
+                else:
+                    real_row, ai_row = rows_client.pair(attempt_cycle)
+                    prepared_items = []
+                    try:
+                        for source_row in (real_row, ai_row):
+                            path = _cached_asset_path(raw_root, source_row)
+                            verification = download_source_image(
+                                session,
+                                source_row,
+                                path,
+                                project_root=project_root,
+                                refresh_row=rows_client.refresh_row,
+                                budget=download_budget,
                             )
-                        )
-                except ImageIntegrityError as exc:
-                    integrity_failure = str(exc)
+                            prepared_items.append(
+                                _prepared_record(
+                                    source_row, verification, path, project_root
+                                )
+                            )
+                    except ImageIntegrityError as exc:
+                        integrity_failure = str(exc)
 
                 if integrity_failure is not None:
                     conflicts = [
@@ -2622,6 +2830,12 @@ def _prepare_e6_biggan_locked(
             ],
             "image_decoded_or_retained": False,
             "git_commit_preceded_probe": False,
+        },
+        "metadata_rate_limit_incident": {
+            "path": DEFAULT_METADATA_RATE_LIMIT_INCIDENT.as_posix(),
+            "sha256": EXPECTED_METADATA_RATE_LIMIT_INCIDENT_SHA256,
+            "new_payload_images_before_failure": 0,
+            "selection_or_retry_policy_changed": False,
         },
         "source": {
             "repository": protocol["development_source"]["dataset_repository"],

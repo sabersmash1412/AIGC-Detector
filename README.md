@@ -504,6 +504,13 @@ future lockbox, and downloads the selected rows. The historical scan covers
 26,000 registered images and can appear quiet for several minutes on a laptop.
 On this partial-cache resume, the journal skips discarded rows 1850/1851 and
 deterministically starts that slot from reserve cycle 247.
+If the remote metadata service rate-limits a run, completed pairs remain bound
+to their local receipts. A later invocation validates those pairs entirely
+offline before requesting metadata for the first uncached pair, so a safe
+rerun moves forward instead of repeating the same API traffic. The endpoint,
+retry count, backoff, selected rows and reserve policy remain frozen. The first
+such HTTP 429 interruption—before any new payload was downloaded—is disclosed
+in `reports/e6_metadata_rate_limit_incident.json`.
 It writes four role-separated manifests and one provenance receipt; raw images
 remain ignored by Git. This is still data preparation only: CLIP/forensic
 feature extraction and all E6 training remain blocked until the metadata-only

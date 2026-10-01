@@ -2,17 +2,24 @@ from __future__ import annotations
 
 import copy
 import hashlib
+import io
 import json
 from pathlib import Path
 
 import pytest
+from PIL import Image
 
 from scripts.prepare_e6_biggan import (
     NEAR_DUPLICATE_MAX_HAMMING,
     FingerprintIndex,
     FingerprintOwner,
     ImageVerification,
+    SourceRow,
+    _cache_receipt_path,
+    _write_cache_receipt,
     classify_resume_conflicts,
+    inspect_image,
+    load_cached_pair,
 )
 from src.e6_acquisition_resume_protocol import (
     append_rejection_event,
@@ -24,6 +31,7 @@ from src.e6_acquisition_resume_protocol import (
     validate_resume_protocol,
     validate_resume_upstream,
 )
+from src.e6_protocol import pair_rows
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -54,6 +62,55 @@ def _verification(
         display_height=12,
         file_format="PNG",
     )
+
+
+def _asset_url(row_idx: int) -> str:
+    return (
+        "https://datasets-server.huggingface.co/cached-assets/"
+        "TheKernel01/Tiny-GenImage/--/"
+        "89c4fe9efd0ebc7ce5c7641ef57d578ccd639c69/--/default/train/"
+        f"{row_idx}/image/source.png?Expires=123&Signature=must-not-persist"
+    )
+
+
+def _png_bytes(
+    size: tuple[int, int], color: tuple[int, int, int]
+) -> bytes:
+    buffer = io.BytesIO()
+    Image.new("RGB", size, color).save(buffer, format="PNG")
+    return buffer.getvalue()
+
+
+def _cache_pair_fixture(
+    tmp_path: Path,
+    protocol: dict,
+    cycle: int,
+) -> tuple[
+    Path,
+    tuple[SourceRow, SourceRow],
+    tuple[ImageVerification, ImageVerification],
+    tuple[Path, Path],
+]:
+    """Create a complete cache pair without opening a session or remote page."""
+
+    real_idx, ai_idx = pair_rows(protocol, cycle)
+    rows = (
+        SourceRow(real_idx, 0, 0, "Real", _asset_url(real_idx), 16, 12),
+        SourceRow(ai_idx, 1, 2, "BigGAN", _asset_url(ai_idx), 18, 14),
+    )
+    raw_root = tmp_path / "data/raw/e6_tiny_genimage_biggan"
+    images = raw_root / "images"
+    images.mkdir(parents=True)
+    paths = (
+        images / f"row-{real_idx:05d}.png",
+        images / f"row-{ai_idx:05d}.png",
+    )
+    paths[0].write_bytes(_png_bytes((16, 12), (10, 20, 30)))
+    paths[1].write_bytes(_png_bytes((18, 14), (40, 50, 60)))
+    verifications = (inspect_image(paths[0]), inspect_image(paths[1]))
+    for row, path, verification in zip(rows, paths, verifications, strict=True):
+        _write_cache_receipt(_cache_receipt_path(path), row, verification)
+    return raw_root, rows, verifications, paths
 
 
 def _near_reason(
@@ -406,3 +463,178 @@ def test_journal_validation_rejects_event_tampering() -> None:
         validate_rejection_journal(
             tampered, protocol, ROOT, protocol_path=RESUME_PROTOCOL_PATH
         )
+
+
+def test_complete_pair_is_reconstructed_from_cache_without_network(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    protocol = load_resume_protocol(RESUME_PROTOCOL_PATH)
+    development = json.loads(
+        (ROOT / "configs/e6_development_protocol.json").read_text(encoding="utf-8")
+    )
+    cycle = 0
+    raw_root, expected_rows, expected_verifications, paths = _cache_pair_fixture(
+        tmp_path, development, cycle
+    )
+
+    def forbidden_network(*args, **kwargs):
+        raise AssertionError("cache reconstruction attempted a network call")
+
+    monkeypatch.setattr("requests.sessions.Session.get", forbidden_network)
+    monkeypatch.setattr(
+        "scripts.prepare_e6_biggan.RowsClient.pair", forbidden_network
+    )
+    cached = load_cached_pair(
+        raw_root, development, cycle, project_root=tmp_path
+    )
+
+    assert cached is not None
+    assert tuple(item.verification for item in cached) == expected_verifications
+    for item, expected, path in zip(cached, expected_rows, paths, strict=True):
+        assert (
+            item.row.row_idx,
+            item.row.label,
+            item.row.generator_id,
+            item.row.generator_name,
+            item.row.source_width,
+            item.row.source_height,
+        ) == (
+            expected.row_idx,
+            expected.label,
+            expected.generator_id,
+            expected.generator_name,
+            expected.source_width,
+            expected.source_height,
+        )
+        assert "?" not in item.row.image_url
+        assert item.image_path == path.relative_to(tmp_path).as_posix()
+
+    # The protocol is loaded above so this test also proves the cache path does
+    # not depend on a signed query from a datasets-server response.
+    assert protocol["rejection_journal"]["signed_url_or_query_allowed"] is False
+
+
+def test_cache_pair_miss_does_not_reuse_only_one_complete_row(tmp_path: Path) -> None:
+    development = json.loads(
+        (ROOT / "configs/e6_development_protocol.json").read_text(encoding="utf-8")
+    )
+    cycle = 0
+    raw_root, _, _, paths = _cache_pair_fixture(tmp_path, development, cycle)
+    paths[1].unlink()
+    _cache_receipt_path(paths[1]).unlink()
+
+    assert load_cached_pair(
+        raw_root, development, cycle, project_root=tmp_path
+    ) is None
+
+
+def test_cache_pair_miss_when_both_rows_are_absent(tmp_path: Path) -> None:
+    development = json.loads(
+        (ROOT / "configs/e6_development_protocol.json").read_text(encoding="utf-8")
+    )
+
+    assert load_cached_pair(
+        tmp_path / "data/raw/e6_tiny_genimage_biggan",
+        development,
+        0,
+        project_root=tmp_path,
+    ) is None
+
+
+def test_pending_receipt_cache_state_defers_to_normal_recovery(tmp_path: Path) -> None:
+    development = json.loads(
+        (ROOT / "configs/e6_development_protocol.json").read_text(encoding="utf-8")
+    )
+    raw_root, _, _, paths = _cache_pair_fixture(tmp_path, development, 0)
+    receipt = _cache_receipt_path(paths[0])
+    receipt.replace(paths[0].with_name(f"{paths[0].name}.receipt.pending.json"))
+
+    assert load_cached_pair(
+        raw_root, development, 0, project_root=tmp_path
+    ) is None
+
+
+@pytest.mark.parametrize(
+    "malformation", ["asset_only", "receipt_only", "duplicate_suffix"]
+)
+def test_malformed_cache_pair_fails_closed(
+    tmp_path: Path, malformation: str
+) -> None:
+    development = json.loads(
+        (ROOT / "configs/e6_development_protocol.json").read_text(encoding="utf-8")
+    )
+    raw_root, _, _, paths = _cache_pair_fixture(tmp_path, development, 0)
+    if malformation == "asset_only":
+        _cache_receipt_path(paths[0]).unlink()
+    elif malformation == "receipt_only":
+        paths[0].unlink()
+    else:
+        paths[0].with_suffix(".jpg").write_bytes(paths[0].read_bytes())
+
+    with pytest.raises(ValueError, match="cache|asset|receipt|suffix|row"):
+        load_cached_pair(raw_root, development, 0, project_root=tmp_path)
+
+
+@pytest.mark.parametrize("tampering", ["label", "row_idx", "verification", "bytes"])
+def test_tampered_cache_pair_fails_closed(tmp_path: Path, tampering: str) -> None:
+    development = json.loads(
+        (ROOT / "configs/e6_development_protocol.json").read_text(encoding="utf-8")
+    )
+    raw_root, _, _, paths = _cache_pair_fixture(tmp_path, development, 0)
+    receipt_path = _cache_receipt_path(paths[0])
+    receipt = json.loads(receipt_path.read_text(encoding="utf-8"))
+    if tampering == "label":
+        receipt["label"] = 1
+    elif tampering == "row_idx":
+        receipt["row_idx"] += 2
+    elif tampering == "verification":
+        receipt["verification"]["byte_sha256"] = "0" * 64
+    else:
+        paths[0].write_bytes(_png_bytes((16, 12), (70, 80, 90)))
+    if tampering != "bytes":
+        receipt_path.write_text(json.dumps(receipt), encoding="utf-8")
+
+    with pytest.raises(ValueError, match="cache|bytes|identity|receipt|row"):
+        load_cached_pair(raw_root, development, 0, project_root=tmp_path)
+
+
+def test_cache_receipts_never_persist_signed_query(tmp_path: Path) -> None:
+    development = json.loads(
+        (ROOT / "configs/e6_development_protocol.json").read_text(encoding="utf-8")
+    )
+    raw_root, _, _, paths = _cache_pair_fixture(tmp_path, development, 0)
+
+    for path in paths:
+        text = _cache_receipt_path(path).read_text(encoding="utf-8")
+        payload = json.loads(text)
+        assert "Signature" not in text
+        assert "Expires" not in text
+        assert "?" not in payload["canonical_asset_path"]
+        assert payload["signed_query_persisted"] is False
+
+    cached = load_cached_pair(raw_root, development, 0, project_root=tmp_path)
+    assert cached is not None
+    assert all("?" not in item.row.image_url for item in cached)
+
+
+def test_seeded_replay_identifies_rows_without_cache_or_metadata_lookup(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    resume = load_resume_protocol(RESUME_PROTOCOL_PATH)
+    development = json.loads(
+        (ROOT / "configs/e6_development_protocol.json").read_text(encoding="utf-8")
+    )
+    journal = build_initial_rejection_journal(
+        resume, ROOT, protocol_path=RESUME_PROTOCOL_PATH
+    )
+    event = find_replay_event(journal, slot=340, attempted_cycle=132)
+
+    def forbidden_cache(*args, **kwargs):
+        raise AssertionError("journal replay should precede cache reconstruction")
+
+    monkeypatch.setattr(
+        "scripts.prepare_e6_biggan.load_cached_pair", forbidden_cache
+    )
+    assert event is not None
+    assert pair_rows(development, event["attempted_cycle"]) == (1850, 1851)
+    assert event["next_reserve_cycle"] == 247
